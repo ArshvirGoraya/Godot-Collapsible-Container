@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7yrkynf533io"]
+
+[ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="1_mql65"]
+[ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_10xsu"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(517, 72)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -28.5
+offset_right = 82.5
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="CollapsibleButton" parent="VBoxContainer" node_paths=PackedStringArray("collapsible_node") instance=ExtResource("1_mql65")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = " Toggle> "
+collapsible_node = NodePath("../CollapsibleContainer")
+rotator_position = Vector2(-10, 12.22)
+text_label = " Toggle"
+symbol_label = "> "
+
+[node name="CollapsibleContainer" type="Control" parent="VBoxContainer"]
+process_mode = 3
+clip_contents = true
+custom_minimum_size = Vector2(517, 144)
+layout_mode = 2
+script = ExtResource("2_10xsu")
+starts_opened = false
+sizing_node = NodePath("Label")
+use_custom_open_size = true
+custom_open_size = Vector2(517, 144)
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 144.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.554688, 0.933594, 0.589844, 1)
+theme_override_font_sizes/font_size = 50
+text = "Collapsible 
+Container"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/CollapsibleButton" to="VBoxContainer/CollapsibleContainer" method="open_tween_toggle"]
