@@ -8,7 +8,7 @@
 
 A custom node for the Godot Game Engine that can help with many of your expanding/collapsing UI needs. It was initially made to mimic an [accordion UI](https://en.wikipedia.org/wiki/Accordion_(GUI)) element.
 
-  <img align="right" width="30%" src="https://github.com/ArshvirGoraya/Godot-Collapsible-Container/blob/4c06a8b8fbfd5e76a3a326910aea83fd19c517b0/.github/images/EditorPreview.gif" alt="OpeningClosing in Editor gif" />
+  <img align="right" width="30%" src="https://github.com/ArshvirGoraya/Godot-Collapsible-Container/blob/1b77718fdc44a5c53ea29ba6f3ffc579769afb19/.github/images/1.0.0%20showcase.gif" alt="OpeningClosing in Editor gif" />
   
   ## Table of contents
 * [Node Information](#node-information)
