@@ -33,6 +33,10 @@ force_tween_info = NodePath("../Buttons/ForceTween/Info")
 
 [node name="CollapsibleContainer" type="Control" parent="."]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(212, 208)
 anchors_preset = 0

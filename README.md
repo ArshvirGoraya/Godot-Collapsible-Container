@@ -33,15 +33,11 @@ Tutorial video going over the basics of the CollapsibleContainer node: https://y
 
 ## Installation
 
-You can install the plugin from within Godot's AssetLib tab! Remember to enable it in Project Settings!
-
-Official Godot guide to installing plugins: https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html
-
-Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
+You CAN'T add the plugin from within Godot's AssetLib tab yet.
  
 <details close>
-  <summary><h4>Written Step-By-Step Guide to Install a Release from GitHub</h4></summary>
-  
+  <summary><h4>Written Step-By-Step Guide</h4></summary>
+
   1. In the [releases section](https://github.com/ArshvirGoraya/Godot-Collapsible-Container/releases), find the release which corresponds with your Godot version. If a Godot version is not listed, this plugin likely does not work in that Godot version.
   2. Download the .zip file from the release which corresponds with your Godot version.
   3. Open your Godot project.
@@ -51,6 +47,10 @@ Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
   7. Done! You can now add the CollapsibleContainer node into your scene tree.
 </details>
 
+Optional video guide: https://youtu.be/JRsGAgpPV8U
+
+Official Godot guide to installing plugins: https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html
+ 
 ## Contribute
 **Bug/Feedback**: Submit an issue using the issues tab after ensuring that it won't be a duplicate.
 
@@ -58,6 +58,7 @@ Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
 * The main tool script (and even the example projects) are all documented. This includes every function. For complicated functions, this may even include every line in that function. Hopefully this makes it easier to understand and contribute to the project.
 * Submitting a pull request: you should file an issue first that your PR will resolve (if such an issue doesn't already exist). Then, reference what issue(s) your PR resolves in the PR. Your code must be documented.
 
+  
 <!---
 ## Known Issues
 

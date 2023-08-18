@@ -67,6 +67,10 @@ text = "Open Only 1"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(574, 287)
 layout_mode = 2
@@ -100,6 +104,10 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 1"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(574, 62)
 layout_mode = 2
@@ -141,6 +149,10 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 2"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu2"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(574, 62)
 layout_mode = 2
@@ -182,6 +194,10 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 3"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu3"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(574, 62)
 layout_mode = 2
@@ -265,6 +281,10 @@ color = Color(0.309804, 0.290196, 0.419608, 1)
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/VerticalMenu/HBoxContainer/MenuHolder"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(570, 130)
 layout_mode = 1

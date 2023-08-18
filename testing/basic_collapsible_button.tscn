@@ -31,23 +31,33 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = " Toggle> "
-collapsible_node = NodePath("../CollapsibleContainer")
+collapsible_node = NodePath("../MarginContainer/CollapsibleContainer")
 rotator_position = Vector2(-10, 12.22)
 text_label = " Toggle"
 symbol_label = "> "
 
-[node name="CollapsibleContainer" type="Control" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CollapsibleContainer" type="Control" parent="VBoxContainer/MarginContainer"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(517, 144)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource("2_10xsu")
 starts_opened = false
+folding_direction_preset = 10
+sizing_constraint = 1
 sizing_node = NodePath("Label")
-use_custom_open_size = true
 custom_open_size = Vector2(517, 144)
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CollapsibleContainer"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MarginContainer/CollapsibleContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="Label" type="Label" parent="VBoxContainer/CollapsibleContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/CollapsibleContainer"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -68,4 +78,44 @@ text = "Collapsible
 Container"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/CollapsibleButton" to="VBoxContainer/CollapsibleContainer" method="open_tween_toggle"]
+[node name="CollapsibleContainer" type="Control" parent="."]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+custom_minimum_size = Vector2(263, 144)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 263.0
+offset_bottom = 144.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("2_10xsu")
+starts_opened = false
+sizing_node = NodePath("Label")
+custom_open_size = Vector2(517, 144)
+
+[node name="ColorRect" type="ColorRect" parent="CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Label" type="Label" parent="CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 144.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.554688, 0.933594, 0.589844, 1)
+theme_override_font_sizes/font_size = 50
+text = "Collapsible 
+Container"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/CollapsibleButton" to="VBoxContainer/MarginContainer/CollapsibleContainer" method="open_tween_toggle"]

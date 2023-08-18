@@ -79,15 +79,16 @@ func change_image() -> void:
 	var rand_img = randi_range(0, images.size() - 1)
 	texture_button.texture_normal = images[rand_img]
 
-## Randomly selects a LayoutPreset and uses the collapsible's set_container_size()
-## function to set its size (and its sizing_constraint). Also sets the child
-## texture_button's LayoutPreset to change what side it clings to when the collapsible
-## is opening/closing.
+## Randomly selects a LayoutPreset and uses the collapsible's set_folding_direction_preset()
+## function to set its size (and its sizing_constraint) to determine its folding
+## direction. 
+## Also can set the child texture_button's LayoutPreset to change what 
+## side it clings to when the collapsible is opening/closing, but that line is commented out for now.
 func change_anchor() -> void:
 	var rand_layout = randi_range(0, LayoutPreset.keys().size() - 1)
 	
-	collapsible.set_container_size(rand_layout, true)
-	#texture_button.set_anchors_and_offsets_preset(rand_layout, Control.PRESET_MODE_KEEP_SIZE)
+	collapsible.set_folding_direction_preset(rand_layout)
+	#texture_button.set_anchors_and_offsets_preset(rand_layout, Control.PRESET_MODE_KEEP_SIZE) # What side the child clings to.
 	
 	# Convert LayoutPreset and ContainerSizing used into strings.
 	var layout_preset : String = str(LayoutPreset.keys()[rand_layout])

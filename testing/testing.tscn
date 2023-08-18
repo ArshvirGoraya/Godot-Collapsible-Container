@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnhbi2lhl7ua5"]
+
+[ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_x1mdc"]
+
+[node name="testing" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(263, 144)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CollapsibleContainer" type="Control" parent="MarginContainer"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+custom_minimum_size = Vector2(263, 144)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_x1mdc")
+starts_opened = false
+folding_direction_preset = 8
+sizing_node = NodePath("Label")
+custom_open_size = Vector2(517, 144)
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Label" type="Label" parent="MarginContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 144.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.554688, 0.933594, 0.589844, 1)
+theme_override_font_sizes/font_size = 50
+text = "Collapsible 
+Container"
+horizontal_alignment = 1

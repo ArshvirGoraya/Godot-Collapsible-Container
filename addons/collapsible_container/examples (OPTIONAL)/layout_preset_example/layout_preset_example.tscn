@@ -68,6 +68,10 @@ layout_mode = 2
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
@@ -169,6 +173,10 @@ urn_collapsible = NodePath("../CollapsibleContainer")
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer"]
 process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 show_behind_parent = true
 clip_contents = true
 custom_minimum_size = Vector2(300, 266.51)

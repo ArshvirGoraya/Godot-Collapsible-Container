@@ -30,7 +30,11 @@ extends Control
 ## node folds/unfolds. [member Control.LayoutPreset] will NOT give you full control of
 ## the direction of folding/unfolding. For more control it is recommended to 
 ## child this node to a [MarginContainer] so that [b]container sizing flags[/b] 
-## are accessible.
+## are accessible. It should be noted that the parent Container should probably
+## have the  same [member custom_minimum_size] as this node for the intended effect. 
+## To ease the process of assigning all these variables, you can simply set 
+## [member folding_direction_preset] to a [enum FoldingPreset] value. which will also
+## warn you if the desired direction requires a parent Container or not.
 ## [br][br]If the CollapsibleContainer has a child, the position the child stays 
 ## in while the CollapsibleContainer folds/unfolds will be determined by the child's 
 ## [member Control.LayoutPreset].
@@ -56,8 +60,12 @@ extends Control
 ## force the node to any size using [method force_size] and [method force_tween]
 ## , which will emit the necessary signals unlike using built-in methods.
 ## [br]
+## [br][b]Warning[/b]: Tweening happens using [method Tween.interpolate_value] 
+## and delta time. This means tween duration may run slightly longer than
+## you set the duration to. For example, tween may run for 0.71 seconds instead 
+## of 0.7 seconds precisely. Keep this in mind if you need precise timing.
 ## [br]
-## Usage:
+## [br]Usage:
 ## [codeblock]
 ##func _ready() -> void:
 ##   var collapsible := CollapsibleContainer.new()
@@ -81,21 +89,43 @@ extends Control
 ##   # Add the collapsible to the scene tree.
 ##   add_child(collapsible)
 ##
+##   # Alternatively, instead of simply adding the collapsible, you can parent the 
+##   # collapsible to a Container to use more folding directions! 
+##   # Should give the parent Containter a minimum size of the "open" size
+##   # for the intended effect. 
+##   #var parent_container := MarginContainer.new()
+##   #parent_container.add_child(collapsible)
+##   #add_child(parent_container)
+##
 ##   # Set the sizing_node or set the custom size values. 
 ##   # Here, we just set the label as the sizing_node. Now, the label's size will be 
 ##   # used as the size the collapsible sets itself to when opened. In other words,
 ##   # the label's size is set as CollapsibleContainer's "open" size.
 ##   collapsible.set_sizing_node_path(label_node.get_path())
 ##
-##   # Alternatively,to use custom size values instead:   
+##   # Alternatively, to use custom size values instead:   
 ##   #collapsible.use_custom_open_size = true 
 ##   #collapsible.use_custom_close_size = true 
 ##   #collapsible.custom_open_size = Vector2(x, y)
 ##   #collapsible.custom_close_size = Vector2(x, y)
-## 
-##   # Tween towards the open size. 
-##   collapsible.tween_duration_sec = 0.7 # set duration of tween.
-##   collapsible.call_deferred("open_tween") # call open_tween() to start the tween.
+##   
+##   # Modify the folding direction. (Folds from the top left by default).
+##   # Here, we set it so that it folds from the top and is wide (as wide as the
+##   # x/horizontal value in the "open" size).
+##   # Some FoldingPresets require this node to be childed to a parent Container 
+##   # (a MarginContainer is recommended) with a minimum size the same as the "open"
+##   # size.
+##   # But PRESET_TOP_WIDE, PRESET_TOP_LEFT and PRESET_LEFT_WIDE do not need a 
+##   # parent Container. 
+##   collapsible.set_folding_direction_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE)
+##   
+##   # Set desired the tween settings. Can also set tween_transition_type and tween_ease_type.
+##   collapsible.tween_duration_sec = 0.7
+##   
+##   # Call open_tween() to start the tween.
+##   # Should use call_deferred() if attempting to call open_tween() right after
+##   # setting the LayoutPreset/FoldingPreset, sizing_constraint or container size flags.
+##   collapsible.call_deferred("open_tween")
 ## [/codeblock]
 ##
 ## @tutorial: https://youtu.be/o2qTSv0QmKA
@@ -165,6 +195,32 @@ enum TweenStates {
 	AUTO_TWEENING_CLOSE,  ## Node is AUTO tweening to the close size.
 	NOT_TWEENING,   ## Node is not tweening.
 }
+
+## States used by [member folding_direction_preset]
+enum FoldingPreset {
+	PRESET_TOP_LEFT, 
+	PRESET_TOP_RIGHT,
+	PRESET_BOTTOM_LEFT,
+	
+	PRESET_BOTTOM_RIGHT,
+	PRESET_CENTER_LEFT,
+	PRESET_CENTER_TOP,
+	
+	PRESET_CENTER_RIGHT,
+	PRESET_CENTER_BOTTOM,
+	PRESET_CENTER,
+	
+	PRESET_LEFT_WIDE,
+	PRESET_TOP_WIDE,
+	PRESET_RIGHT_WIDE,
+	PRESET_BOTTOM_WIDE,
+	
+	PRESET_VCENTER_WIDE,
+	PRESET_HCENTER_WIDE,
+	
+	UNDEFINED,
+}
+
 ## Determines if starts opened/closed in game. 
 @export var starts_opened := true
 
@@ -173,11 +229,22 @@ enum TweenStates {
 @export var start_with_clip_contents : bool = true: 
 		set = set_start_with_clip_contents, get = get_start_with_clip_contents
 
+# Uses _folding_direction_preset as a private variable to avoid infinite recursion. 
+## Sets the [member sizing_constraint], [member Control.size_flags_vertical] 
+## and [member Control.size_flags_horizontal] in order to quickly set the 
+## folding direction.
+@export var folding_direction_preset := FoldingPreset.PRESET_TOP_LEFT:
+	set(x):
+		_folding_direction_preset = x
+		set_folding_direction_preset(_folding_direction_preset)
+	get:
+		return _folding_direction_preset
+
 ## Controls which direction the collapsible can folds/unfold.
 @export var sizing_constraint := SizingConstraintOptions.BOTH:
 		set = set_sizing_constraint, get = get_sizing_constraint
 
-# Seperate from [member _preview_auto_update_size] which controls 
+# Separate from [member _preview_auto_update_size] which controls 
 # preview auto sizing, not in-game auto sizing. 
 ## Option to update the size automatically to the opened size value or the 
 ## closed size value when they change. For example, if opened, and 
@@ -250,7 +317,7 @@ enum TweenStates {
 # Preview option (not in game) to update the size automatically to the opened 
 # size value or the closed size value when they change. For example, if opened,
 # and open size changes, the node will set itself to that new open size.
-# [br]Seperate from [member auto_update_size] which controls 
+# [br]Separate from [member auto_update_size] which controls 
 # in-game auto sizing, not preview auto sizing. 
 # [br]Will interrupt the current tween (with a warning) if the tween's target size is 
 # different from the auto-updated target size.
@@ -319,13 +386,39 @@ var _tween_delta_value := Vector2.ZERO
 # [br][br][b]Warning:[/b] Should NOT be set externally (may break something).
 var _tween_final_value := Vector2.ZERO
 
+# Using private variable with [member folding_direction_preset] to avoid 
+# infinite recursion. [folding_direction_preset] sets flags and sizing_constraint,
+# which, themselves set [_folding_direction_preset]. If they were to set 
+# [folding_direction_preset] instead, there would be an infinite recursion. 
+var _folding_direction_preset := FoldingPreset.PRESET_TOP_LEFT:
+	set(x):
+		if x != _folding_direction_preset:
+			_folding_direction_preset = x
+			
+			# Only want to update here if actually is different. 
+			# Otherwise, will lag.
+			_update_inspector() 
+
+# Added by collapsible_container_plugin_loader.gd
+var _editor_plugin : EditorPlugin
+
 # Connects [signal Control.resized] signal to a function that emits the
 # [signal tweening_amount_changed] signal.
+#
 # Also sets the [member Control.clip_content] property determined by 
 # [member start_with_clip_contents].
+#
 # Sets the [member Node.process_mode] to [member starts_with_process_mode]
 # or [member _preview_always_process_in_editor] depending on if in game or in editor.
+#
+# Connects the [signal size_flags_changed] to [method folding_direction_preset]
+# can stay updated.
+# so that [member ]
 func _init() -> void:
+	editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			\nGive feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+	
 	if _in_game():
 		process_mode = starts_with_process_mode
 		#print ("process mode set: ", process_mode)
@@ -335,6 +428,7 @@ func _init() -> void:
 	
 	minimum_size_changed.connect(_emit_tween_amount_changed)
 	set_clip_contents(start_with_clip_contents)
+	size_flags_changed.connect(_update_folding_direction)
 
 # If starts_opened: open. If not starts_opened: close
 # as determined by [member starts_opened] or [member _preview_starts_opened].
@@ -375,7 +469,7 @@ func _physics_process(delta: float) -> void:
 	if tween_in_physics_process and is_tweening():
 		_increment_tween(delta)
 
-# Unsure about intendation levels in this function matching style guides:
+# Unsure about indentation levels in this function matching style guides:
 # https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#indentation
 # https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#format-multiline-statements-for-readability
 # A warning that shows on the node in the editor's scene tree given that the 
@@ -418,72 +512,177 @@ func get_tween_state() -> TweenStates:
 func get_sizing_node_path() -> NodePath:
 	return sizing_node
 
-## Uses [enum Control.LayoutPreset] to set the [member Control.size_flags_vertical] 
-## and [member Cotnrol.size_flags_horizontal].
-## This function requires having a [Container] (or any node that inherits from [Container]) 
-## as a parent node. If called when there is no [Container] as a parent, it will print an 
-## error and do nothing. 
-## [br][br][b]change_sizing_constraint: [/b] sets [member sizing_constraint] based on the direction.
+# Ideally returns -> [Control.LayoutPreset, bool]
+## Calculates and returns what the [member folding_direction_preset] is currently set to.
+func get_folding_direction_preset() -> FoldingPreset:
+	var folding_direction : FoldingPreset
+	var sizing_constraint_match : bool = false
+	
+	var container_sizing_flags : Array[SizeFlags] = [get_v_size_flags(), get_h_size_flags()]
+	
+	#print ("container_sizing_flags: ", container_sizing_flags)
+	
+	match container_sizing_flags:
+		# Tops
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_TOP_LEFT
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER_TOP
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_TOP_RIGHT
+		
+		# Centers
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_CENTER_LEFT
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_CENTER_RIGHT
+
+		# Bottoms
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_LEFT
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER_BOTTOM
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_RIGHT
+		
+		# Side Wides:
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_LEFT_WIDE
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_RIGHT_WIDE
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_EXPAND_FILL]: #, [Control.SIZE_EXPAND, Control.SIZE_EXPAND_FILL]: 
+			folding_direction = FoldingPreset.PRESET_TOP_WIDE
+		[Control.SIZE_SHRINK_END, Control.SIZE_EXPAND_FILL]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_WIDE
+		
+		# Center Wides:
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_VCENTER_WIDE
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_EXPAND_FILL]:
+			folding_direction = FoldingPreset.PRESET_HCENTER_WIDE
+#		_:
+#			_print_warning_in_game_or_err_in_editor(str("cannot GET folding_direction_preset: unsupported sizing flags: ", container_sizing_flags))
+#			pass
+	
+	# Check if sizing_constraint is matching. Set from false to true if it is.
+	match folding_direction:
+		FoldingPreset.PRESET_LEFT_WIDE, FoldingPreset.PRESET_RIGHT_WIDE, FoldingPreset.PRESET_VCENTER_WIDE:
+			if sizing_constraint == SizingConstraintOptions.ONLY_WIDTH:
+				sizing_constraint_match = true
+		FoldingPreset.PRESET_TOP_WIDE, FoldingPreset.PRESET_BOTTOM_WIDE, FoldingPreset.PRESET_HCENTER_WIDE:
+			if sizing_constraint == SizingConstraintOptions.ONLY_HEIGHT:
+				sizing_constraint_match = true
+		_:
+			if sizing_constraint == SizingConstraintOptions.BOTH:
+				sizing_constraint_match = true
+	
+	if not sizing_constraint_match:
+		folding_direction = FoldingPreset.UNDEFINED
+	
+	return folding_direction
+
+## Uses [enum FoldingPreset] to set the [member Control.size_flags_vertical] 
+## and [member Control.size_flags_horizontal].
+## For some folding presets a parent container may be required. In these cases,
+## if called when there is no [Container] as a parent, it will print an error 
+## and do nothing. 
+## [br][br]Presets that [b]do not[/b] require a parent container: [constant PRESET_TOP_LEFT], 
+## [constant PRESET_TOP_WIDE], [constant PRESET_LEFT_WIDE]
+## [br][br][param change_sizing_constraint]: sets [member sizing_constraint] based on the direction.
 ## If the layout is filled in one direction, the [member sizing_constraint] will constrain 
 ## that direction. For example, if it is set to PRESET_LEFT_WIDE where the vertical
 ## is completely filled, [member sizing_constraint] is set to [constant ONLY_HEIGHT]. 
 ## Hence, only the needed direction will open/close.
-func set_container_size(direction : Control.LayoutPreset, change_sizing_constraint : bool = false) -> void:
-	if get_parent() == null || not get_parent() is Container:
-		_print_warning_in_game_or_err_in_editor("cannot set container size: parent is not Container")
+func set_folding_direction_preset(direction : FoldingPreset, change_sizing_constraint : bool = true) -> void:
+	if not is_node_ready():
+		#print ("not ready")
+		#await ready
 		return
+	
+	if direction == FoldingPreset.UNDEFINED:
+		return
+	
+	# If not parent container, return if selected direction requires a parent container.
+	if not _has_parent_container():
+		if (
+			not direction == Control.PRESET_TOP_LEFT
+			and not direction == Control.PRESET_TOP_WIDE
+			and not direction == Control.PRESET_LEFT_WIDE
+			):
+			_print_warning_in_game_or_err_in_editor(str("cannot SET folding_direction_preset to ", FoldingPreset.keys()[direction] ,": parent is not Container"))
+			return
+	
 	match direction:
 		Control.PRESET_TOP_LEFT:
+#			set_anchors_preset(Control.PRESET_TOP_LEFT)
 			set_v_size_flags(Control.SIZE_SHRINK_BEGIN) #top
 			set_h_size_flags(Control.SIZE_SHRINK_BEGIN) #left
 		Control.PRESET_CENTER_TOP:
+#			set_anchors_preset(Control.PRESET_CENTER_TOP)
 			set_v_size_flags(Control.SIZE_SHRINK_BEGIN) # top
 			set_h_size_flags(Control.SIZE_SHRINK_CENTER) # center
 		Control.PRESET_TOP_RIGHT:
+#			set_anchors_preset(Control.PRESET_TOP_RIGHT)
 			set_v_size_flags(Control.SIZE_SHRINK_BEGIN) # top
 			set_h_size_flags(Control.SIZE_SHRINK_END) # right
 		
 		Control.PRESET_CENTER_LEFT:
+#			set_anchors_preset(Control.PRESET_CENTER_LEFT)
 			set_v_size_flags(Control.SIZE_SHRINK_CENTER) # center
 			set_h_size_flags(Control.SIZE_SHRINK_BEGIN) #left
 		Control.PRESET_CENTER, Control.PRESET_FULL_RECT:
+#			set_anchors_preset(Control.PRESET_CENTER)
 			set_v_size_flags(Control.SIZE_SHRINK_CENTER) # center
 			set_h_size_flags(Control.SIZE_SHRINK_CENTER) # center
 		Control.PRESET_CENTER_RIGHT:
+#			set_anchors_preset(Control.PRESET_CENTER_RIGHT)
 			set_v_size_flags(Control.SIZE_SHRINK_CENTER) # center
 			set_h_size_flags(Control.SIZE_SHRINK_END) # right
 		
 		Control.PRESET_BOTTOM_LEFT:
+#			set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
 			set_v_size_flags(Control.SIZE_SHRINK_END) # bottom
 			set_h_size_flags(Control.SIZE_SHRINK_BEGIN) #left
 		Control.PRESET_CENTER_BOTTOM:
+#			set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 			set_v_size_flags(Control.SIZE_SHRINK_END) # bottom
 			set_h_size_flags(Control.SIZE_SHRINK_CENTER) # center
 		Control.PRESET_BOTTOM_RIGHT:
+#			set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 			set_v_size_flags(Control.SIZE_SHRINK_END) # bottom
 			set_h_size_flags(Control.SIZE_SHRINK_END) # right
 		
 		Control.PRESET_LEFT_WIDE:
-			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+#			set_anchors_preset(Control.PRESET_LEFT_WIDE)
+			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide
 			set_h_size_flags(Control.SIZE_SHRINK_BEGIN) # left
 		Control.PRESET_RIGHT_WIDE:
-			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+#			set_anchors_preset(Control.PRESET_RIGHT_WIDE)
+			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide
 			set_h_size_flags(Control.SIZE_SHRINK_END) # right
 		Control.PRESET_TOP_WIDE:
+#			set_anchors_preset(Control.PRESET_TOP_WIDE)
 			set_v_size_flags(Control.SIZE_SHRINK_BEGIN) # top
-			set_h_size_flags(Control.SIZE_EXPAND_FILL) # wide # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+			set_h_size_flags(Control.SIZE_EXPAND_FILL) # wide
 		Control.PRESET_BOTTOM_WIDE:
+#			set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 			set_v_size_flags(Control.SIZE_SHRINK_END) # bottom
-			set_h_size_flags(Control.SIZE_EXPAND_FILL) # wide # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+			set_h_size_flags(Control.SIZE_EXPAND_FILL) # wide
 			
 		Control.PRESET_VCENTER_WIDE:
-			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+#			set_anchors_preset(Control.PRESET_VCENTER_WIDE)
+			set_v_size_flags(Control.SIZE_EXPAND_FILL) # wide
 			set_h_size_flags(Control.SIZE_SHRINK_CENTER) # center
 		Control.PRESET_HCENTER_WIDE:
+#			set_anchors_preset(Control.PRESET_HCENTER_WIDE)
 			set_v_size_flags(Control.SIZE_SHRINK_CENTER) # center
-			set_h_size_flags(Control.SIZE_EXPAND_FILL) # SIZE_FILL or SIZE_EXPAND or SIZE_EXPAND_FILL 
+			set_h_size_flags(Control.SIZE_EXPAND_FILL) # wide
 		_:
-			_print_warning_in_game_or_err_in_editor(str("cannot set container size: invalid LayoutPreset: ", direction))
+			var vertical_flag : String = FoldingPreset.keys()[get_v_size_flags()]
+			var horizontal_flag : String = FoldingPreset.keys()[get_h_size_flags()]
+			_print_warning_in_game_or_err_in_editor(str("cannot SET folding_direction_preset: unsupported LayoutPreset: ", direction))
 			return
 	
 	if change_sizing_constraint:
@@ -494,6 +693,8 @@ func set_container_size(direction : Control.LayoutPreset, change_sizing_constrai
 				sizing_constraint = SizingConstraintOptions.ONLY_HEIGHT
 			_:
 				sizing_constraint = SizingConstraintOptions.BOTH
+
+
 
 # Connects sizing_nodes resized signal to [method _auto_size_to_full].
 # Connects its tree_exiting signal to [method _sizing_node_exiting]
@@ -583,12 +784,14 @@ func get_opened_size_or_null(): #-> Vector2:
 		var target_node = get_sizing_node_or_null()
 		if target_node != null:
 			var full_size : Vector2 = (target_node as Control).get_size()
+			var largest_size_vale = _get_largest_size_value()
+			
 			# Ensure size follows the sizing constraint.
 			match sizing_constraint:
 				SizingConstraintOptions.ONLY_WIDTH: # Leave height as is.
-					full_size = Vector2(full_size.x, _get_largest_size_value().y)
+					full_size = Vector2(full_size.x, largest_size_vale.y)
 				SizingConstraintOptions.ONLY_HEIGHT: # Leave width as is.
-					full_size = Vector2(_get_largest_size_value().x, full_size.y)
+					full_size = Vector2(largest_size_vale.x, full_size.y)
 			return full_size
 		return null
 
@@ -639,12 +842,15 @@ func set_custom_close_size(custom_close : Vector2) -> void:
 	_auto_size_to_full.call_deferred()
 
 ## Sets [member sizing_constraint]. Can auto resize if [member auto_update_size] is enabled.
+## Also updates [member update_folding_direction]. 
 func set_sizing_constraint(constraint_option : SizingConstraintOptions) -> void:
 	if not is_node_ready(): # Just entered scene tree:
 		sizing_constraint = constraint_option
 		return
 	
 	sizing_constraint = constraint_option
+	_update_folding_direction()
+	
 	_auto_size_to_full.call_deferred()
 
 ## Sets [member auto_update_size]. Can auto resize if [member auto_update_size] is enabled.
@@ -879,7 +1085,7 @@ func set_tween_ease_type(ease_type : Tween.EaseType) -> void:
 # Main function used for opening/closing the node.
 # Gets the target size (closed or opened size depending on parameter value). 
 # Tweens towards it or set the size to it immediately (depending on parameter).
-# Emits any neccessary signals: [signal tween_started], 
+# Emits any necessary signals: [signal tween_started], 
 # [signal opened_state_signal] and [signal tween_interrupted].
 # [br][br][b]Warning:[/b] Should NOT be called externally (may break something). 
 func _change(open: bool, tweening: bool) -> void:
@@ -958,6 +1164,7 @@ func _auto_size_to_full() -> void:
 	var target_values = _get_full_size_or_null_and_target_opened()
 	var full_size = target_values[0]
 	var target_opened_state : OpenedStates = target_values[1] 
+	#print ("full size: ", full_size)
 	
 	# For signals:
 	var previous_opened_state : OpenedStates = _opened_state
@@ -1080,9 +1287,18 @@ func _auto_update_size_changed(auto_size_option : AutoUpdateSizeOptions) -> void
 # [br][br][b]Warning:[/b] Should NOT be called externally (may break something). 
 func _increment_tween(delta) -> void:
 	_tween_elapsed_time += delta
-	if _tween_elapsed_time < tween_duration_sec:
+	_tween_time_left = tween_duration_sec - _tween_elapsed_time
+	
+	get_normalized_size_or_null()
+	
+	if _tween_time_left <= 0: # tween is over
+		set_custom_minimum_size(_tween_final_value)
+		set_size(_tween_final_value)
 		
-
+		var previous_tween_state = _tween_state
+		set_to_end_tween(false)
+	
+	else: # tween is not over:
 		var interpolated_size = Tween.interpolate_value(
 			_tween_initial_value, 
 			_tween_delta_value, 
@@ -1091,14 +1307,28 @@ func _increment_tween(delta) -> void:
 			tween_transition_type, 
 			tween_ease_type)
 		
-		_tween_time_left = tween_duration_sec - _tween_elapsed_time
-		
 		set_custom_minimum_size(interpolated_size)
 		set_size(interpolated_size)
-	else:
-		# tween completed.
-		var previous_tween_state = _tween_state
-		set_to_end_tween(false)
+	
+#	if _tween_elapsed_time < tween_duration_sec:
+#		_tween_elapsed_time += delta
+#		_tween_time_left = tween_duration_sec - _tween_elapsed_time
+#		var interpolated_size = Tween.interpolate_value(
+#			_tween_initial_value, 
+#			_tween_delta_value, 
+#			_tween_elapsed_time, 
+#			tween_duration_sec, 
+#			tween_transition_type, 
+#			tween_ease_type)
+#
+#		set_custom_minimum_size(interpolated_size)
+#		set_size(interpolated_size)
+#	else:
+#		# tween completed.
+#		var previous_tween_state = _tween_state
+#		set_to_end_tween(false)
+
+
 
 # Called before starting any tween. Sets up all variables to be used with
 # [method Tween.interpolate_value] which is used within [member _increment_tween].
@@ -1146,7 +1376,7 @@ func _get_target_opened_state(current_tween_state) -> OpenedStates:
 # on which states ([member _opened_state] and [member _tween_state]) are 
 # currently set.
 # [br]Also returns the target opened state: what the the [member _opened_state] 
-# value will be after the current potentially occuring tween.
+# value will be after the current potentially occurring tween.
 # [br][br] Return value is: [Vector2, OpenedStates] where Vector2 may be null
 # if the sizing_node is used but is not set to anything.
 # [br][br] Can be used externally without any problems (won't break something).
@@ -1193,7 +1423,7 @@ func _emit_tween_started(current_tween_state : TweenStates) -> void:
 	if _in_game():
 		tween_started.emit(current_tween_state)
 
-# Unsure about intendation levels in this function matching style guides:
+# Unsure about indentation levels in this function matching style guides:
 # https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#indentation
 # https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#format-multiline-statements-for-readability
 # Sends [signal tween_interrupted] signal if needed. Only in game.
@@ -1243,7 +1473,7 @@ func _emit_tween_amount_changed() -> void:
 			# Ideally uses the type Array[Dictionary] but must just use Array for now...
 			var connections_data : Array = tweening_amount_changed.get_connections()
 			
-			# Dor each dictionary in Array:
+			# For each dictionary in Array:
 			for connection_data in connections_data: 
 				# Get callable from dictionary.
 				var callable : Callable = connection_data["callable"] 
@@ -1314,8 +1544,8 @@ func _get_largest_size_value() -> Vector2:
 			biggest.x = target_node.get_size().x
 		else:
 			biggest.x = target_node.get_custom_minimum_size().x
-		
-		if get_size().y > target_node.get_custom_minimum_size().y:
+			
+		if target_node.get_size().y > target_node.get_custom_minimum_size().y:
 			biggest.y = target_node.get_size().y
 		else:
 			biggest.y = target_node.get_custom_minimum_size().y
@@ -1323,6 +1553,17 @@ func _get_largest_size_value() -> Vector2:
 		_print_warning_in_game_or_err_in_editor("can't get largest size, sizing_node is null.")
 	
 	return biggest
+
+# Called when [member sizing_constraint] or sizing flags 
+# ([member Control.size_flags_horizontal] and 
+# [member Control.size_flags_vertical]) are changed changed.
+func _update_folding_direction() -> void:
+	var direction : FoldingPreset = get_folding_direction_preset()
+	_folding_direction_preset = direction
+
+# Returns true if parent is a container or inherits from it.
+func _has_parent_container() -> bool:
+	return get_parent() is Container
 
 # Uses both [method Control.set_custom_minimum_size] and [Control.method set_size]
 # to set the size of the this node.
@@ -1333,6 +1574,7 @@ func _set_to_size(target_size : Vector2) -> void:
 
 # Calls [member Object.notify_property_list_changed]. Improves readability.
 func _update_inspector() -> void:
+	#print ("updating inspector")
 	notify_property_list_changed()
 
 # Check if in editor. Improves readability.
