@@ -65,4 +65,5 @@ None... for now, but just released and hasn't been extensively tested.
 --->
 
 ## Donate
-<a href='https://ko-fi.com/Z8Z6NP272' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a align="left" href='https://ko-fi.com/Z8Z6NP272' target='_blank'><img height='36' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href='https://www.paypal.com/donate/?hosted_button_id=6898PNAVV5QRC' target='_blank'><img width='108' src='https://github.com/user-attachments/assets/0b96763f-b586-4abb-9d42-216aab7ccb20' alt='Donate at paypal.com' /></a>
