@@ -400,7 +400,8 @@ var _folding_direction_preset := FoldingPreset.PRESET_TOP_LEFT:
 			_update_inspector() 
 
 # Added by collapsible_container_plugin_loader.gd
-var _editor_plugin : EditorPlugin
+# Remove Type Hint or will throw error on exports.
+var _editor_plugin #: EditorPlugin
 
 # Connects [signal Control.resized] signal to a function that emits the
 # [signal tweening_amount_changed] signal.
