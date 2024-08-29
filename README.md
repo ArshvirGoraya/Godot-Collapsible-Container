@@ -58,11 +58,10 @@ Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
 * Submitting a pull request: you should file an issue first that your PR will resolve (if such an issue doesn't already exist). Then, reference what issue(s) your PR resolves in the PR. Your code must be documented.
 
   
-<!---
 ## Known Issues
 
-None... for now, but just released and hasn't been extensively tested. 
---->
+* Exporting makes `sizing_node` null: quick fix can be found here: https://github.com/ArshvirGoraya/Godot-Collapsible-Container/issues/1#issuecomment-2316498269
+  * Plugin will be updated once I implement a better fix. 
 
 ## Donate
 <a align="left" href='https://ko-fi.com/Z8Z6NP272' target='_blank'><img height='36' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' alt='Buy Me a Coffee at ko-fi.com' /></a>
