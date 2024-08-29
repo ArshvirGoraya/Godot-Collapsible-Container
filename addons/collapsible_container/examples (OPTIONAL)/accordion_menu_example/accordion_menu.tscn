@@ -280,7 +280,6 @@ grow_vertical = 2
 color = Color(0.309804, 0.290196, 0.419608, 1)
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/VerticalMenu/HBoxContainer/MenuHolder"]
-process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
@@ -291,7 +290,10 @@ layout_mode = 1
 anchors_preset = 0
 offset_right = 570.0
 offset_bottom = 130.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("1_mluu6")
+folding_direction_preset = 15
 sizing_constraint = 2
 sizing_node = NodePath("Label")
 

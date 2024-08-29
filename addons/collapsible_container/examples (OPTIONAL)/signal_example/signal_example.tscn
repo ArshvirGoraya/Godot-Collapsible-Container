@@ -32,7 +32,6 @@ force_size_info = NodePath("../Buttons/ForceSize/Info")
 force_tween_info = NodePath("../Buttons/ForceTween/Info")
 
 [node name="CollapsibleContainer" type="Control" parent="."]
-process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
@@ -42,6 +41,8 @@ custom_minimum_size = Vector2(212, 208)
 anchors_preset = 0
 offset_right = 212.0
 offset_bottom = 208.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("2_nump6")
 starts_opened = false
 sizing_node = NodePath("TextureRect")
