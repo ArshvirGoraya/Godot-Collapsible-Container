@@ -347,10 +347,8 @@ enum FoldingPreset {
 ## [member _preview_always_process_in_editor] once in game.
 @export var starts_with_process_mode : ProcessMode = PROCESS_MODE_INHERIT:
 	set(x):
-		#if _in_game():
 		starts_with_process_mode = x
 		process_mode = starts_with_process_mode
-		#print ("set process mode")
 
 ## Can be gotten to know the current opened state (see, [enum OpenedStates]).
 ## [br][br][b]Warning:[/b] Should NOT be set externally (may break something).
@@ -422,7 +420,6 @@ func _init() -> void:
 	
 	if _in_game():
 		process_mode = starts_with_process_mode
-		#print ("process mode set: ", process_mode)
 	if _in_editor():
 		if _preview_always_process_in_editor:
 			process_mode = Node.PROCESS_MODE_ALWAYS
@@ -521,8 +518,6 @@ func get_folding_direction_preset() -> FoldingPreset:
 	
 	var container_sizing_flags : Array[SizeFlags] = [get_v_size_flags(), get_h_size_flags()]
 	
-	#print ("container_sizing_flags: ", container_sizing_flags)
-	
 	match container_sizing_flags:
 		# Tops
 		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_BEGIN]:
@@ -598,8 +593,6 @@ func get_folding_direction_preset() -> FoldingPreset:
 ## Hence, only the needed direction will open/close.
 func set_folding_direction_preset(direction : FoldingPreset, change_sizing_constraint : bool = true) -> void:
 	if not is_node_ready():
-		#print ("not ready")
-		#await ready
 		return
 	
 	if direction == FoldingPreset.UNDEFINED:
@@ -695,7 +688,17 @@ func set_folding_direction_preset(direction : FoldingPreset, change_sizing_const
 			_:
 				sizing_constraint = SizingConstraintOptions.BOTH
 
-
+# When [setting_node] changes,
+# sets the [member sizing_node]'s [tree_exiting] to [_sizing_node_exiting],
+# and sets the [member sizing_node]'s [resized] to [_sizing_node_resized].
+func _connect_sizing_node_signals(node_path : NodePath) -> void:
+	if not is_node_ready():
+		await ready
+	
+	if node_path != NodePath(""):
+		var new_sizing_node = get_node(node_path)
+		new_sizing_node.connect("tree_exiting", _sizing_node_exiting)
+		new_sizing_node.connect("resized", _sizing_node_resized)
 
 # Connects sizing_nodes resized signal to [method _auto_size_to_full].
 # Connects its tree_exiting signal to [method _sizing_node_exiting]
@@ -710,19 +713,9 @@ func set_sizing_node_path(node_path : NodePath) -> void:
 	
 	var previous_sizing_node = get_node_or_null(sizing_node)
 	
-	# Callable: Called when sizing node is set to something valid.
-	var set_new_sizing_node = func () -> void:
-		var new_sizing_node = get_node(node_path)
-		new_sizing_node.connect("resized", _sizing_node_resized)
-		new_sizing_node.connect("tree_exiting", _sizing_node_exiting)
-	
 	# Node just entered tree in-game:
 	if not is_node_ready():
-		await ready
-		sizing_node = node_path
-		if node_path != NodePath(""):
-			set_new_sizing_node.call()
-			return
+		_connect_sizing_node_signals(node_path)
 	else:
 		# Do nothing if the same node:
 		if node_path == sizing_node:
@@ -752,7 +745,7 @@ func set_sizing_node_path(node_path : NodePath) -> void:
 			# NewNode is s control, connects its signals.
 			else:
 				# Connect new sizing_nodes resized signal.
-				set_new_sizing_node.call()
+				_connect_sizing_node_signals(node_path)
 				
 				# Set to full size!
 				_auto_size_to_full.call_deferred()
@@ -1165,7 +1158,6 @@ func _auto_size_to_full() -> void:
 	var target_values = _get_full_size_or_null_and_target_opened()
 	var full_size = target_values[0]
 	var target_opened_state : OpenedStates = target_values[1] 
-	#print ("full size: ", full_size)
 	
 	# For signals:
 	var previous_opened_state : OpenedStates = _opened_state
@@ -1211,7 +1203,6 @@ func _auto_size_to_full() -> void:
 			# Set to new _opened_state.
 			previous_opened_state = _opened_state
 			_opened_state = target_opened_state
-			#print ("new opened state: ", _opened_state)
 			
 			# Emit tween interrupted signal if necessary.  
 			if previous_tween_state != TweenStates.NOT_TWEENING:
@@ -1575,7 +1566,6 @@ func _set_to_size(target_size : Vector2) -> void:
 
 # Calls [member Object.notify_property_list_changed]. Improves readability.
 func _update_inspector() -> void:
-	#print ("updating inspector")
 	notify_property_list_changed()
 
 # Check if in editor. Improves readability.
