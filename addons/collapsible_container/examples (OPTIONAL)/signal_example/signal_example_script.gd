@@ -236,4 +236,3 @@ func _tween_label_modulate(label : Label, label_tween : Tween) -> void:
 	label.set_self_modulate(Color.LIME_GREEN)
 	label_tween.tween_property(label, "self_modulate", Color.WHITE, 1)
 	label_tween.play()
-

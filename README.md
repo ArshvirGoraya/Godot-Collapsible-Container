@@ -57,9 +57,8 @@ Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
 * The main tool script (and even the example projects) are all documented. This includes every function. For complicated functions, this may even include every line in that function. Hopefully this makes it easier to understand and contribute to the project.
 * Submitting a pull request: you should file an issue first that your PR will resolve (if such an issue doesn't already exist). Then, reference what issue(s) your PR resolves in the PR. Your code must be documented.
 
-  
 ## Known Issues
-
+* `EditorPlugin` can't be found in exported games: quick fix can be found here: https://github.com/ArshvirGoraya/Godot-Collapsible-Container/issues/1#issuecomment-1849070996
 * Exporting makes `sizing_node` null: quick fix can be found here: https://github.com/ArshvirGoraya/Godot-Collapsible-Container/issues/1#issuecomment-2316498269
   * Plugin will be updated once I implement a better fix. 
 
