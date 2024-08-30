@@ -1,11 +1,19 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
 
-config/name="Godot-Collapsible-Container (4.1)"
+config/name="Godot-Collapsible-Container (4.2)"
 config/description="Collapsible Container Plugin"
 run/main_scene="res://testing/basic_collapsible_button.tscn"
-config/features=PackedStringArray("4.1", "GL Compatibility")
+config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://collapsible_container_icon.png"
 
 [display]
