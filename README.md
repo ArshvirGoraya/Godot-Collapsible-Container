@@ -29,14 +29,14 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 
 ## Basic Tutorial Video
 
-Tutorial video going over the basics of the CollapsibleContainer node: https://youtu.be/o2qTSv0QmKA
+Tutorial video going over the basics of the CollapsibleContainer node: <https://youtu.be/o2qTSv0QmKA>
 ## Installation
 
 You can install the plugin from within Godot's AssetLib tab! Remember to enable it in Project Settings!
 
-Official Godot guide to installing plugins: https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html
+Official Godot guide to installing plugins: <https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html>
 
-Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
+Video guide to install a release from GitHub: <https://youtu.be/JRsGAgpPV8U>
  
 <details close>
   <summary><h4>Written Step-By-Step Guide to Install a Release from GitHub</h4></summary>
@@ -56,11 +56,6 @@ Video guide to install a release from GitHub: https://youtu.be/JRsGAgpPV8U
 **Pull requests**: 
 * The main tool script (and even the example projects) are all documented. This includes every function. For complicated functions, this may even include every line in that function. Hopefully this makes it easier to understand and contribute to the project.
 * Submitting a pull request: you should file an issue first that your PR will resolve (if such an issue doesn't already exist). Then, reference what issue(s) your PR resolves in the PR. Your code must be documented.
-
-## Known Issues
-* `EditorPlugin` can't be found in exported games: quick fix can be found here: https://github.com/ArshvirGoraya/Godot-Collapsible-Container/issues/1#issuecomment-1849070996
-* Exporting makes `sizing_node` null: quick fix can be found here: https://github.com/ArshvirGoraya/Godot-Collapsible-Container/issues/1#issuecomment-2316498269
-  * Plugin will be updated once I implement a better fix. 
 
 ## Donate
 <a align="left" href='https://ko-fi.com/Z8Z6NP272' target='_blank'><img height='36' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' alt='Buy Me a Coffee at ko-fi.com' /></a>

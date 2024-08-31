@@ -36,7 +36,7 @@ func open_tween(button : Button) -> void:
 			return
 
 ## Closes all CollapsibleContainers except the one corresponding to the button
-## passed as the paramater. 
+## passed as the parameter. 
 func close_all_except(button : Button) -> void:
 	for collapsible_button in collapsible_buttons:
 		if button != collapsible_button:

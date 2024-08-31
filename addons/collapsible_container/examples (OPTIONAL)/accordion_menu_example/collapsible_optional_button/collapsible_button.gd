@@ -155,7 +155,7 @@ func _process(delta: float) -> void:
 		
 		constant_rotation_preview_progress += constant_rotate_preview_speed * delta
 		
-		# Hanndles reversing rotation when end is reached.
+		# Handles reversing rotation when end is reached.
 		if constant_rotation_preview_progress >= 1.0 and not constant_rotation_preview_reversing:
 			constant_rotation_preview_progress = 0.0
 			constant_rotation_preview_reversing = true
@@ -170,7 +170,6 @@ func _get_configuration_warnings():
 	if not get_children().has(preview_timer):
 		return ["You should not use this node! Instead, instance the collapsible_button scene!"]
 
-## Runs when ei
 ## Runs when either the [member text_label_rtl] or [member text_symbol_rtl] change.
 ## Set's the text of this button to the same as the combined text of those two 
 ## (without the BBCode). 
@@ -239,7 +238,7 @@ func collapsible_tween_progress(_new_size : Vector2, normalized_progress : float
 	_set_to_normalized_rotation(normalized_progress, reverse)
 
 # Set the rotation of the arrow/symbol basted on a normalized value between
-# 0 - 1. If 0, set to closed. If 1 set to opened. Unless revere paramater is true.
+# 0 - 1. If 0, set to closed. If 1 set to opened. Unless revere parameter is true.
 # In which case, it is the opposite. 
 func _set_to_normalized_rotation(normalized_progress : float, reverse : bool = false) -> void:
 	if not reverse:

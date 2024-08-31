@@ -5,7 +5,7 @@ extends EditorProperty
 ## These buttons allow opening/closing the selected CollapsibleContainer 
 ## through the inspector.
 
-## Creates the object to be added into the insector: a VBox with 2 buttons 
+## Creates the object to be added into the inspector: a VBox with 2 buttons 
 ## in it: open and close.
 func _init() -> void:
 	var buttons_holder := VBoxContainer.new()

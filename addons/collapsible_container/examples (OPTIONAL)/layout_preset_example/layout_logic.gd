@@ -74,7 +74,7 @@ func toggle_collapsible() -> void:
 	collapsible.open_tween_toggle.call_deferred()
 
 ## Randomly selects an image from the images array and sets it to the 
-## texture_buttonon's texture_normal.
+## texture_button's texture_normal.
 func change_image() -> void:
 	var rand_img = randi_range(0, images.size() - 1)
 	texture_button.texture_normal = images[rand_img]

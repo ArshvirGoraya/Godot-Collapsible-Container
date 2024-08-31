@@ -91,7 +91,7 @@ extends Control
 ##
 ##   # Alternatively, instead of simply adding the collapsible, you can parent the 
 ##   # collapsible to a Container to use more folding directions! 
-##   # Should give the parent Containter a minimum size of the "open" size
+##   # Should give the parent Container a minimum size of the "open" size
 ##   # for the intended effect. 
 ##   #var parent_container := MarginContainer.new()
 ##   #parent_container.add_child(collapsible)
@@ -251,7 +251,7 @@ enum FoldingPreset {
 ## open size changes, the node will size itself to that new open size.
 ## [br][br][b]Note[/b]: If already tweening and a new open size is detected,
 ## this will interrupt the current tween (with a warning) if the tween's 
-## target size is different from the new, auti-detected size change.
+## target size is different from the new, auto-detected size change.
 @export var auto_update_size := AutoUpdateSizeOptions.WITHOUT_TWEEN:
 		set = set_auto_update_size, get = get_auto_update_size
 
@@ -364,7 +364,7 @@ var _tween_state := TweenStates.NOT_TWEENING
 var _tween_elapsed_time := 0.0
 
 # Calculated inside of [member _increment_tween].
-# Emited on each [member _emit_tween_amount_changed]
+# Emitted on each [member _emit_tween_amount_changed]
 # Used by [signal tweening_amount_changed]
 var _tween_time_left := 0.0
 
@@ -733,7 +733,7 @@ func set_sizing_node_path(node_path : NodePath) -> void:
 		if node_path == NodePath(""):
 			if not use_custom_open_size or not use_custom_close_size:
 				# The following error emits even when the scene is changing.
-				# opting to remove it for now. Should only emit when the szing_node is unparented.
+				# opting to remove it for now. Should only emit when the sizing_node is unparented.
 				#_print_warning_in_game_or_err_in_editor("No sizing node detected: may size incorrectly.")
 				pass
 		# New node is set to something:
@@ -815,14 +815,14 @@ func get_closed_size_or_null(): #-> Vector2:
 func set_use_custom_open_size(use_custom : bool) -> void:
 	use_custom_open_size = use_custom
 	_auto_size_to_full.call_deferred()
-	_update_inspector() # Update's insector to show the [member custom_open_size] vector option.
+	_update_inspector() # Update's inspector to show the [member custom_open_size] vector option.
 	update_configuration_warnings()
 
 ## Enables usage of [member custom_close_size]. Can auto resize if [member auto_update_size] is enabled.
 func set_use_custom_close_size(use_custom : bool) -> void:
 	use_custom_close_size = use_custom
 	_auto_size_to_full.call_deferred()
-	_update_inspector() # Update's insector to show the [member custom_close_size] vector option.
+	_update_inspector() # Update's inspector to show the [member custom_close_size] vector option.
 	update_configuration_warnings()
 
 ## Sets [member custom_open_size]. Can auto resize if [member auto_update_size] is enabled.

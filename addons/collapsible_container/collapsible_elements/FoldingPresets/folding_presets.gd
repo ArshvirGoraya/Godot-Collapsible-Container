@@ -16,7 +16,7 @@ extends Control
 ## undo-redo functionality. 
 
 # REMINDER: if the buttons aren't changing colors properly, it may be because 
-# the inspecor is updating too soon.
+# the inspector is updating too soon.
 
 enum ButtonStates {NORMAL, HOVERED, PRESSED}
 
@@ -165,7 +165,7 @@ func set_folding_preset(preset : CollapsibleContainer.FoldingPreset) -> void:
 	editor_undo_redot.add_do_property(collapsible, "folding_direction_preset", preset)
 	editor_undo_redot.commit_action(true)
 
-# calls set_folding_preset() with the correct paramter. 
+# calls set_folding_preset() with the correct parameter. 
 func folding_preset_selected(button : TextureButton) -> void:
 	match currently_pressed_button:
 		top_left:

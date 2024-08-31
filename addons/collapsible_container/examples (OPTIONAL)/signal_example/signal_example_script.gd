@@ -31,7 +31,7 @@ extends Node
 @onready var tween_amount_changed_tween : Tween = create_tween()
 @onready var tween_interrupted_tween : Tween = create_tween()
 
-# Unnecessary error ptint if don't stop all the tweens now. 
+# Unnecessary error print if don't stop all the tweens now. 
 func _ready() -> void:
 	state_set_tween.stop()
 	tween_started_tween.stop()
