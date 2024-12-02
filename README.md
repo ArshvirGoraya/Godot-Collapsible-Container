@@ -44,10 +44,9 @@ Video guide to install a release from GitHub: <https://youtu.be/JRsGAgpPV8U>
   1. In the [releases section](https://github.com/ArshvirGoraya/Godot-Collapsible-Container/releases), find the release which corresponds with your Godot version. If a Godot version is not listed, this plugin likely does not work in that Godot version.
   2. Download the .zip file from the release which corresponds with your Godot version.
   3. Open your Godot project.
-  4. Create an "addons" folder if it does not already exist in your project's "res://" folder.
-  5. Unzip downloaded zip file into that addons folder.
-  6. Enable the plugin: Projects -> Project Settings -> Plugins -> Click enable on the CollapsibleContainer plugin.
-  7. Done! You can now add the CollapsibleContainer node into your scene tree.
+  4. Unzip the "addons" folder frin the downloaded .zip file into the project's "res://" directory.
+  5. Enable the plugin: Projects -> Project Settings -> Plugins -> Click enable on the CollapsibleContainer plugin.
+  6. Done! You can now add the CollapsibleContainer node into your scene tree.
 </details>
 
 ## Contribute
