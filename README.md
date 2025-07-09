@@ -30,6 +30,22 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 ## Basic Tutorial Video
 
 Tutorial video going over the basics of the CollapsibleContainer node: <https://youtu.be/o2qTSv0QmKA>
+## Example Script Usage
+
+```
+# UI_Manager.gd
+
+@onready var collapsible_container: CollapsibleContainer = $CollapsibleContainer
+
+# Connect button toggle signal to manager script.
+func _on_button_toggled(toggled_on: bool) -> void:
+  if toggled_on:
+    collapsible_container.close_tween() # Collapses the container
+
+  else:
+    collapsible_container.open_tween() # Opens the container
+```
+
 ## Installation
 
 You can install the plugin from within Godot's AssetLib tab! Remember to enable it in Project Settings!
