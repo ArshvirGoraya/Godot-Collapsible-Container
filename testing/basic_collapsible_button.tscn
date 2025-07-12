@@ -36,7 +36,7 @@ editor_description = "
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(165, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
