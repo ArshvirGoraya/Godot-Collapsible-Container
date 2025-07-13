@@ -12,11 +12,11 @@ A custom node for the Godot Game Engine that can help with many of your expandin
   
   ## Table of contents
 * [Node Information](#node-information)
+* [Known Issues](#known-issues)
 * [Tutorial video](#basic-tutorial-video)
 * [Installation](#installation)
 * [Contribute](#contribute)
 * [Donate](#donate)
-<!-- * [Known Issues](#known-issues) -->
 
 ## Node Information
 * Any `Control` nodes childed to the `Collapsible` can be hidden and revealed.
@@ -26,6 +26,10 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 * The direction the `Collapsible` opens/closes can be customized (e.g., top, bottom, left, right, top-bottom, etc.).
 * The dimension the `Collapsible` opens/closes can be customized (e.g., width, height, both).
 * This node has comprehensive documentation. Just like with built-in nodes, you can utilize the documentation from within the Godot editor to quickly find and understand relevant functions.
+
+## Known Issues
+* Fixed in Godot Version 4.5: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
+  * Godot Issue: https://github.com/godotengine/godot/issues/108164
 
 ## Basic Tutorial
 
