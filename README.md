@@ -19,13 +19,14 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 * [Donate](#donate)
 
 ## Node Information
-* Any `Control` nodes childed to the `Collapsible` can be hidden and revealed.
+* Adds a `CollapsibleContainer` node into the Godot game engine. 
+* Hide/reveal any `Control` node childed to the `CollapsibleContainer` node.
 * The folding and unfolding can be previewed directly in the editor!
-* The size it expands to or collapses to can be customized, but it can automatically it's 'open size' to match the `Control` node you want to hide/reveal.
-* Easing functions can be used to open/close, with customizable tween transition types and ease types.
-* The direction the `Collapsible` opens/closes can be customized (e.g., top, bottom, left, right, top-bottom, etc.).
-* The dimension the `Collapsible` opens/closes can be customized (e.g., width, height, both).
-* This node has comprehensive documentation. Just like with built-in nodes, you can utilize the documentation from within the Godot editor to quickly find and understand relevant functions.
+* Customize open/close sizes, with automatic adjustment to the desired node's size.
+* Customize ease/tween transition types and timing.
+* Customize open/close directions (e.g., top, bottom, left, right, top-bottom, etc.).
+* Customize open/close dimensions (e.g., width, height, both).
+* Comprehensive documentation built into the Godot editor: quickly find and understand any `CollapsibleContainer` function.
 
 ## Known Issues
 * Fixed in Godot Version 4.5: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
@@ -40,7 +41,7 @@ Tutorial video going over the basics of the `CollapsibleContainer` node: <https:
 
 * This script and a more detailed usage script is provided in this plugin's documentation within Godot.
 
-```GD
+```gdscript
 func _ready() -> void:
   var collapsible := CollapsibleContainer.new()
   
