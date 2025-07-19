@@ -21,12 +21,14 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 ## Node Information
 * Adds a `CollapsibleContainer` node into the Godot game engine. 
 * Hide/reveal any `Control` node childed to the `CollapsibleContainer` node.
-* The folding and unfolding can be previewed directly in the editor!
+* Preview folding/unfolding directly in the editor!
 * Customize open/close sizes, with automatic adjustment to the desired node's size.
 * Customize ease/tween transition types and timing.
 * Customize open/close directions (e.g., top, bottom, left, right, top-bottom, etc.).
 * Customize open/close dimensions (e.g., width, height, both).
-* Comprehensive documentation built into the Godot editor: quickly find and understand any `CollapsibleContainer` function.
+* Signals provided for `CollapsibleContainer` state changes.
+* Documentation built into the Godot editor: quickly find and understand any `CollapsibleContainer` function.
+* Useful example scenes provided to get you started.
 
 ## Known Issues
 * Fixed in Godot Version 4.5: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
