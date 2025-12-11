@@ -8,47 +8,64 @@ extends Control
 ## The folding can be done with or without tweening and can be 
 ## previewed in the editor.
 ##
+## [b]How it works: [/b]
 ## Like an [url=https://en.wikipedia.org/wiki/Accordion_(GUI)]accordion UI[/url]
-## element, this node can "hide" or "reveal" content due to its
-## [member Control.clip_contents] being set to true by default. Thus, this node's size 
-## determines how much of its children control nodes are seen. By changing its 
-## size, the node can mimic folding and unfolding behaviour. 
+## element, this node can "hide" or "reveal" content due to its [member Control.clip_contents] 
+## being set to true by default. Thus, this node's size determines how much of its children 
+## control nodes are seen. By changing its size, the node can mimic folding and unfolding behaviour. 
 ## [br]
-## [br]The "open" and "close" sizes can be set (see, [member use_custom_open_size] 
-## and [member use_custom_close_size]) in order to open and close the node to
-## those sizes. Alternatively, a control node can be set as the 
-## [member sizing_node] variable and its size is used as the "open" size instead.
-## This node can  automatically detect [member sizing_node]'s size changes, 
-## allowing it to always match its size and reveal the node fully.
+## [br][b]Custom sizes vs sizing_node: [/b]
+## The "open" and "close" sizes can be set (see, [member use_custom_open_size] and 
+## [member use_custom_close_size]) in order to open and close the node to those sizes. 
+## Alternatively, a control node can be set as the [member sizing_node] variable and 
+## its size is used as the "open" size instead. This node can automatically detect 
+## [member sizing_node]'s size changes, allowing it to always match its size and reveal 
+## the node fully.
 ## [br]
 ## [br][b]Direction of folding/unfolding: [/b]
-## [member sizing_constraint] allows the [CollapsibleContainer] to fold/unfold only the 
-## width, height, or both. The constraint can be combined with [member Control.LayoutPreset]
-## as well as [member Control.size_flags_horizontal] and [member Control.size_flags_vertical] for 
-## many folding/unfolding directions. It is important to understand that 
-## [b]container sizing flags[/b] give much more control over the direction this
-## node folds/unfolds. [member Control.LayoutPreset] will NOT give you full control of
-## the direction of folding/unfolding. For more control it is recommended to 
-## child this node to a [MarginContainer] so that [b]container sizing flags[/b] 
-## are accessible. It should be noted that the parent Container should probably
-## have the  same [member custom_minimum_size] as this node for the intended effect. 
-## To ease the process of assigning all these variables, you can simply set 
-## [member folding_direction_preset] to a [enum FoldingPreset] value. which will also
-## warn you if the desired direction requires a parent Container or not.
-## [br][br]If the CollapsibleContainer has a child, the position the child stays 
-## in while the CollapsibleContainer folds/unfolds will be determined by the child's 
-## [member Control.LayoutPreset].
-## It is recommended to use [method Control.set_anchors_and_offsets_preset]
-## instead of [method Control.set_anchors_preset] when setting the child's 
-## [member Control.LayoutPreset] through code. Keep in mind that the child may 
-## struggle to stay centered while the CollapsibleContainer is tweening
+## All folding directions can be accessed through the [member folding_direction_preset]
+## which can be set to a [enum FoldingPreset] value. [member folding_direction_preset] simply
+## sets the [member Control.LayoutPreset], [member Control.size_flags_horizontal] and 
+## [member Control.size_flags_vertical] of the CollapsibleContainer in a combination that
+## enables the folding directions in [enum FoldingPreset]. You can completely ignore using the
+## [member folding_direction_preset] and manually set the [member Control.LayoutPreset], 
+## [member Control.size_flags_horizontal] and [member Control.size_flags_vertical] yourself 
+## if you would like, but [member folding_direction_preset] is made so you don't have to!
+## Moreover, [member folding_direction_preset] lets you know through a warning when certain 
+## a certain folding direction is set when it is NOT available. Top-wide, top-left, and left-wide 
+## are always available, but all others require the CollapsibleContainer to be childed to another 
+## container node. It should be noted that the parent Container should probably
+## have the same [member custom_minimum_size] as this node for the intended effect. 
+## [br]
+## [br][b]Folding direction's effects on the childed nodes/sizing_node : [/b]
+## If the CollapsibleContainer has a child (usually the [member sizing_node]), the position 
+## the child stays in while the CollapsibleContainer folds/unfolds will be determined 
+## by the child's [member Control.LayoutPreset]. It is recommended to use 
+## [method Control.set_anchors_and_offsets_preset] instead of [method Control.set_anchors_preset] 
+## when setting the child's [member Control.LayoutPreset] through code. Keep in mind that 
+## the child may struggle to stay centered while the CollapsibleContainer is tweening
 ## depending on the child's layout preset. This may result in jittery child movement 
-## for the duration of the tween depending on the child's layout preset.
-## [br][br]Finally, you should call any sizing method (e.g., [method force_size], 
+## for the duration of the tween! Play with the size flags, anchors and layout preset of
+## the childed node until satisfied.
+## [br]
+## [br][b]Parents & Ancestors[/b]: CollapsibleContainer cannot automatically control the 
+## sizing behavior of any node other than itself. Importantly, this includes its 
+## parent/ancestor nodes. Some nodes shrink/grow to their children's size automatically 
+## (e.g., [Control] nodes like [MarginContainer]). If CollapsibleContainer is a child 
+## of that node, the parent will grow/shrink with the CollapsibleContainer all by itself. 
+## In most cases, this is exactly what you want. In cases where this is NOT what you want 
+## or in cases where a parent/ancestor is NOT automatically growing/shrinking with the 
+## CollapsibleContainer when you may want it to (e.g., when CollapsibleContainer is childed 
+## to a [Window]), consider connecting the [signal tweening_amount_changed] and [signal tween_completed] 
+## signals to a function that re-sizes parent/ancestors/desired node to whatever 
+## size you would like them to be in during the folding events.
+## [br]
+## [br][b]Call Deferred: [/b]Finally, you should call any sizing method (e.g., [method force_size], 
 ## [method open], [method close_tween], etc.) using [method Object.call_deferred] 
 ## if you attempt to call it [b]right after[/b] setting the [member Control.LayoutPreset], 
-## [member Control.size_flags_horizontal], [member Control.size_flags_vertical]
-## or [member sizing_constraint]. 
+## [member Control.size_flags_horizontal], [member Control.size_flags_vertical], [member sizing_constraint],
+## or anything that changes the folding direction. Otherwise, it may be set to a folding direction
+## that it was previously in, instead of the new one you just changed to.
 ## [br]
 ## [br][b]Warning[/b]: using built-in methods relating to size such as  
 ## [method Control.set_size] or [method Control.set_custom_minimum_size] 
@@ -65,7 +82,7 @@ extends Control
 ## you set the duration to. For example, tween may run for 0.71 seconds instead 
 ## of 0.7 seconds precisely. Keep this in mind if you need precise timing.
 ## [br]
-## [br]Quick Start
+## [br][b]Quick Start: [/b]
 ## [codeblock]
 ##func _ready() -> void:
 ##   var collapsible := CollapsibleContainer.new()
@@ -88,7 +105,7 @@ extends Control
 ##   collapsible.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 ## [/codeblock]
 ## [br]
-## [br]Detailed Usage:
+## [br][b]Detailed Usage: [/b]
 ## [codeblock]
 ##func _ready() -> void:
 ##   var collapsible := CollapsibleContainer.new()

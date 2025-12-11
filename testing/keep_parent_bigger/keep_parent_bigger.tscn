@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://du4yf28tuh42"]
+
+[ext_resource type="Script" uid="uid://s2bg0a6lq4w4" path="res://testing/keep_parent_bigger/keep_parent_bigger.gd" id="1_ig23k"]
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_rofv6"]
+
+[node name="KeepParentBigger" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ig23k")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.4040189, 0.725816, 0.80987537, 0.43529412)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Collapse"
+
+[node name="CollapsibleContainer" type="Control" parent="MarginContainer/VBoxContainer"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+custom_minimum_size = Vector2(40, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("1_rofv6")
+folding_direction_preset = 10
+sizing_constraint = 1
+sizing_node = NodePath("VBoxContainer")
+metadata/_custom_type_script = "uid://btlh4wrv04rc3"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 104.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="MarginContainer/VBoxContainer/CollapsibleContainer" method="open_tween_toggle"]
+[connection signal="tween_completed" from="MarginContainer/VBoxContainer/CollapsibleContainer" to="MarginContainer" method="_on_collapsible_container_tween_completed"]
+[connection signal="tweening_amount_changed" from="MarginContainer/VBoxContainer/CollapsibleContainer" to="MarginContainer" method="_on_collapsible_container_tweening_amount_changed"]
