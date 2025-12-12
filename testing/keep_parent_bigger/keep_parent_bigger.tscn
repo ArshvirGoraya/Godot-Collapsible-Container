@@ -13,8 +13,8 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 74.0
+offset_bottom = 139.0
 script = ExtResource("1_ig23k")
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
@@ -44,6 +44,7 @@ script = ExtResource("1_rofv6")
 folding_direction_preset = 10
 sizing_constraint = 1
 sizing_node = NodePath("VBoxContainer")
+force_keep_size_nodes = Array[NodePath]([NodePath("../..")])
 metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CollapsibleContainer"]

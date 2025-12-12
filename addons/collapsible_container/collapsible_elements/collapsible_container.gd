@@ -343,6 +343,22 @@ enum FoldingPreset {
 @export var use_custom_close_size := false: 
 		set = set_use_custom_close_size, get = get_use_custom_close_size
 
+## All nodes in this array will keep their size (what size they initialy are when 
+## they enter the scene) on the event that the CollapsibleContainer's size changes.
+## [br] Ideal for parent/ancestor nodes that are shrinking/growing with CollapsibleContainer 
+## but you don't want them to.
+@export var force_keep_size_nodes : Array[NodePath]:
+		set(x):
+			force_keep_size_nodes = await _validate_force_size_node(x, "force_keep_size_nodes")
+			_assign_force_keep_size_nodes_sizes(force_keep_size_nodes)
+
+## All nodes in this array will stick to their minimum size while the CollapsibleContainer 
+## is opening/closing. [br]Ideal for parent/ancestor nodes that are NOT shrinking/growing with 
+## CollapsibleContainer but you want them to.
+@export var force_min_size_nodes : Array[NodePath]:
+		set(x):
+			force_min_size_nodes = await _validate_force_size_node(x, "force_min_size_nodes")
+
 # Appears in inspector if [member use_custom_close_size].
 ## Used as an alternative to the default [constant Vector2.ZERO] 
 ## to set the "close size."
@@ -406,6 +422,9 @@ enum FoldingPreset {
 	set(x):
 		starts_with_process_mode = x
 		process_mode = starts_with_process_mode
+
+# Holds all starting sizes of all nodes in [member force_keep_size_nodes]
+var _force_keep_size_nodes_sizes : Dictionary[NodePath, Vector2]
 
 ## Can be gotten to know the current opened state (see, [enum OpenedStates]).
 ## [br][br][b]Warning:[/b] Should NOT be set externally (may break something).
@@ -1600,6 +1619,66 @@ func _has_parent_container() -> bool:
 func _set_to_size(target_size : Vector2) -> void:
 	set_custom_minimum_size(target_size)
 	set_size(target_size)
+	_update_force_size_nodes(force_keep_size_nodes, "keep")
+	_update_force_size_nodes(force_min_size_nodes, "min")
+
+# Updates all nodes in [member force_keep_size_nodes] or [member force_min_size_nodes]
+# and ensures their size is min/what it was when starting.
+# Called whe Collapsible's size has changed.
+func _update_force_size_nodes(size_nodes : Array[NodePath], type: String) -> void:
+	for node_path : NodePath in size_nodes:
+		var node_or_null = get_node(node_path)
+		if node_or_null == null:
+			continue
+		if type == "min":
+			node_or_null.size = Vector2(0, 0)
+		else:
+			node_or_null.size = _force_keep_size_nodes_sizes[node_path]
+
+func _assign_force_keep_size_nodes_sizes(force_keep_size_nodes: Array[NodePath]):
+	for node_path : NodePath in force_keep_size_nodes:
+		if node_path.is_empty():
+			continue
+		var node_or_null = get_node(node_path)
+		if node_or_null == null: 
+			continue
+		if node_or_null.is_node_ready():
+			_assign_force_keep_size_nodes_sizes_callback(node_or_null, node_path)
+		else:
+			node_or_null.ready.connect(_assign_force_keep_size_nodes_sizes_callback.bind(node_or_null, node_path))
+			
+func _assign_force_keep_size_nodes_sizes_callback(node: Node, node_path : NodePath):
+	_force_keep_size_nodes_sizes[node_path] = node.size
+
+# Removes any nodes in [member force_keep_size_nodes] or [member force_min_size_nodes] that
+# do not have a size property
+func _validate_force_size_node(size_nodes : Array[NodePath], arrayName: String):
+	if not is_node_ready():
+		await ready
+	
+	var removals : Array[int] = []
+	var c : int = 0
+	for node_path : NodePath in size_nodes:
+		if node_path.is_empty():
+			continue
+		var force_keep_size_node = get_node(node_path)
+		if force_keep_size_node == null: 
+			continue
+		var size_or_null = force_keep_size_node.get("size")
+		if size_or_null == null:
+			_print_warning_in_game_and_editor(String(node_path) + "does not have size property... Removing from " + arrayName)
+			removals.append(c)
+		c += 1
+		#new_sizing_node.connect("tree_exiting", _sizing_node_exiting)
+		#new_sizing_node.connect("resized", _sizing_node_resized)
+	
+	# Remove all that do not have a size property
+	for i in removals:
+		size_nodes.remove_at(i)
+	if removals.size() != 0:
+		_update_inspector()
+	
+	return size_nodes
 
 # Calls [member Object.notify_property_list_changed]. Improves readability.
 func _update_inspector() -> void:
