@@ -286,11 +286,15 @@ enum FoldingPreset {
 ## Sets the [member sizing_constraint], [member Control.size_flags_vertical] 
 ## and [member Control.size_flags_horizontal] in order to quickly set the 
 ## folding direction.
+## When independently changing [member sizing_constraint], [member Control.size_flags_vertical] 
+## or [member Control.size_flags_horizontal], this value is automatically
+## updated to reflect the new folding direction!
 @export var folding_direction_preset := FoldingPreset.PRESET_TOP_LEFT:
 	set(x):
 		_folding_direction_preset = x
 		set_folding_direction_preset(_folding_direction_preset)
 	get:
+		#return  get_folding_direction_preset()
 		return _folding_direction_preset
 
 ## Controls which direction the collapsible can folds/unfold.
@@ -441,6 +445,9 @@ var _tween_final_value := Vector2.ZERO
 # infinite recursion. [folding_direction_preset] sets flags and sizing_constraint,
 # which, themselves set [_folding_direction_preset]. If they were to set 
 # [folding_direction_preset] instead, there would be an infinite recursion. 
+# [member folding_direction_preset] can either be changed 
+# manually through [method set_folding_direction_preset]
+# or is updated automatically through [method _update_folding_direction]
 var _folding_direction_preset := FoldingPreset.PRESET_TOP_LEFT:
 	set(x):
 		if x != _folding_direction_preset:
@@ -564,74 +571,12 @@ func get_sizing_node_path() -> NodePath:
 	return sizing_node
 
 # Ideally returns -> [Control.LayoutPreset, bool]
-## Calculates and returns what the [member folding_direction_preset] is currently set to.
+## Returns what the [member folding_direction_preset] is currently set to.
 func get_folding_direction_preset() -> FoldingPreset:
-	var folding_direction : FoldingPreset
-	var sizing_constraint_match : bool = false
-	
-	var container_sizing_flags : Array[SizeFlags] = [get_v_size_flags(), get_h_size_flags()]
-	
-	match container_sizing_flags:
-		# Tops
-		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_BEGIN]:
-			folding_direction = FoldingPreset.PRESET_TOP_LEFT
-		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_CENTER]:
-			folding_direction = FoldingPreset.PRESET_CENTER_TOP
-		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_END]:
-			folding_direction = FoldingPreset.PRESET_TOP_RIGHT
-		
-		# Centers
-		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_BEGIN]:
-			folding_direction = FoldingPreset.PRESET_CENTER_LEFT
-		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER]:
-			folding_direction = FoldingPreset.PRESET_CENTER
-		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END]:
-			folding_direction = FoldingPreset.PRESET_CENTER_RIGHT
+	return _folding_direction_preset
 
-		# Bottoms
-		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_BEGIN]:
-			folding_direction = FoldingPreset.PRESET_BOTTOM_LEFT
-		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_CENTER]:
-			folding_direction = FoldingPreset.PRESET_CENTER_BOTTOM
-		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END]:
-			folding_direction = FoldingPreset.PRESET_BOTTOM_RIGHT
-		
-		# Side Wides:
-		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_BEGIN]:
-			folding_direction = FoldingPreset.PRESET_LEFT_WIDE
-		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_END]:
-			folding_direction = FoldingPreset.PRESET_RIGHT_WIDE
-		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_EXPAND_FILL]: #, [Control.SIZE_EXPAND, Control.SIZE_EXPAND_FILL]: 
-			folding_direction = FoldingPreset.PRESET_TOP_WIDE
-		[Control.SIZE_SHRINK_END, Control.SIZE_EXPAND_FILL]:
-			folding_direction = FoldingPreset.PRESET_BOTTOM_WIDE
-		
-		# Center Wides:
-		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_CENTER]:
-			folding_direction = FoldingPreset.PRESET_VCENTER_WIDE
-		[Control.SIZE_SHRINK_CENTER, Control.SIZE_EXPAND_FILL]:
-			folding_direction = FoldingPreset.PRESET_HCENTER_WIDE
-#		_:
-#			_print_warning_in_game_or_err_in_editor(str("cannot GET folding_direction_preset: unsupported sizing flags: ", container_sizing_flags))
-#			pass
-	
-	# Check if sizing_constraint is matching. Set from false to true if it is.
-	match folding_direction:
-		FoldingPreset.PRESET_LEFT_WIDE, FoldingPreset.PRESET_RIGHT_WIDE, FoldingPreset.PRESET_VCENTER_WIDE:
-			if sizing_constraint == SizingConstraintOptions.ONLY_WIDTH:
-				sizing_constraint_match = true
-		FoldingPreset.PRESET_TOP_WIDE, FoldingPreset.PRESET_BOTTOM_WIDE, FoldingPreset.PRESET_HCENTER_WIDE:
-			if sizing_constraint == SizingConstraintOptions.ONLY_HEIGHT:
-				sizing_constraint_match = true
-		_:
-			if sizing_constraint == SizingConstraintOptions.BOTH:
-				sizing_constraint_match = true
-	
-	if not sizing_constraint_match:
-		folding_direction = FoldingPreset.UNDEFINED
-	
-	return folding_direction
-
+# The [method _update_folding_direction] function is called whenever the sizing flags
+# and/or sizing_constrant is changed within this function!
 ## Uses [enum FoldingPreset] to set the [member Control.size_flags_vertical] 
 ## and [member Control.size_flags_horizontal].
 ## For some folding presets a parent container may be required. In these cases,
@@ -1337,12 +1282,9 @@ func _increment_tween(delta) -> void:
 	get_normalized_size_or_null()
 	
 	if _tween_time_left <= 0: # tween is over
-		set_custom_minimum_size(_tween_final_value)
-		set_size(_tween_final_value)
+		_set_to_size(_tween_final_value)
 		
-		var previous_tween_state = _tween_state
 		set_to_end_tween(false)
-	
 	else: # tween is not over:
 		var interpolated_size = Tween.interpolate_value(
 			_tween_initial_value, 
@@ -1352,28 +1294,7 @@ func _increment_tween(delta) -> void:
 			tween_transition_type, 
 			tween_ease_type)
 		
-		set_custom_minimum_size(interpolated_size)
-		set_size(interpolated_size)
-	
-#	if _tween_elapsed_time < tween_duration_sec:
-#		_tween_elapsed_time += delta
-#		_tween_time_left = tween_duration_sec - _tween_elapsed_time
-#		var interpolated_size = Tween.interpolate_value(
-#			_tween_initial_value, 
-#			_tween_delta_value, 
-#			_tween_elapsed_time, 
-#			tween_duration_sec, 
-#			tween_transition_type, 
-#			tween_ease_type)
-#
-#		set_custom_minimum_size(interpolated_size)
-#		set_size(interpolated_size)
-#	else:
-#		# tween completed.
-#		var previous_tween_state = _tween_state
-#		set_to_end_tween(false)
-
-
+		_set_to_size(interpolated_size)
 
 # Called before starting any tween. Sets up all variables to be used with
 # [method Tween.interpolate_value] which is used within [member _increment_tween].
@@ -1385,8 +1306,6 @@ func _set_tween_variables(tween_target : Vector2, restart : bool = true) -> void
 		_tween_elapsed_time = 0.0
 	
 	_tween_initial_value = get_size()
-	
-	tween_target = tween_target
 	_tween_final_value = tween_target
 	_tween_delta_value = _tween_final_value - _tween_initial_value
 
@@ -1405,11 +1324,12 @@ func _get_target_opened_state(current_tween_state) -> OpenedStates:
 			return OpenedStates.OPENED
 		TweenStates.CLOSING, TweenStates.AUTO_TWEENING_CLOSE:
 			return OpenedStates.CLOSED
-		TweenStates.FORCE_TWEENING: # equivalent to: TweenStates.FORCE_TWEENING:
+		TweenStates.FORCE_TWEENING:
 			return OpenedStates.FORCE_SIZED
 		_: 
 			_print_warning_in_game_and_editor("attempt to get target opened state when not tweening.")
 			return _opened_state
+
 
 # Note: this method may be doing too much or should be renamed.
 #
@@ -1420,7 +1340,7 @@ func _get_target_opened_state(current_tween_state) -> OpenedStates:
 # Gets the full size, which may be the open size or the close size, depending 
 # on which states ([member _opened_state] and [member _tween_state]) are 
 # currently set.
-# [br]Also returns the target opened state: what the the [member _opened_state] 
+# [br]Also returns the target opened state: what the [member _opened_state] 
 # value will be after the current potentially occurring tween.
 # [br][br] Return value is: [Vector2, OpenedStates] where Vector2 may be null
 # if the sizing_node is used but is not set to anything.
@@ -1599,12 +1519,76 @@ func _get_largest_size_value() -> Vector2:
 	
 	return biggest
 
-# Called when [member sizing_constraint] or sizing flags 
-# ([member Control.size_flags_horizontal] and 
-# [member Control.size_flags_vertical]) are changed changed.
+
+# Calculates and sets [member folding_direction_preset] value based on change from 
+# [member sizing_constraint] or sizing flags ([member Control.size_flags_horizontal] 
+# and [member Control.size_flags_vertical]).
 func _update_folding_direction() -> void:
-	var direction : FoldingPreset = get_folding_direction_preset()
-	_folding_direction_preset = direction
+	var folding_direction : FoldingPreset
+	var sizing_constraint_match : bool = false
+	
+	var container_sizing_flags : Array[SizeFlags] = [get_v_size_flags(), get_h_size_flags()]
+	
+	match container_sizing_flags:
+		# Tops
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_TOP_LEFT
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER_TOP
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_TOP_RIGHT
+		
+		# Centers
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_CENTER_LEFT
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_CENTER_RIGHT
+
+		# Bottoms
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_LEFT
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_CENTER_BOTTOM
+		[Control.SIZE_SHRINK_END, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_RIGHT
+		
+		# Side Wides:
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_BEGIN]:
+			folding_direction = FoldingPreset.PRESET_LEFT_WIDE
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_END]:
+			folding_direction = FoldingPreset.PRESET_RIGHT_WIDE
+		[Control.SIZE_SHRINK_BEGIN, Control.SIZE_EXPAND_FILL]:
+			folding_direction = FoldingPreset.PRESET_TOP_WIDE
+		[Control.SIZE_SHRINK_END, Control.SIZE_EXPAND_FILL]:
+			folding_direction = FoldingPreset.PRESET_BOTTOM_WIDE
+		
+		# Center Wides:
+		[Control.SIZE_EXPAND_FILL, Control.SIZE_SHRINK_CENTER]:
+			folding_direction = FoldingPreset.PRESET_VCENTER_WIDE
+		[Control.SIZE_SHRINK_CENTER, Control.SIZE_EXPAND_FILL]:
+			folding_direction = FoldingPreset.PRESET_HCENTER_WIDE
+#		_:
+#			_print_warning_in_game_or_err_in_editor(str("cannot GET folding_direction_preset: unsupported sizing flags: ", container_sizing_flags))
+#			pass
+	
+	# Check if sizing_constraint is matching. Set from false to true if it is.
+	match folding_direction:
+		FoldingPreset.PRESET_LEFT_WIDE, FoldingPreset.PRESET_RIGHT_WIDE, FoldingPreset.PRESET_VCENTER_WIDE:
+			if sizing_constraint == SizingConstraintOptions.ONLY_WIDTH:
+				sizing_constraint_match = true
+		FoldingPreset.PRESET_TOP_WIDE, FoldingPreset.PRESET_BOTTOM_WIDE, FoldingPreset.PRESET_HCENTER_WIDE:
+			if sizing_constraint == SizingConstraintOptions.ONLY_HEIGHT:
+				sizing_constraint_match = true
+		_:
+			if sizing_constraint == SizingConstraintOptions.BOTH:
+				sizing_constraint_match = true
+	
+	if not sizing_constraint_match:
+		folding_direction = FoldingPreset.UNDEFINED
+	
+	_folding_direction_preset = folding_direction
 
 # Returns true if parent is a container or inherits from it.
 func _has_parent_container() -> bool:
