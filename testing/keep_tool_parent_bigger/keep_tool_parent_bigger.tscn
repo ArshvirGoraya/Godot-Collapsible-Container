@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://du4yf28tuh42"]
+[gd_scene load_steps=3 format=3 uid="uid://usn3t56ikp2r"]
 
-[ext_resource type="Script" uid="uid://s2bg0a6lq4w4" path="res://testing/keep_parent_bigger/keep_parent_bigger.gd" id="1_ig23k"]
-[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_rofv6"]
+[ext_resource type="Script" uid="uid://dwh5edh0n8v40" path="res://testing/keep_tool_parent_bigger/keep_parent_specific_size.gd" id="1_63q8s"]
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_hj4pb"]
 
-[node name="KeepParentBigger" type="Control"]
+[node name="KeepToolParentBigger" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,23 +12,22 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(74, 139)
 layout_mode = 0
-offset_right = 74.0
-offset_bottom = 139.0
-script = ExtResource("1_ig23k")
+offset_right = 71.0
+offset_bottom = 165.0
+script = ExtResource("1_63q8s")
+keep_size = Vector2(71, 124.5)
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
-color = Color(0.4040189, 0.725816, 0.80987537, 0.43529412)
+color = Color(0.1290887, 0.29456043, 0.354367, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Collapse"
+text = "collapse"
 
 [node name="CollapsibleContainer" type="Control" parent="MarginContainer/VBoxContainer"]
 process_mode = 3
@@ -37,11 +36,11 @@ editor_description = "
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
-custom_minimum_size = Vector2(74, 104)
+custom_minimum_size = Vector2(71, 131)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-script = ExtResource("1_rofv6")
+script = ExtResource("1_hj4pb")
 folding_direction_preset = 10
 sizing_constraint = 1
 sizing_node = NodePath("VBoxContainer")
@@ -51,7 +50,7 @@ metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 104.0
+offset_bottom = 131.0
 grow_horizontal = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
@@ -67,6 +66,10 @@ layout_mode = 2
 text = "hello"
 
 [node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
 layout_mode = 2
 text = "hello"
 
