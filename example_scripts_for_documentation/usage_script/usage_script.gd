@@ -26,7 +26,7 @@ func _ready() -> void:
 	# collapsible to a Container to use more folding directions! 
 	# Should give the parent Container a minimum size of the "open" size
 	# for the intended effect. 
-	#ar parent_container := MarginContainer.new()
+	#var parent_container := MarginContainer.new()
 	#parent_container.set_size(Vector2(20, 20))
 	#parent_container.add_child(collapsible)
 	#add_child(parent_container)
@@ -43,7 +43,7 @@ func _ready() -> void:
 	#collapsible.custom_open_size = Vector2(x, y)
 	#collapsible.custom_close_size = Vector2(x, y)
 
-	# Modify the folding direction. (Folds from the top left by default).
+	# Modify the folding direction (folds from the top left by default).
 	# Here, we set it so that it folds from the top and is wide (as wide as the
 	# x/horizontal value in the "open" size).
 	# Some FoldingPresets require this node to be childed to a parent Container 

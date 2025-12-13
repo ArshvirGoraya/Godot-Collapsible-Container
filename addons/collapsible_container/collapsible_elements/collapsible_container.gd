@@ -32,10 +32,11 @@ extends Control
 ## [member Control.size_flags_horizontal] and [member Control.size_flags_vertical] yourself 
 ## if you would like, but [member folding_direction_preset] is made so you don't have to!
 ## Moreover, [member folding_direction_preset] lets you know through a warning when certain 
-## a certain folding direction is set when it is NOT available. Top-wide, top-left, and left-wide 
-## are always available, but all others require the CollapsibleContainer to be childed to another 
-## container node. It should be noted that the parent Container should probably
-## have the same [member custom_minimum_size] as this node for the intended effect. 
+## you set the [member folding_direction_preset] to a value that is NOT available. 
+## Top-wide, top-left, and left-wide are always available, but all others require the 
+## CollapsibleContainer to be childed to another container node. It should be noted that
+## the parent Container should probably have the same [member custom_minimum_size] as this 
+## node for the intended effects of those other folding directions. 
 ## [br]
 ## [br][b]Folding direction's effects on the childed nodes/sizing_node : [/b]
 ## If the CollapsibleContainer has a child (usually the [member sizing_node]), the position 
@@ -43,30 +44,29 @@ extends Control
 ## by the child's [member Control.LayoutPreset]. It is recommended to use 
 ## [method Control.set_anchors_and_offsets_preset] instead of [method Control.set_anchors_preset] 
 ## when setting the child's [member Control.LayoutPreset] through code. Keep in mind that 
-## the child may struggle to stay centered while the CollapsibleContainer is tweening
-## depending on the child's layout preset. This may result in jittery child movement 
+## the child may struggle to stay centered (in the case that the centered preset is selected) 
+## while the CollapsibleContainer is tweening. This may result in jittery child movement 
 ## for the duration of the tween! Play with the size flags, anchors and layout preset of
 ## the childed node until satisfied.
 ## [br]
-## [br][b]Parents & Ancestors sizing[/b]: CollapsibleContainer cannot automatically control the 
-## sizing behavior of any node other than itself. Importantly, this includes its 
-## parent/ancestor nodes. Some nodes shrink/grow to their children's size automatically 
-## (e.g., [Control] nodes like [MarginContainer]). If CollapsibleContainer is a child 
-## of that node, the parent will grow/shrink with the CollapsibleContainer all by itself. 
-##[br]In the case where you want the parent/ancestor to NOT shrink with the CollapsibleContainer
-## when it automatically is, simply set its [member custom_minimum_size] so it never 
-## goes below that size.
-##[br]In the case where you want the parent/ancestor to always shrink with the CollapsibleContainer
-## when it is not automatically doing so, consider adding the node to the [member force_min_size_nodes] 
-## array, which sets that node to its minimum size when the CollapsibleContainer changes its 
-## size, even in editor previews!
-##[br]In cases where a parent/ancestor/desired node is not growing with the CollapsibleContainer or simply
+## [br][b]Sizing effects on parents & ancestors sizing[/b]: Some nodes shrink/grow to their 
+## children's size automatically (e.g., [Control] nodes like [MarginContainer]). If 
+## CollapsibleContainer is a child of that node, the parent will grow/shrink with the 
+## CollapsibleContainer all by itself. Usually, this is exactly what you want.
+##[br]	In the case where you want the parent/ancestor to NOT shrink with the CollapsibleContainer
+## when it is automatically doing so, simply set the desired node's [member custom_minimum_size] parameter 
+## so it never goes below that size.
+##[br]	In the case where you want the parent/ancestor to always shrink with the CollapsibleContainer
+## when it is not automatically doing so (e.g., parent/ancestor is a [Window] node), consider adding 
+## the node to the [member force_min_size_nodes] array, which sets that node to its minimum size when
+## the CollapsibleContainer changes its size, even in editor previews!
+##[br]	In cases where a parent/ancestor/desired node is not growing with the CollapsibleContainer or simply
 ## isn't sizing the way you specifically want it to, consider connecting the 
 ## [signal tweening_amount_changed] and [signal tween_completed] signals to a function that 
 ## re-sizes the parent/ancestors/desired node to whatever size you would like them to be in during 
 ## these sizing events. Although, in this case, you likely will not be able to preview the desired
 ## node's sizing in the editor; only in game. But if you make the desired node's script a 
-## [annotation @GDScript.@tool] script you will likely be able to.
+## [annotation @GDScript.@tool] script you will likely be able to preview it right in the editor!
 ## [br]
 ## [br][b]Call Deferred: [/b]Finally, you should call any sizing method (e.g., [method force_size], 
 ## [method open], [method close_tween], etc.) using [method Object.call_deferred] 
@@ -141,7 +141,7 @@ extends Control
 ##   # collapsible to a Container to use more folding directions! 
 ##   # Should give the parent Container a minimum size of the "open" size
 ##   # for the intended effect. 
-##   #ar parent_container := MarginContainer.new()
+##   #var parent_container := MarginContainer.new()
 ##   #parent_container.set_size(Vector2(20, 20))
 ##   #parent_container.add_child(collapsible)
 ##   #add_child(parent_container)
@@ -158,7 +158,7 @@ extends Control
 ##   #collapsible.custom_open_size = Vector2(x, y)
 ##   #collapsible.custom_close_size = Vector2(x, y)
 ##   
-##   # Modify the folding direction. (Folds from the top left by default).
+##   # Modify the folding direction (folds from the top left by default).
 ##   # Here, we set it so that it folds from the top and is wide (as wide as the
 ##   # x/horizontal value in the "open" size).
 ##   # Some FoldingPresets require this node to be childed to a parent Container 
@@ -352,7 +352,7 @@ enum FoldingPreset {
 		set = set_use_custom_close_size, get = get_use_custom_close_size
 
 ## All nodes in this array will stick to their minimum size while the CollapsibleContainer 
-## is opening/closing. [br]Ideal for parent/ancestor nodes that are NOT shrinking/growing with 
+## is opening/closing. [br]Ideal for parent/ancestor nodes that are NOT shrinking with 
 ## CollapsibleContainer but you want them to.
 @export var force_min_size_nodes : Array[NodePath]:
 		set(x):
@@ -591,7 +591,7 @@ func get_folding_direction_preset() -> FoldingPreset:
 	return _folding_direction_preset
 
 # The [method _update_folding_direction] function is called whenever the sizing flags
-# and/or sizing_constrant is changed within this function!
+# and/or sizing_constraint is changed within this function!
 ## Uses [enum FoldingPreset] to set the [member Control.size_flags_vertical] 
 ## and [member Control.size_flags_horizontal].
 ## For some folding presets a parent container may be required. In these cases,
@@ -1534,7 +1534,6 @@ func _get_largest_size_value() -> Vector2:
 	
 	return biggest
 
-
 # Calculates and sets [member folding_direction_preset] value based on change from 
 # [member sizing_constraint] or sizing flags ([member Control.size_flags_horizontal] 
 # and [member Control.size_flags_vertical]).
@@ -1617,18 +1616,18 @@ func _set_to_size(target_size : Vector2) -> void:
 	set_size(target_size)
 	_update_force_min_size_nodes()
 
-# Called whe Collapsible's size has changed.
-# Updates all nodes in [member force_min_size_nodes] and ensures their size is
+# Called when Collapsible's size has changed.
+# Updates all nodes in [member force_min_size_nodes] and ensures their [member size] is
 # set to its minimum.
 func _update_force_min_size_nodes() -> void:
 	for node_path : NodePath in force_min_size_nodes:
 		var node_or_null = get_node(node_path)
 		if node_or_null == null:
-			_print_warning_in_game_and_editor("can't find foce min size node: " + String(node_path))
+			_print_warning_in_game_and_editor("can't find force_min_size_node: " + String(node_path))
 			continue
 		node_or_null.size = Vector2(0, 0)
 
-# Removes any nodes in [member force_min_size_nodes] that do not have a size property.
+# Removes any nodes in [member force_min_size_nodes] that do not have a [member size] property.
 func _validate_force_size_node(force_min_size_nodes: Array[NodePath]):
 	if not is_node_ready():
 		await ready
@@ -1640,7 +1639,7 @@ func _validate_force_size_node(force_min_size_nodes: Array[NodePath]):
 			continue
 		var node_or_null = get_node(node_path)
 		if node_or_null == null: 
-			_print_warning_in_game_and_editor("can't find foce min size node: " + String(node_path))
+			_print_warning_in_game_and_editor("can't find force_min_size_node: " + String(node_path))
 			continue
 		var size_or_null = node_or_null.get("size")
 		if size_or_null == null:
