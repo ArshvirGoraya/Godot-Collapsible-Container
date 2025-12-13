@@ -1620,7 +1620,7 @@ func _set_to_size(target_size : Vector2) -> void:
 # Updates all nodes in [member force_min_size_nodes] and ensures their [member size] is
 # set to its minimum.
 func _update_force_min_size_nodes() -> void:
-	for node_path : NodePath in force_min_size_nodes:
+	for node_path in force_min_size_nodes:
 		var node_or_null = get_node(node_path)
 		if node_or_null == null:
 			_print_warning_in_game_and_editor("can't find force_min_size_node: " + String(node_path))
@@ -1634,7 +1634,7 @@ func _validate_force_size_node(force_min_size_nodes: Array[NodePath]):
 	
 	var removals : Array[int] = []
 	var c : int = 0
-	for node_path : NodePath in force_min_size_nodes:
+	for node_path in force_min_size_nodes:
 		if node_path.is_empty():
 			continue
 		var node_or_null = get_node(node_path)
