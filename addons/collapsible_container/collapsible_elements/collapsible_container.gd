@@ -31,12 +31,12 @@ extends Control
 ## [member folding_direction_preset] and manually set the [member Control.LayoutPreset], 
 ## [member Control.size_flags_horizontal] and [member Control.size_flags_vertical] yourself 
 ## if you would like, but [member folding_direction_preset] is made so you don't have to!
-## Moreover, [member folding_direction_preset] lets you know through a warning when certain 
+## Moreover, [member folding_direction_preset] lets you know through a warning when 
 ## you set the [member folding_direction_preset] to a value that is NOT available. 
 ## Top-wide, top-left, and left-wide are always available, but all others require the 
-## CollapsibleContainer to be childed to another container node. It should be noted that
-## the parent Container should probably have the same [member custom_minimum_size] as this 
-## node for the intended effects of those other folding directions. 
+## CollapsibleContainer to be childed to another container node. In this case, it should be 
+## noted that the parent Container should probably have the same [member custom_minimum_size] 
+## as this node for the intended effect.
 ## [br]
 ## [br][b]Folding direction's effects on the childed nodes/sizing_node : [/b]
 ## If the CollapsibleContainer has a child (usually the [member sizing_node]), the position 

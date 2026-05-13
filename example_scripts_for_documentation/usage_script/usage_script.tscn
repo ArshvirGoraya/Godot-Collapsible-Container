@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1ec1ltuwj51c"]
+[gd_scene format=3 uid="uid://b1ec1ltuwj51c"]
 
 [ext_resource type="Script" uid="uid://chwrrueoe0nb7" path="res://example_scripts_for_documentation/usage_script/usage_script.gd" id="1_i858r"]
 
-[node name="UsageScript" type="Control"]
+[node name="UsageScript" type="Control" unique_id=1771435154]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
