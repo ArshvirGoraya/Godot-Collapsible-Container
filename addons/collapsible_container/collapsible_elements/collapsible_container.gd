@@ -351,6 +351,12 @@ enum FoldingPreset {
 @export var use_custom_close_size := false: 
 		set = set_use_custom_close_size, get = get_use_custom_close_size
 
+# Appears in inspector if [member use_custom_close_size].
+## Used as an alternative to the default [constant Vector2.ZERO] 
+## to set the "close size."
+@export var custom_close_size := Vector2(0, 0): 
+		set = set_custom_close_size, get = get_custom_close_size
+
 ## All nodes in this array will stick to their minimum size while the CollapsibleContainer 
 ## is opening/closing. [br]Ideal for parent/ancestor nodes that are NOT shrinking with 
 ## CollapsibleContainer but you want them to.
@@ -358,11 +364,6 @@ enum FoldingPreset {
 		set(x):
 			force_min_size_nodes = await _validate_force_size_node(x)
 
-# Appears in inspector if [member use_custom_close_size].
-## Used as an alternative to the default [constant Vector2.ZERO] 
-## to set the "close size."
-@export var custom_close_size := Vector2(0, 0): 
-		set = set_custom_close_size, get = get_custom_close_size
 
 @export_group("Tween Settings", "tween_")
 ## If true: runs tween in [method Node._physics_process] instead of [method Node._process].

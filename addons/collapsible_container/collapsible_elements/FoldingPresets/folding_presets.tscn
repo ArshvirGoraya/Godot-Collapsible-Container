@@ -1,6 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://cwa8eok4abi4c"]
+[gd_scene format=3 uid="uid://cwa8eok4abi4c"]
 
-[ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/folding_presets.gd" id="1_ysp51"]
+[ext_resource type="Script" uid="uid://bpvwlfgogpmis" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/folding_presets.gd" id="1_ysp51"]
 [ext_resource type="Texture2D" uid="uid://crdv3y6m67ms0" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignTopLeft.svg" id="2_lobqh"]
 [ext_resource type="Texture2D" uid="uid://c24jayottym27" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignCenterTop.svg" id="3_qbd0r"]
 [ext_resource type="Texture2D" uid="uid://domepwwue1sp4" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignTopLeft.svg" id="3_waogs"]
@@ -30,7 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bh8p8p5c1j5jg" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignVCenterWide.svg" id="27_k0fxd"]
 [ext_resource type="Texture2D" uid="uid://bdr0865vc18jt" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignVCenterWide.svg" id="28_8vmqg"]
 
-[node name="FoldingPresets" type="Control" node_paths=PackedStringArray("value_label", "top_left", "top_center", "top_right", "center_left", "center", "center_right", "bottom_left", "bottom_center", "bottom_right", "full_rect", "h_top_wide", "h_center_wide", "h_bottom_wide", "v_top_wide", "v_center_wide", "v_bottom_wide")]
+[node name="FoldingPresets" type="Control" unique_id=1472787182 node_paths=PackedStringArray("value_label", "top_left", "top_center", "top_right", "center_left", "center", "center_right", "bottom_left", "bottom_center", "bottom_right", "full_rect", "h_top_wide", "h_center_wide", "h_bottom_wide", "v_top_wide", "v_center_wide", "v_bottom_wide")]
 custom_minimum_size = Vector2(114, 174)
 layout_mode = 3
 anchors_preset = 8
@@ -66,7 +66,7 @@ v_center_wide = NodePath("Center/VBoxContainer/GridContainer/VWide/VCenterWide")
 v_bottom_wide = NodePath("Center/VBoxContainer/GridContainer/VWide/VRightWide")
 metadata/_edit_vertical_guides_ = []
 
-[node name="Center" type="Control" parent="."]
+[node name="Center" type="Control" parent="." unique_id=469204318]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -76,7 +76,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Center"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Center" unique_id=420732199]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -90,22 +90,22 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="Center/VBoxContainer"]
+[node name="Title" type="Label" parent="Center/VBoxContainer" unique_id=1426039651]
 layout_mode = 2
 text = "FoldingPresets"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Center/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Center/VBoxContainer" unique_id=609839020]
 layout_mode = 2
 columns = 3
 
-[node name="GridContainer" type="GridContainer" parent="Center/VBoxContainer/GridContainer"]
+[node name="GridContainer" type="GridContainer" parent="Center/VBoxContainer/GridContainer" unique_id=1782684294]
 layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 3
 
-[node name="TopLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer"]
+[node name="TopLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=411128810]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Top Left"
@@ -118,7 +118,7 @@ texture_disabled = ExtResource("3_waogs")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="TopCenter" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="TopCenter" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=1923887204 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Center Top"
@@ -130,7 +130,7 @@ texture_disabled = ExtResource("5_w0qwx")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="TopRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="TopRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=83750679 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Top Right"
@@ -143,7 +143,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="CenterLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="CenterLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=429637528 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Center Left"
@@ -155,7 +155,7 @@ texture_disabled = ExtResource("9_elwu8")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Center" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="Center" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=1033402574 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Center"
@@ -168,7 +168,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="CenterRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="CenterRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=902989058 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Center Right"
@@ -181,7 +181,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="BottomLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="BottomLeft" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=406357580 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Bottom Left"
@@ -193,7 +193,7 @@ texture_disabled = ExtResource("15_qyk2f")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="BottomCenter" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="BottomCenter" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=1358357345 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Center Bottom"
@@ -206,7 +206,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_v = true
 
-[node name="BottomRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" groups=["container_required"]]
+[node name="BottomRight" type="TextureButton" parent="Center/VBoxContainer/GridContainer/GridContainer" unique_id=571822636 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Bottom Right"
@@ -219,16 +219,16 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="VSeparator" type="VSeparator" parent="Center/VBoxContainer/GridContainer"]
+[node name="VSeparator" type="VSeparator" parent="Center/VBoxContainer/GridContainer" unique_id=1316028101]
 custom_minimum_size = Vector2(0, -12.845)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HWide" type="VBoxContainer" parent="Center/VBoxContainer/GridContainer"]
+[node name="HWide" type="VBoxContainer" parent="Center/VBoxContainer/GridContainer" unique_id=1882303258]
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="HTopWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide"]
+[node name="HTopWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide" unique_id=55466498]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Top Wide"
@@ -240,7 +240,7 @@ texture_disabled = ExtResource("18_qq35s")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="HCenterWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide" groups=["container_required"]]
+[node name="HCenterWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide" unique_id=2143167243 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "HCenter Wide"
@@ -252,7 +252,7 @@ texture_disabled = ExtResource("21_8b171")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="HBottomWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide" groups=["container_required"]]
+[node name="HBottomWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/HWide" unique_id=1163745395 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Bottom Wide"
@@ -265,23 +265,23 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_v = true
 
-[node name="HSeparator" type="HSeparator" parent="Center/VBoxContainer/GridContainer"]
+[node name="HSeparator" type="HSeparator" parent="Center/VBoxContainer/GridContainer" unique_id=952525836]
 custom_minimum_size = Vector2(0, -12.845)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="Center/VBoxContainer/GridContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Center/VBoxContainer/GridContainer" unique_id=1430503329]
 custom_minimum_size = Vector2(0, -12.845)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="Center/VBoxContainer/GridContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Center/VBoxContainer/GridContainer" unique_id=839215430]
 custom_minimum_size = Vector2(0, -12.845)
 layout_mode = 2
 
-[node name="VWide" type="HBoxContainer" parent="Center/VBoxContainer/GridContainer"]
+[node name="VWide" type="HBoxContainer" parent="Center/VBoxContainer/GridContainer" unique_id=142974871]
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="VLeftWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide"]
+[node name="VLeftWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" unique_id=90018742]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Left Wide"
@@ -293,7 +293,7 @@ texture_disabled = ExtResource("24_vdlak")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="VCenterWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" groups=["container_required"]]
+[node name="VCenterWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" unique_id=1620046357 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "VCenter Wide"
@@ -305,7 +305,7 @@ texture_disabled = ExtResource("27_k0fxd")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="VRightWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" groups=["container_required"]]
+[node name="VRightWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" unique_id=1123594338 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Right Wide"
@@ -318,22 +318,25 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="VSeparator2" type="VSeparator" parent="Center/VBoxContainer/GridContainer"]
+[node name="VSeparator2" type="VSeparator" parent="Center/VBoxContainer/GridContainer" unique_id=141611423]
 custom_minimum_size = Vector2(0, -12.845)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="FullRect" type="TextureButton" parent="Center/VBoxContainer/GridContainer"]
+[node name="FullRect" type="TextureButton" parent="Center/VBoxContainer/GridContainer" unique_id=2105602419]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "CollapsibleContainer Tips:
-For more FoldingDirections: parent to a Container (a MarginContainer is recommended). Ensure that the Container has the same minimum size as this node for the intended effect. (Copy and paste the custom_minimum_size from this inspector into the MarginContainer's custom_minimum_size!)"
+For more FoldingDirections: parent to a Container (a MarginContainer is recommended).
+Ensure that the Container has the same minimum size as this node for the intended effect.
+(Copy and paste the custom_minimum_size from this inspector into the MarginContainer's custom_minimum_size!)"
 texture_normal = ExtResource("26_k5ymx")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Value" type="Label" parent="Center/VBoxContainer"]
+[node name="Value" type="Label" parent="Center/VBoxContainer" unique_id=154781630]
 layout_mode = 2
+mouse_filter = 0
 text = "Value"
 horizontal_alignment = 1
 

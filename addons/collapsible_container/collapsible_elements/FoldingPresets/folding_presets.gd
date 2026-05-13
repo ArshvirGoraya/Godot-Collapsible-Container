@@ -93,10 +93,12 @@ func set_to_correct_button() -> void:
 	#print("Set color to: ", CollapsibleContainer.FoldingPreset.keys()[direction])
 	
 	value_label.set_text("")
+	value_label.tooltip_text = ""
 	match direction:
 		CollapsibleContainer.FoldingPreset.UNDEFINED:
 			currently_pressed_button.set_pressed(false)
 			value_label.set_text("UNDEFINED")
+			value_label.tooltip_text = "One of the above folding presets is not selected"
 		CollapsibleContainer.FoldingPreset.PRESET_TOP_LEFT:
 			change_color(top_left)
 		CollapsibleContainer.FoldingPreset.PRESET_CENTER_TOP:
