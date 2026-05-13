@@ -590,6 +590,22 @@ func get_sizing_node_path() -> NodePath:
 func get_folding_direction_preset() -> FoldingPreset:
 	return _folding_direction_preset
 
+## Returns true if [member folding_direction_preset] can be set to a [enum FoldingPreset]. 
+## [br]Useful when setting to a [enum FoldingPreset] which requires a parent container node.
+## [br]PRESET_TOP_WIDE, PRESET_TOP_LEFT and PRESET_LEFT_WIDE do not need a 
+## parent Container so those will always return true.
+func can_use_folding_direction(direction: FoldingPreset, emit_warning: bool = true) -> bool:
+	if not _has_parent_container():
+		if (
+			not direction == Control.PRESET_TOP_LEFT
+			and not direction == Control.PRESET_TOP_WIDE
+			and not direction == Control.PRESET_LEFT_WIDE
+			):
+				if emit_warning:
+					_print_warning_in_game_or_err_in_editor(str("cannot SET folding_direction_preset to ", FoldingPreset.keys()[direction] ,": parent is not Container"))
+				return false
+	return true
+
 # The [method _update_folding_direction] function is called whenever the sizing flags
 # and/or sizing_constraint is changed within this function!
 ## Uses [enum FoldingPreset] to set the [member Control.size_flags_vertical] 
@@ -612,14 +628,8 @@ func set_folding_direction_preset(direction : FoldingPreset, change_sizing_const
 		return
 	
 	# If not parent container, return if selected direction requires a parent container.
-	if not _has_parent_container():
-		if (
-			not direction == Control.PRESET_TOP_LEFT
-			and not direction == Control.PRESET_TOP_WIDE
-			and not direction == Control.PRESET_LEFT_WIDE
-			):
-			_print_warning_in_game_or_err_in_editor(str("cannot SET folding_direction_preset to ", FoldingPreset.keys()[direction] ,": parent is not Container"))
-			return
+	if not can_use_folding_direction(direction):
+		return
 	
 	match direction:
 		Control.PRESET_TOP_LEFT:

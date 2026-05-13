@@ -18,8 +18,6 @@ extends Control
 # REMINDER: if the buttons aren't changing colors properly, it may be because 
 # the inspector is updating too soon.
 
-enum ButtonStates {NORMAL, HOVERED, PRESSED}
-
 @export var value_label : Label
 
 @export_group("Buttons")
@@ -141,6 +139,9 @@ func discourage_container_required_buttons() -> void:
 # Toggles the pressed button and untoggles the previously pressed button.
 # Sets the appropriate folding_preset inside of CollapsibleContainer. 
 func clicked(button : TextureButton) -> void:
+	if not collapsible.can_use_folding_direction(get_folding_preset_from_button(button)):
+		button.button_pressed = false
+		return
 	change_color(button)
 	folding_preset_selected(button)
 
@@ -165,44 +166,50 @@ func set_folding_preset(preset : CollapsibleContainer.FoldingPreset) -> void:
 	editor_undo_redot.add_do_property(collapsible, "folding_direction_preset", preset)
 	editor_undo_redot.commit_action(true)
 
-# calls set_folding_preset() with the correct parameter. 
-func folding_preset_selected(button : TextureButton) -> void:
-	match currently_pressed_button:
+func get_folding_preset_from_button(button : TextureButton) -> CollapsibleContainer.FoldingPreset:
+	match button:
 		top_left:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_LEFT)
+			return CollapsibleContainer.FoldingPreset.PRESET_TOP_LEFT
 		top_center:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER_TOP)
+			return CollapsibleContainer.FoldingPreset.PRESET_CENTER_TOP
 		top_right:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_RIGHT)
+			return CollapsibleContainer.FoldingPreset.PRESET_TOP_RIGHT
 		##
 		center_left:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER_LEFT)
+			return CollapsibleContainer.FoldingPreset.PRESET_CENTER_LEFT
 		center:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER)
+			return CollapsibleContainer.FoldingPreset.PRESET_CENTER
 		center_right:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER_RIGHT)
+			return CollapsibleContainer.FoldingPreset.PRESET_CENTER_RIGHT
 		##
 		bottom_left:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_LEFT)
+			return CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_LEFT
 		bottom_center:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER_BOTTOM)
+			return CollapsibleContainer.FoldingPreset.PRESET_CENTER_BOTTOM
 		bottom_right:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_RIGHT)
+			return CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_RIGHT
 #		full_rect:
-#			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_CENTER)
+#			return CollapsibleContainer.FoldingPreset.PRESET_CENTER
 		##
 		h_top_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE
 		h_center_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_HCENTER_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_HCENTER_WIDE
 		h_bottom_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_BOTTOM_WIDE
 		v_top_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_LEFT_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_LEFT_WIDE
 		v_center_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_VCENTER_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_VCENTER_WIDE
 		v_bottom_wide:
-			set_folding_preset(CollapsibleContainer.FoldingPreset.PRESET_RIGHT_WIDE)
+			return CollapsibleContainer.FoldingPreset.PRESET_RIGHT_WIDE
+		_:
+			collapsible._print_warning("Unable to find folding preset for button: " + button.to_string())
+			return CollapsibleContainer.FoldingPreset.PRESET_TOP_LEFT
+
+# calls set_folding_preset() with the correct parameter. 
+func folding_preset_selected(button : TextureButton) -> void:
+	set_folding_preset(get_folding_preset_from_button(button))
 
 # Called when full_rect button is pressed. 
 # Future: this button should probably be re-labelled as the "TIPS" button.
