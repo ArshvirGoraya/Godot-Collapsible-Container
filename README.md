@@ -13,7 +13,7 @@ A custom node for the Godot Game Engine that can help with many of your expandin
   ## Table of contents
 * [Node Information](#node-information)
 * [Known Issues](#known-issues)
-* [Tutorial video](#basic-tutorial-video)
+* [Tutorial](#basic-tutorial)
 * [Installation](#installation)
 * [Contribute](#contribute)
 * [Donate](#donate)
@@ -31,8 +31,8 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 - Useful example scenes provided to get you started.
 
 > [!Note]
-> Godot now has a builtin `FoldableContainer` node but it cannot be opened or closed with easing functions which this plugin offers.
-> Godot's `FoldableContainer` node and this plugin's `CollapsibleContainer` node are _not_ the same.
+> - Godot now has a builtin `FoldableContainer` node but it cannot be opened or closed with easing functions which this plugin offers.
+> - Godot's `FoldableContainer` node and this plugin's `CollapsibleContainer` node are _not_ the same.
 
 ## Known Issues
 * Fixed in Godot Version 4.5: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
