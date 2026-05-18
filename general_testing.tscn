@@ -10,57 +10,90 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1590381120]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=2125500676]
-layout_mode = 2
-text = "button"
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=909479370]
-custom_minimum_size = Vector2(87, 23)
-layout_mode = 2
-
-[node name="CollapsibleContainer" type="Control" parent="VBoxContainer/MarginContainer" unique_id=423979664]
-process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
-Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-clip_contents = true
-custom_minimum_size = Vector2(87, 23)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-script = ExtResource("1_hobsh")
-folding_direction_preset = 6
-sizing_node = NodePath("Label")
-metadata/_custom_type_script = "uid://btlh4wrv04rc3"
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/CollapsibleContainer" unique_id=1891987042]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1500938860]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 87.0
-offset_bottom = 11.5
+offset_left = -51.0
+offset_top = -110.0
+offset_right = 51.0
+offset_bottom = 110.0
+grow_horizontal = 2
 grow_vertical = 2
-text = "hello world"
 
-[node name="CollapsibleContainer" type="Control" parent="." unique_id=1068450698]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=564514668]
+layout_mode = 2
+text = "Collapse Me"
+
+[node name="CollapsibleContainer" type="Control" parent="VBoxContainer" unique_id=1176479845]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+custom_minimum_size = Vector2(102, 185)
 clip_contents = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource("1_hobsh")
+folding_direction_preset = 10
+sizing_constraint = 1
+sizing_node = NodePath("VBoxContainer")
 metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 
-[connection signal="pressed" from="VBoxContainer/Button" to="VBoxContainer/MarginContainer/CollapsibleContainer" method="open_tween_toggle"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/CollapsibleContainer" unique_id=1372155467]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8116521, 0.60261995, 0.92862076, 0.34901962)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CollapsibleContainer" unique_id=590283536]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 185.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1514560040]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1642797895]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1091764495]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1761933584]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1312927546]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1459997253]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1648323240]
+layout_mode = 2
+text = "Hello World"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Button" to="VBoxContainer/CollapsibleContainer" method="open_tween_toggle"]

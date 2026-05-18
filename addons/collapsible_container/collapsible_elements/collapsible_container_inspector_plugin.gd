@@ -9,11 +9,10 @@ var preview_buttons = preload("res://addons/collapsible_container/collapsible_el
 # Allows for selecting FoldingPresets right in CollapsibleContainer's inspector.
 var folding_preset : PackedScene = preload("res://addons/collapsible_container/collapsible_elements/FoldingPresets/folding_presets.tscn")
 
-
 func _can_handle(object):
 	if object is CollapsibleContainer:
 		return true
-
+	return false
 
 func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wide):
 	# returning true = replaces/removes the property. 
@@ -34,4 +33,4 @@ func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wi
 				add_custom_control(folding_preset_instance)
 				folding_preset_instance.collapsible = object
 				return true
-	
+	return false

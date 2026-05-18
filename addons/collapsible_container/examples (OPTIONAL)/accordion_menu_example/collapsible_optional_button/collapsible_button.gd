@@ -169,6 +169,7 @@ func _get_configuration_warnings():
 				no CollapsibleContainer is assigned in its inspector."]
 	if not get_children().has(preview_timer):
 		return ["You should not use this node! Instead, instance the collapsible_button scene!"]
+	return []
 
 ## Runs when either the [member text_label_rtl] or [member text_symbol_rtl] change.
 ## Set's the text of this button to the same as the combined text of those two 

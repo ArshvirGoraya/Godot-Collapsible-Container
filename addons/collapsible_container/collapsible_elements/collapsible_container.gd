@@ -558,12 +558,14 @@ func _get_configuration_warnings():
 				In the inspector, please assign sizing_node (a Control or \
 				anything that inherits from Control) or use the custom \
 				open/close sizing options."]
+	return []
 
 # Allows reverting custom_open_size value to the [member sizing_node]'s full size 
 # if there is a [member sizing_node] set.
 func _property_can_revert(property: StringName):
 	if property == "custom_open_size":
 		return true
+	return false
 
 # Sets the revert/default value of the [member custom_open_size] to the 
 # [member sizing_node]'s if it's set.
@@ -573,6 +575,7 @@ func _property_get_revert(property: StringName):
 		if target_node != null:
 			return (target_node as Control).get_size()
 		return Vector2.ZERO
+	return null
 
 ## Returns the current [member _opened_state] value.
 func get_opened_state() -> OpenedStates:
