@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://du4yf28tuh42"]
+[gd_scene format=3 uid="uid://du4yf28tuh42"]
 
 [ext_resource type="Script" uid="uid://s2bg0a6lq4w4" path="res://testing/keep_parent_bigger/keep_parent_bigger.gd" id="1_ig23k"]
 [ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_rofv6"]
 
-[node name="KeepParentBigger" type="Control"]
+[node name="KeepParentBigger" type="Control" unique_id=652247313]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,33 +11,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1543853670]
 custom_minimum_size = Vector2(74, 139)
 layout_mode = 0
 offset_right = 74.0
 offset_bottom = 139.0
 script = ExtResource("1_ig23k")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer" unique_id=984221161]
 layout_mode = 2
 color = Color(0.4040189, 0.725816, 0.80987537, 0.43529412)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1698378303]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=31047730]
 layout_mode = 2
 text = "Collapse"
 
-[node name="CollapsibleContainer" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="CollapsibleContainer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1958479607]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-clip_contents = true
 custom_minimum_size = Vector2(74, 104)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -47,26 +47,26 @@ sizing_constraint = 1
 sizing_node = NodePath("VBoxContainer")
 metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CollapsibleContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CollapsibleContainer" unique_id=782146579]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 104.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=71824742]
 layout_mode = 2
 text = "hello"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=158558229]
 layout_mode = 2
 text = "hello"
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=1321395410]
 layout_mode = 2
 text = "hello"
 
-[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/CollapsibleContainer/VBoxContainer" unique_id=971431697]
 layout_mode = 2
 text = "hello"
 

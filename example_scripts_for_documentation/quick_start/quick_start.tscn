@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c33638yf4k777"]
+[gd_scene format=3 uid="uid://c33638yf4k777"]
 
 [ext_resource type="Script" uid="uid://dqg1puscamtkm" path="res://example_scripts_for_documentation/quick_start/quick_start.gd" id="1_1kvaf"]
 
-[node name="QuickStart" type="Control"]
+[node name="QuickStart" type="Control" unique_id=1937779298]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

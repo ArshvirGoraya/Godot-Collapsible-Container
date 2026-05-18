@@ -25,8 +25,8 @@ editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-clip_contents = true
 custom_minimum_size = Vector2(20, 40)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3

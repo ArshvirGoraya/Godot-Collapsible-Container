@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://be1a8ogmdi1we"]
+[gd_scene format=3 uid="uid://be1a8ogmdi1we"]
 
 [ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="1_fcxwt"]
 [ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_cc5ry"]
 
-[node name="BasicCollapsibleButton" type="Control"]
+[node name="BasicCollapsibleButton" type="Control" unique_id=1049542211]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=43094081]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -25,18 +25,18 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollapsibleButton" parent="VBoxContainer" node_paths=PackedStringArray("collapsible_node") instance=ExtResource("1_fcxwt")]
+[node name="CollapsibleButton" parent="VBoxContainer" unique_id=1858097698 node_paths=PackedStringArray("collapsible_node") instance=ExtResource("1_fcxwt")]
 layout_mode = 2
 collapsible_node = NodePath("../CollapsibleContainer")
 
-[node name="CollapsibleContainer" type="Control" parent="VBoxContainer"]
+[node name="CollapsibleContainer" type="Control" parent="VBoxContainer" unique_id=1076102576]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-clip_contents = true
 custom_minimum_size = Vector2(165, 23)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -46,7 +46,7 @@ sizing_constraint = 1
 sizing_node = NodePath("Label")
 metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 
-[node name="Label" type="Label" parent="VBoxContainer/CollapsibleContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/CollapsibleContainer" unique_id=588509568]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

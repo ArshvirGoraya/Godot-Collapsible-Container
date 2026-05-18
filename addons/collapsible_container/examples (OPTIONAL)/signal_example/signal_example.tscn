@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnfx4s8ortj53"]
+[gd_scene format=3 uid="uid://cnfx4s8ortj53"]
 
-[ext_resource type="Script" path="res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example_script.gd" id="1_teivp"]
-[ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_nump6"]
-[ext_resource type="Texture2D" uid="uid://yji7vga2as48" path="res://icon.svg" id="3_lrcam"]
+[ext_resource type="Script" uid="uid://df48k7qc8f0ux" path="res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example_script.gd" id="1_teivp"]
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_nump6"]
 
-[node name="Control" type="Control"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_62kk3"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wtgkf"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[node name="Control" type="Control" unique_id=4430658]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="CollapsibleContainerExampleScript" type="Node" parent="." node_paths=PackedStringArray("collapsible", "sizing_node_1", "sizing_node_2", "state_set_label", "tween_started_label", "tween_completed_label", "tween_amount_changed_label", "tween_interrupted_label", "tween_settings_info", "custom_sizes_info", "sizing_node_info", "constraint_info", "auto_update_info", "force_size_info", "force_tween_info")]
+[node name="CollapsibleContainerExampleScript" type="Node" parent="." unique_id=459748248 node_paths=PackedStringArray("collapsible", "sizing_node_1", "sizing_node_2", "state_set_label", "tween_started_label", "tween_completed_label", "tween_amount_changed_label", "tween_interrupted_label", "tween_settings_info", "custom_sizes_info", "sizing_node_info", "constraint_info", "auto_update_info", "force_size_info", "force_tween_info")]
 script = ExtResource("1_teivp")
 collapsible = NodePath("../CollapsibleContainer")
 sizing_node_1 = NodePath("../CollapsibleContainer/TextureRect")
@@ -31,14 +36,14 @@ auto_update_info = NodePath("../Buttons/AutoUpdate/Info")
 force_size_info = NodePath("../Buttons/ForceSize/Info")
 force_tween_info = NodePath("../Buttons/ForceTween/Info")
 
-[node name="CollapsibleContainer" type="Control" parent="."]
+[node name="CollapsibleContainer" type="Control" parent="." unique_id=1687236998]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-clip_contents = true
 custom_minimum_size = Vector2(212, 208)
+clip_contents = true
 anchors_preset = 0
 offset_right = 212.0
 offset_bottom = 208.0
@@ -51,19 +56,19 @@ custom_open_size = Vector2(269, 200)
 custom_close_size = Vector2(90, 100)
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="CollapsibleContainer"]
+[node name="TextureRect" type="TextureRect" parent="CollapsibleContainer" unique_id=1345471821]
 layout_mode = 0
 offset_right = 212.0
 offset_bottom = 208.0
-texture = ExtResource("3_lrcam")
+texture = SubResource("CompressedTexture2D_62kk3")
 
-[node name="TextureRect2" type="TextureRect" parent="CollapsibleContainer"]
+[node name="TextureRect2" type="TextureRect" parent="CollapsibleContainer" unique_id=1521032241]
 layout_mode = 0
 offset_right = 135.0
 offset_bottom = 131.0
-texture = ExtResource("3_lrcam")
+texture = SubResource("CompressedTexture2D_wtgkf")
 
-[node name="Signals" type="VBoxContainer" parent="."]
+[node name="Signals" type="VBoxContainer" parent="." unique_id=1747726109]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -72,53 +77,53 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="Signals"]
+[node name="Title" type="Label" parent="Signals" unique_id=667162898]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.996078, 0, 0, 1)
 text = "SIGNALS: "
 horizontal_alignment = 2
 
-[node name="StateSet" type="Label" parent="Signals"]
+[node name="StateSet" type="Label" parent="Signals" unique_id=831879256]
 layout_mode = 2
 text = "State Set: 
 Previous State:"
 horizontal_alignment = 2
 
-[node name="StateChanged" type="Label" parent="Signals"]
+[node name="StateChanged" type="Label" parent="Signals" unique_id=294109404]
 visible = false
 layout_mode = 2
 text = "State Changed: "
 horizontal_alignment = 2
 
-[node name="Empty space2" type="Label" parent="Signals"]
+[node name="Empty space2" type="Label" parent="Signals" unique_id=1201802891]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="TweenStarted" type="Label" parent="Signals"]
+[node name="TweenStarted" type="Label" parent="Signals" unique_id=112462327]
 layout_mode = 2
 text = "Tween Started: "
 horizontal_alignment = 2
 
-[node name="TweenCompleted" type="Label" parent="Signals"]
+[node name="TweenCompleted" type="Label" parent="Signals" unique_id=1385864296]
 layout_mode = 2
 text = "Tween Completed: "
 horizontal_alignment = 2
 
-[node name="TweenAmountChanged" type="Label" parent="Signals"]
+[node name="TweenAmountChanged" type="Label" parent="Signals" unique_id=1427546295]
 layout_mode = 2
 text = "Tween Amount Changed: "
 horizontal_alignment = 2
 
-[node name="Empty space" type="Label" parent="Signals"]
+[node name="Empty space" type="Label" parent="Signals" unique_id=69760587]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="TweenInterrupted" type="Label" parent="Signals"]
+[node name="TweenInterrupted" type="Label" parent="Signals" unique_id=259187334]
 layout_mode = 2
 text = "Tween Interrupted: "
 horizontal_alignment = 2
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=550447892]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,39 +137,39 @@ offset_bottom = 120.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Buttons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons" unique_id=1078804893]
 layout_mode = 2
 
-[node name="ToggleOpen" type="Button" parent="Buttons/HBoxContainer"]
+[node name="ToggleOpen" type="Button" parent="Buttons/HBoxContainer" unique_id=1076704215]
 layout_mode = 2
 tooltip_text = "Calls open_toggle() on the CollapsibleContainer"
 text = "Toggle Open/Close"
 
-[node name="ToggleTweenOpen" type="Button" parent="Buttons/HBoxContainer"]
+[node name="ToggleTweenOpen" type="Button" parent="Buttons/HBoxContainer" unique_id=600448090]
 layout_mode = 2
 tooltip_text = "Calls open_tween_toggle() on the CollapsibleContainer"
 text = "Toggle Tweening"
 
-[node name="SetToEndTween" type="Button" parent="Buttons/HBoxContainer"]
+[node name="SetToEndTween" type="Button" parent="Buttons/HBoxContainer" unique_id=1966545150]
 layout_mode = 2
 tooltip_text = "Calls set_to_end_tween() on the CollapsibleContainer"
 text = "Set To End Tween"
 
-[node name="ForceStopTween" type="Button" parent="Buttons/HBoxContainer"]
+[node name="ForceStopTween" type="Button" parent="Buttons/HBoxContainer" unique_id=190030494]
 layout_mode = 2
 tooltip_text = "Calls force_stop_tween() on the CollapsibleContainer"
 text = "Force Stop Tween"
 
-[node name="TweenSettings" type="HBoxContainer" parent="Buttons"]
+[node name="TweenSettings" type="HBoxContainer" parent="Buttons" unique_id=30276769]
 layout_mode = 2
 
-[node name="ToggleTweenSettings" type="Button" parent="Buttons/TweenSettings"]
+[node name="ToggleTweenSettings" type="Button" parent="Buttons/TweenSettings" unique_id=1064026090]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Changes the tween settings between 2 selections."
 text = "Toggle Tween Settings"
 
-[node name="Info" type="Label" parent="Buttons/TweenSettings"]
+[node name="Info" type="Label" parent="Buttons/TweenSettings" unique_id=704730619]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TRANS_SIZE
@@ -172,97 +177,97 @@ EASE_OUT
 duration = 0.5"
 vertical_alignment = 1
 
-[node name="CustomSizes" type="HBoxContainer" parent="Buttons"]
+[node name="CustomSizes" type="HBoxContainer" parent="Buttons" unique_id=545401735]
 layout_mode = 2
 
-[node name="ToggleCustomSizes" type="Button" parent="Buttons/CustomSizes"]
+[node name="ToggleCustomSizes" type="Button" parent="Buttons/CustomSizes" unique_id=1497487221]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Sets custom open and close sizes if toggled on. 
 If toggled off, sets use_custom_open_size and use_custom_close_size to false."
 text = "Toggle Custom Sizes"
 
-[node name="Info" type="Label" parent="Buttons/CustomSizes"]
+[node name="Info" type="Label" parent="Buttons/CustomSizes" unique_id=290440885]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "false"
 vertical_alignment = 1
 
-[node name="Sizing Node" type="HBoxContainer" parent="Buttons"]
+[node name="Sizing Node" type="HBoxContainer" parent="Buttons" unique_id=1007218516]
 layout_mode = 2
 
-[node name="ToggleSizingNode" type="Button" parent="Buttons/Sizing Node"]
+[node name="ToggleSizingNode" type="Button" parent="Buttons/Sizing Node" unique_id=389951530]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Changes sizing_node between 2 options."
 text = "Toggle Sizing Node"
 
-[node name="Info" type="Label" parent="Buttons/Sizing Node"]
+[node name="Info" type="Label" parent="Buttons/Sizing Node" unique_id=1840458611]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TextureRect"
 vertical_alignment = 1
 
-[node name="Constraint" type="HBoxContainer" parent="Buttons"]
+[node name="Constraint" type="HBoxContainer" parent="Buttons" unique_id=660110968]
 layout_mode = 2
 
-[node name="ToggleConstraint" type="Button" parent="Buttons/Constraint"]
+[node name="ToggleConstraint" type="Button" parent="Buttons/Constraint" unique_id=1403920615]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Toggles the collapsible between the 3 different SizingConstraintOptions options: BOTH, ONLY_WIDTH AND ONLY_HEIGHT."
 text = "Toggle Constraint"
 
-[node name="Info" type="Label" parent="Buttons/Constraint"]
+[node name="Info" type="Label" parent="Buttons/Constraint" unique_id=456317265]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "BOTH"
 vertical_alignment = 1
 
-[node name="AutoUpdate" type="HBoxContainer" parent="Buttons"]
+[node name="AutoUpdate" type="HBoxContainer" parent="Buttons" unique_id=32769269]
 layout_mode = 2
 
-[node name="ToggleAutoSizeUpdate" type="Button" parent="Buttons/AutoUpdate"]
+[node name="ToggleAutoSizeUpdate" type="Button" parent="Buttons/AutoUpdate" unique_id=457102031]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Toggles the collapsible between the 3 different AutoUpdateSizeOptions options: DISABLED, WITH_TWEEN AND WITHOUT_TWEEN."
 text = "Toggle Auto Size Update"
 
-[node name="Info" type="Label" parent="Buttons/AutoUpdate"]
+[node name="Info" type="Label" parent="Buttons/AutoUpdate" unique_id=21980200]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WITHOUT_TWEEN"
 vertical_alignment = 1
 
-[node name="ForceSize" type="HBoxContainer" parent="Buttons"]
+[node name="ForceSize" type="HBoxContainer" parent="Buttons" unique_id=989201212]
 layout_mode = 2
 
-[node name="ToggleForceSize" type="Button" parent="Buttons/ForceSize"]
+[node name="ToggleForceSize" type="Button" parent="Buttons/ForceSize" unique_id=1633445155]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Toggles between 2 different sizes and forcibly sets the collapsible's size to selected."
 text = "Toggle Force Size"
 
-[node name="Info" type="Label" parent="Buttons/ForceSize"]
+[node name="Info" type="Label" parent="Buttons/ForceSize" unique_id=924992486]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "false"
 vertical_alignment = 1
 
-[node name="ForceTween" type="HBoxContainer" parent="Buttons"]
+[node name="ForceTween" type="HBoxContainer" parent="Buttons" unique_id=1355935093]
 layout_mode = 2
 
-[node name="ToggleForceTween" type="Button" parent="Buttons/ForceTween"]
+[node name="ToggleForceTween" type="Button" parent="Buttons/ForceTween" unique_id=341575099]
 custom_minimum_size = Vector2(200, 78)
 layout_mode = 2
 tooltip_text = "Toggles between 2 different sizes and forcibly tweens the collapsible's size to selected."
 text = "Toggle Force Tween"
 
-[node name="Info" type="Label" parent="Buttons/ForceTween"]
+[node name="Info" type="Label" parent="Buttons/ForceTween" unique_id=198467718]
 custom_minimum_size = Vector2(183, 0)
 layout_mode = 2
 size_flags_horizontal = 3
