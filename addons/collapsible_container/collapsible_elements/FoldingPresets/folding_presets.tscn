@@ -29,6 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://w7ggyfcx8yjr" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignVCenterWide.svg" id="26_p7f3l"]
 [ext_resource type="Texture2D" uid="uid://bh8p8p5c1j5jg" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignVCenterWide.svg" id="27_k0fxd"]
 [ext_resource type="Texture2D" uid="uid://bdr0865vc18jt" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignVCenterWide.svg" id="28_8vmqg"]
+[ext_resource type="Texture2D" uid="uid://c8afkonmfuhgn" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignFullRect_Tips.svg" id="30_k5rca"]
+[ext_resource type="Texture2D" uid="uid://d1wspkslw4t2o" path="res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignFullRect_Tips.svg" id="31_h6dyv"]
 
 [node name="FoldingPresets" type="Control" unique_id=1472787182 node_paths=PackedStringArray("value_label", "top_left", "top_center", "top_right", "center_left", "center", "center_right", "bottom_left", "bottom_center", "bottom_right", "full_rect", "h_top_wide", "h_center_wide", "h_bottom_wide", "v_top_wide", "v_center_wide", "v_bottom_wide")]
 custom_minimum_size = Vector2(114, 174)
@@ -127,6 +129,7 @@ texture_normal = ExtResource("3_qbd0r")
 texture_pressed = ExtResource("5_w0qwx")
 texture_hover = ExtResource("7_w5ow3")
 texture_disabled = ExtResource("5_w0qwx")
+texture_focused = ExtResource("7_w5ow3")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -139,6 +142,7 @@ texture_normal = ExtResource("2_lobqh")
 texture_pressed = ExtResource("3_waogs")
 texture_hover = ExtResource("4_0e3j1")
 texture_disabled = ExtResource("3_waogs")
+texture_focused = ExtResource("4_0e3j1")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -152,6 +156,7 @@ texture_normal = ExtResource("8_0jc7e")
 texture_pressed = ExtResource("9_elwu8")
 texture_hover = ExtResource("10_dksb4")
 texture_disabled = ExtResource("9_elwu8")
+texture_focused = ExtResource("10_dksb4")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -164,6 +169,7 @@ texture_normal = ExtResource("9_6wmw0")
 texture_pressed = ExtResource("12_xymij")
 texture_hover = ExtResource("13_6ln54")
 texture_disabled = ExtResource("12_xymij")
+texture_focused = ExtResource("13_6ln54")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -177,6 +183,7 @@ texture_normal = ExtResource("8_0jc7e")
 texture_pressed = ExtResource("9_elwu8")
 texture_hover = ExtResource("10_dksb4")
 texture_disabled = ExtResource("9_elwu8")
+texture_focused = ExtResource("10_dksb4")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -190,6 +197,7 @@ texture_normal = ExtResource("14_xfjmm")
 texture_pressed = ExtResource("15_qyk2f")
 texture_hover = ExtResource("16_84anc")
 texture_disabled = ExtResource("15_qyk2f")
+texture_focused = ExtResource("16_84anc")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -202,6 +210,7 @@ texture_normal = ExtResource("3_qbd0r")
 texture_pressed = ExtResource("5_w0qwx")
 texture_hover = ExtResource("7_w5ow3")
 texture_disabled = ExtResource("5_w0qwx")
+texture_focused = ExtResource("7_w5ow3")
 ignore_texture_size = true
 stretch_mode = 4
 flip_v = true
@@ -215,6 +224,7 @@ texture_normal = ExtResource("14_xfjmm")
 texture_pressed = ExtResource("15_qyk2f")
 texture_hover = ExtResource("16_84anc")
 texture_disabled = ExtResource("15_qyk2f")
+texture_focused = ExtResource("16_84anc")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -237,6 +247,7 @@ texture_normal = ExtResource("17_uaurg")
 texture_pressed = ExtResource("18_qq35s")
 texture_hover = ExtResource("19_bu0ji")
 texture_disabled = ExtResource("18_qq35s")
+texture_focused = ExtResource("19_bu0ji")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -249,6 +260,7 @@ texture_normal = ExtResource("20_hb22i")
 texture_pressed = ExtResource("21_8b171")
 texture_hover = ExtResource("22_0flqd")
 texture_disabled = ExtResource("21_8b171")
+texture_focused = ExtResource("22_0flqd")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -261,6 +273,7 @@ texture_normal = ExtResource("17_uaurg")
 texture_pressed = ExtResource("18_qq35s")
 texture_hover = ExtResource("19_bu0ji")
 texture_disabled = ExtResource("18_qq35s")
+texture_focused = ExtResource("19_bu0ji")
 ignore_texture_size = true
 stretch_mode = 4
 flip_v = true
@@ -281,7 +294,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="VLeftWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" unique_id=90018742]
+[node name="VLeftWide" type="TextureButton" parent="Center/VBoxContainer/GridContainer/VWide" unique_id=90018742 groups=["container_required"]]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 tooltip_text = "Left Wide"
@@ -290,6 +303,7 @@ texture_normal = ExtResource("23_7f7c7")
 texture_pressed = ExtResource("24_vdlak")
 texture_hover = ExtResource("25_0yhlr")
 texture_disabled = ExtResource("24_vdlak")
+texture_focused = ExtResource("25_0yhlr")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -302,6 +316,7 @@ texture_normal = ExtResource("26_p7f3l")
 texture_pressed = ExtResource("27_k0fxd")
 texture_hover = ExtResource("28_8vmqg")
 texture_disabled = ExtResource("27_k0fxd")
+texture_focused = ExtResource("28_8vmqg")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -314,6 +329,7 @@ texture_normal = ExtResource("23_7f7c7")
 texture_pressed = ExtResource("24_vdlak")
 texture_hover = ExtResource("25_0yhlr")
 texture_disabled = ExtResource("24_vdlak")
+texture_focused = ExtResource("25_0yhlr")
 ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
@@ -331,6 +347,9 @@ For more FoldingDirections: parent to a Container (a MarginContainer is recommen
 Ensure that the Container has the same minimum size as this node for the intended effect.
 (Copy and paste the custom_minimum_size from this inspector into the MarginContainer's custom_minimum_size!)"
 texture_normal = ExtResource("26_k5ymx")
+texture_pressed = ExtResource("30_k5rca")
+texture_hover = ExtResource("31_h6dyv")
+texture_focused = ExtResource("31_h6dyv")
 ignore_texture_size = true
 stretch_mode = 4
 
