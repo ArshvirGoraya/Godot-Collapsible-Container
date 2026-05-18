@@ -1,14 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
-<style type="text/css">
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 16 16"
+   style="enable-background:new 0 0 16 16;"
+   xml:space="preserve"
+   sodipodi:docname="collapsible_container.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs2" /><sodipodi:namedview
+   id="namedview2"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="53.4375"
+   inkscape:cx="8"
+   inkscape:cy="8"
+   inkscape:window-width="1920"
+   inkscape:window-height="1057"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<style
+   type="text/css"
+   id="style1">
 	.st0{fill:#8EEF97;}
 </style>
-<g>
-	<path class="st0" d="M14.1,1H1.9C1.4,1,1,1.4,1,1.9v2.3C1,4.6,1.4,5,1.9,5h12.3C14.6,5,15,4.6,15,4.1V1.9C15,1.4,14.6,1,14.1,1z
-		 M3,3.9V2.1h6.1v1.8H3z M11.5,3.8L10,2.1h3L11.5,3.8z"/>
-	<path class="st0" d="M14,6H2C1.4,6,1,6.4,1,7v7c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V7C15,6.4,14.6,6,14,6z M13,13H3v-2h10V13z
-		 M13,9.7H3v-2h10V9.7z"/>
+<g
+   id="g2">
+	<path
+   class="st0"
+   d="M14.1,1H1.9C1.4,1,1,1.4,1,1.9v2.3C1,4.6,1.4,5,1.9,5h12.3C14.6,5,15,4.6,15,4.1V1.9C15,1.4,14.6,1,14.1,1z    M3,3.9V2.1h6.1v1.8H3z M11.5,3.8L10,2.1h3L11.5,3.8z"
+   id="path1"
+   style="fill:#6aff7c;fill-opacity:1" />
+	<path
+   class="st0"
+   d="M14,6H2C1.4,6,1,6.4,1,7v7c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V7C15,6.4,14.6,6,14,6z M13,13H3v-2h10V13z    M13,9.7H3v-2h10V9.7z"
+   id="path2"
+   style="fill:#6aff7c;fill-opacity:1" />
 </g>
 </svg>
