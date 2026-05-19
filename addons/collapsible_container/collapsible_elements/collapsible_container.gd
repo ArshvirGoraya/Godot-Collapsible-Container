@@ -528,8 +528,10 @@ func _ready() -> void:
 				_tween_state = TweenStates.NOT_TWEENING
 				_set_to_size(target_size)
 	
-	# Must use call_deferred or sizing_node is seen as null when it isn't.
-	start_open_or_closed.call_deferred()
+	# INFO: used to use call_deferred because sizing_node used to be null on _ready.
+	# If there is a problem with no longer calling deferred here, ensure _opened_state = Opened.Closed if start_open == false
+	#start_open_or_closed.call_deferred()
+	start_open_or_closed.call()
 
 # Calls [method _increment_tween] when tweening if 
 # [member tween_in_physics_process] is false.
