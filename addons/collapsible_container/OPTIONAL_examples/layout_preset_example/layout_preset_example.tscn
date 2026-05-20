@@ -1,22 +1,17 @@
 [gd_scene format=3 uid="uid://w7eims8inl4p"]
 
-[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_l82by"]
-[ext_resource type="Texture2D" uid="uid://dyf5mpespmthb" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-2240764_640.jpg" id="2_4llbx"]
-[ext_resource type="Script" uid="uid://1aysor3pc8ft" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/layout_logic.gd" id="3_w4ceb"]
-[ext_resource type="Texture2D" uid="uid://dnlq4coc1l4hy" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn.svg" id="4_8hnj2"]
-[ext_resource type="Texture2D" uid="uid://olgdto6i6dke" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/blur-1239439_640.jpg" id="4_qo8cv"]
-[ext_resource type="Texture2D" uid="uid://b1u4xl3dao0y2" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-60539_640.jpg" id="5_dv6yi"]
-[ext_resource type="Texture2D" uid="uid://b15ef3yvpjlbp" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn_colored.svg" id="5_qbl23"]
-[ext_resource type="Script" uid="uid://hmf4rkeyl8fv" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/urn.gd" id="6_766br"]
-[ext_resource type="Texture2D" uid="uid://ckvxmlv3qpjuf" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-62849_640.jpg" id="6_nqr4v"]
-[ext_resource type="Texture2D" uid="uid://ceq707cy3cm58" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-3758523_640.jpg" id="7_0uep2"]
-[ext_resource type="Texture2D" uid="uid://d1c4qkinesey2" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn -negative space.svg" id="7_pnpsh"]
-[ext_resource type="Texture2D" uid="uid://dvo6x7u6grqtk" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-111179_640.jpg" id="8_4iqsu"]
-[ext_resource type="Texture2D" uid="uid://cxfb8w5b6bdg3" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-3312038_640.jpg" id="9_f7qs0"]
-[ext_resource type="Texture2D" uid="uid://b00wvmlkyo5cm" path="res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-3644865_640.jpg" id="10_116c4"]
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_c8ira"]
+[ext_resource type="Script" uid="uid://1aysor3pc8ft" path="res://addons/collapsible_container/OPTIONAL_examples/layout_preset_example/layout_logic.gd" id="2_68f11"]
+[ext_resource type="Texture2D" uid="uid://c8bb7uyoxdtj4" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.svg" id="3_tq7iw"]
+[ext_resource type="Script" uid="uid://d0owku8hmkciu" path="res://addons/collapsible_container/OPTIONAL_examples/layout_preset_example/unfold_behind_example.gd" id="4_05akc"]
 
 [sub_resource type="Theme" id="Theme_oi18m"]
 default_font_size = 25
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0h2ny"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iiqxk"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
 
 [node name="Game" type="Control" unique_id=286335150]
 layout_mode = 3
@@ -77,7 +72,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-script = ExtResource("1_l82by")
+script = ExtResource("1_c8ira")
 auto_update_size = 0
 sizing_node = NodePath("TextureButton")
 custom_open_size = Vector2(200, 200)
@@ -91,6 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureButton" type="TextureButton" parent="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer" unique_id=1151495716]
+material = SubResource("CanvasItemMaterial_0h2ny")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
 anchors_preset = 7
@@ -103,13 +99,12 @@ offset_top = -200.0
 offset_right = 100.0
 grow_horizontal = 2
 grow_vertical = 0
-texture_normal = ExtResource("2_4llbx")
+texture_normal = SubResource("CompressedTexture2D_iiqxk")
 ignore_texture_size = true
 stretch_mode = 6
 
 [node name="Logic" type="Node" parent="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer" unique_id=547614622 node_paths=PackedStringArray("collapsible", "texture_button", "anchor_label")]
-script = ExtResource("3_w4ceb")
-images = Array[Texture2D]([ExtResource("4_qo8cv"), ExtResource("5_dv6yi"), ExtResource("6_nqr4v"), ExtResource("7_0uep2"), ExtResource("8_4iqsu"), ExtResource("2_4llbx"), ExtResource("9_f7qs0"), ExtResource("10_116c4")])
+script = ExtResource("2_68f11")
 collapsible = NodePath("..")
 texture_button = NodePath("../TextureButton")
 anchor_label = NodePath("../../../../Label")
@@ -157,58 +152,103 @@ layout_mode = 2
 text = "Another use!"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer" unique_id=419884987]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer" unique_id=649643658]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer" unique_id=1654106772 node_paths=PackedStringArray("collapse_top", "collapse_bot")]
+custom_minimum_size = Vector2(225, 225)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_right = 10
+texture_normal = ExtResource("3_tq7iw")
+stretch_mode = 0
+script = ExtResource("4_05akc")
+collapse_top = NodePath("MarginContainer/CollapsibleContainer")
+collapse_bot = NodePath("MarginContainer2/CollapsibleContainer")
 
-[node name="TextureButton" type="TextureButton" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer" unique_id=1081827752 node_paths=PackedStringArray("urn_collapsible")]
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("4_8hnj2")
-texture_pressed = ExtResource("5_qbl23")
-script = ExtResource("6_766br")
-urn_collapsible = NodePath("../CollapsibleContainer")
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" unique_id=751368647]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer" unique_id=1499964670]
+[node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer" unique_id=1438014401]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-show_behind_parent = true
-custom_minimum_size = Vector2(300, 266.51)
+custom_minimum_size = Vector2(180, 40)
 clip_contents = true
 layout_mode = 2
-size_flags_vertical = 8
-mouse_filter = 2
-script = ExtResource("1_l82by")
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 1
+script = ExtResource("1_c8ira")
+starts_opened = false
+folding_direction_preset = 10
 sizing_constraint = 1
-use_custom_open_size = true
-custom_open_size = Vector2(300, 266.51)
-use_custom_close_size = true
-custom_close_size = Vector2(300, 21.47)
-tween_duration_sec = 2.0
-_preview_auto_update_size = 1
+sizing_node = NodePath("ColorRect")
+metadata/_custom_type_script = "uid://btlh4wrv04rc3"
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/CollapsibleContainer" unique_id=1495610000]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer/CollapsibleContainer" unique_id=1278076730]
+custom_minimum_size = Vector2(180, 40)
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 40.0
+mouse_filter = 1
+color = Color(0.034040958, 0.42352942, 0, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" unique_id=1272505326]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -300.0
-offset_right = 150.0
 grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-texture = ExtResource("7_pnpsh")
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer2" unique_id=1071733757]
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+custom_minimum_size = Vector2(180, 90)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 1
+script = ExtResource("1_c8ira")
+starts_opened = false
+folding_direction_preset = 10
+sizing_constraint = 1
+sizing_node = NodePath("ColorRect")
+metadata/_custom_type_script = "uid://btlh4wrv04rc3"
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer2/CollapsibleContainer" unique_id=1159291222]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 40.0
+mouse_filter = 1
+color = Color(0.03529412, 0.42352942, 0, 1)
 
 [connection signal="pressed" from="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/Continuous" to="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer/Logic" method="continous_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/Toggle" to="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer/Logic" method="toggle_collapsible"]
-[connection signal="pressed" from="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/Image" to="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer/Logic" method="change_image"]
+[connection signal="pressed" from="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/Image" to="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer/Logic" method="change_visual"]
 [connection signal="pressed" from="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/Anchor" to="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin/CollapsibleContainer/Logic" method="change_anchor"]
-[connection signal="pressed" from="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" to="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" method="urn_pressed"]
+[connection signal="pressed" from="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" to="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" method="_on_pressed"]
+[connection signal="tween_completed" from="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer/CollapsibleContainer" to="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton" method="_on_collapsible_container_top_tween_completed"]

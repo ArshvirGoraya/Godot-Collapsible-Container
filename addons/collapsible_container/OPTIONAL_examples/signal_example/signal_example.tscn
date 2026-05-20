@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnfx4s8ortj53"]
 
-[ext_resource type="Script" uid="uid://df48k7qc8f0ux" path="res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example_script.gd" id="1_teivp"]
+[ext_resource type="Script" uid="uid://df48k7qc8f0ux" path="res://addons/collapsible_container/OPTIONAL_examples/signal_example/signal_example_script.gd" id="1_teivp"]
 [ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_nump6"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_62kk3"]

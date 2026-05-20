@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dqm8hk0rif0jg"]
 
-[ext_resource type="Script" uid="uid://cuogh73klnomh" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.gd" id="1_ag2g8"]
+[ext_resource type="Script" uid="uid://cuogh73klnomh" path="res://addons/collapsible_container/OPTIONAL_examples/accordion_menu_example/collapsible_optional_button/collapsible_button.gd" id="1_ag2g8"]
 
 [node name="CollapsibleButton" type="Button" unique_id=1773671710]
 editor_description = "Button which can use BBCode.

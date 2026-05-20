@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://be1a8ogmdi1we"]
 
-[ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="1_fcxwt"]
+[ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/OPTIONAL_examples/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="1_fcxwt"]
 [ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="2_cc5ry"]
 
 [node name="BasicCollapsibleButton" type="Control" unique_id=1049542211]

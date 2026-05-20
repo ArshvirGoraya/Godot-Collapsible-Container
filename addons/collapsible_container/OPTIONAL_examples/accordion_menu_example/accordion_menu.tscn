@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cnp8xctp7ehgs"]
 
 [ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_mluu6"]
-[ext_resource type="Script" uid="uid://6clbkcdauydc" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/horizontal_menu.gd" id="1_oopqj"]
-[ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="2_bq8ha"]
+[ext_resource type="Script" uid="uid://6clbkcdauydc" path="res://addons/collapsible_container/OPTIONAL_examples/accordion_menu_example/horizontal_menu.gd" id="1_oopqj"]
+[ext_resource type="PackedScene" uid="uid://dqm8hk0rif0jg" path="res://addons/collapsible_container/OPTIONAL_examples/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn" id="2_bq8ha"]
 
 [node name="accordion_menu" type="Control" unique_id=67628738]
 layout_mode = 3

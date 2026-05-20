@@ -29,12 +29,20 @@ enum LayoutPreset {
 	PRESET_HCENTER_WIDE,
 }
 
-@export var images : Array[Texture2D]
+@export var colors : PackedColorArray = [
+	Color("ffffff"),
+	Color("ffff00"),
+	Color("ff00ff"),
+	Color("00ff00"),
+	Color("ff0090"),
+	Color("7400ff"),
+]
+
 @export var collapsible : CollapsibleContainer
 @export var texture_button : TextureButton # Could use a TextureRect instead.
 @export var anchor_label : Label
 
-# Randomizes so that the images/layout directions are different each time.
+# Randomizes so that the colors/layout directions are different each time.
 func _ready() -> void:
 	randomize()
 
@@ -60,7 +68,7 @@ func size_flag_to_string(flag : int) -> String:
 			return "[invalid]"
 
 ## Connects collapsible's tween_completed signal to continous_completed() which
-## will restart the tween with randomized images + randomized direction.
+## will restart the tween with randomized colors + randomized layout direction.
 func continous_pressed() -> void:
 	if not collapsible.tween_completed.is_connected(continous_completed):
 		collapsible.tween_completed.connect(continous_completed)
@@ -73,11 +81,17 @@ func toggle_collapsible() -> void:
 		collapsible.tween_completed.disconnect(continous_completed)
 	collapsible.open_tween_toggle.call_deferred()
 
-## Randomly selects an image from the images array and sets it to the 
+## Randomly selects a color from the color array and sets it to the 
 ## texture_button's texture_normal.
-func change_image() -> void:
-	var rand_img = randi_range(0, images.size() - 1)
-	texture_button.texture_normal = images[rand_img]
+func change_visual() -> void:
+	var random_color = randi_range(0, colors.size() - 1)
+	texture_button.modulate = colors[random_color]
+	# also randomly use mix or subtract material
+	match randi_range(0, 1):
+		0:
+			texture_button.material.set("blend_mode", CanvasItemMaterial.BLEND_MODE_MIX)
+		1: 
+			texture_button.material.set("blend_mode", CanvasItemMaterial.BLEND_MODE_SUB)
 
 ## Randomly selects a LayoutPreset and uses the collapsible's set_folding_direction_preset()
 ## function to set its size (and its sizing_constraint) to determine its folding
@@ -98,8 +112,8 @@ func change_anchor() -> void:
 	anchor_label.text = layout_preset + ": \n" + verical_container_size + " - " + horizontal_container_size
 
 ## If the opening tween just finished, begins closing tween. If closing just finished,
-## restarts the collapsible's open tween after randomly selecting an image 
-## (by calling change_image() and container sizing for the collapsible (by
+## restarts the collapsible's open tween after randomly changing button colors 
+## (by calling change_visual() and container sizing for the collapsible (by
 ## calling change_anchor). 
 func continous_completed (re : CollapsibleContainer.TweenStates):
 	if re == CollapsibleContainer.TweenStates.CLOSING:
@@ -108,7 +122,7 @@ func continous_completed (re : CollapsibleContainer.TweenStates):
 		# force_sizing to (0, 0) ensures both are closed.
 		# call_deferred is recommended anytime size is changed. Hence using it here.
 		collapsible.force_size.call_deferred(Vector2.ZERO) 
-		change_image()
+		change_visual()
 		change_anchor()
 		collapsible.open_tween_toggle.call_deferred()
 	else:
