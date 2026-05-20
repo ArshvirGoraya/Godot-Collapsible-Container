@@ -490,9 +490,7 @@ var _editor_plugin #: EditorPlugin
 # can stay updated.
 # so that [member ]
 func _init() -> void:
-	editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			\nGive feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+	editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.\nGive feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 	
 	if _in_game():
 		process_mode = starts_with_process_mode
