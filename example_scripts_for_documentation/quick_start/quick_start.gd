@@ -6,7 +6,7 @@ func _ready() -> void:
 	# Create button to toggle the collapsible
 	var button := Button.new()
 	button.set_text("Collapsible Button")
-	button.connect("pressed", collapsible.open_tween_toggle) # Connect signal to collapsible
+	button.connect("pressed", collapsible.toggle_tween) # Connect signal to collapsible
 	add_child(button)
 	
 	# Create and child node you want to collapse.

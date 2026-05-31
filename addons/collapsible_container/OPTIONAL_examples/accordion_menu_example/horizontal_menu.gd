@@ -32,7 +32,7 @@ func open_tween(button : Button) -> void:
 	
 	for collapsible_button in collapsible_buttons:
 		if button == collapsible_button:
-			collapsible_button.collapsible_node.open_tween_toggle()
+			collapsible_button.collapsible_node.toggle_tween()
 			return
 
 ## Closes all CollapsibleContainers except the one corresponding to the button

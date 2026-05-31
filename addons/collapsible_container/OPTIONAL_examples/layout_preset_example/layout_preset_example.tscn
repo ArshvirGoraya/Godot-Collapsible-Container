@@ -63,9 +63,7 @@ layout_mode = 2
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/LeftPanel/VBoxContainer/GridContainer/margin" unique_id=1884818734]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(200, 200)
 clip_contents = true
@@ -182,9 +180,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer" unique_id=1438014401]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(180, 40)
 clip_contents = true
@@ -221,9 +217,8 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/RightPanel/ColorRect/VBoxContainer/MarginContainer/TextureButton/MarginContainer2" unique_id=1071733757]
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+process_mode = 3
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(180, 90)
 clip_contents = true

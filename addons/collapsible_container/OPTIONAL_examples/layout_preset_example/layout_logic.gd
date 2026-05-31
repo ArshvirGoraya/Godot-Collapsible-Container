@@ -72,14 +72,14 @@ func size_flag_to_string(flag : int) -> String:
 func continous_pressed() -> void:
 	if not collapsible.tween_completed.is_connected(continous_completed):
 		collapsible.tween_completed.connect(continous_completed)
-	collapsible.open_tween_toggle.call_deferred()
+	collapsible.toggle_tween.call_deferred()
 
 ## Disconnects the collapsible tween_completed signal to continous_completed
 ## making the continous opening/closing toggle stop.
 func toggle_collapsible() -> void:
 	if collapsible.tween_completed.is_connected(continous_completed):
 		collapsible.tween_completed.disconnect(continous_completed)
-	collapsible.open_tween_toggle.call_deferred()
+	collapsible.toggle_tween.call_deferred()
 
 ## Randomly selects a color from the color array and sets it to the 
 ## texture_button's texture_normal.
@@ -124,6 +124,6 @@ func continous_completed (re : CollapsibleContainer.TweenStates):
 		collapsible.force_size.call_deferred(Vector2.ZERO) 
 		change_visual()
 		change_anchor()
-		collapsible.open_tween_toggle.call_deferred()
+		collapsible.toggle_tween.call_deferred()
 	else:
-		collapsible.open_tween_toggle.call_deferred()
+		collapsible.toggle_tween.call_deferred()

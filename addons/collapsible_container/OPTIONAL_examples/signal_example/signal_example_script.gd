@@ -45,7 +45,7 @@ func toggle_open() -> void:
 
 
 func toggle_tweening() -> void:
-	collapsible.open_tween_toggle()
+	collapsible.toggle_tween()
 
 
 func set_to_end_tween() -> void:

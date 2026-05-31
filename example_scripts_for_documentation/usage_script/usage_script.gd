@@ -71,4 +71,4 @@ func _ready() -> void:
 
 	# Any time the button is pressed, will toggle the collapsible's open/close tween functions.
 	# The collapsible keeps track of its open/closed state so you don't have to.
-	button.connect("pressed", collapsible.open_tween_toggle)
+	button.connect("pressed", collapsible.toggle_tween)

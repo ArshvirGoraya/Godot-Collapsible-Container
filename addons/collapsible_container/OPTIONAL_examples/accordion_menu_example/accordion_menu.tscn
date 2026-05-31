@@ -67,9 +67,7 @@ text = "Open Only 1"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder" unique_id=829834840]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(574, 287)
 clip_contents = true
@@ -104,9 +102,7 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 1"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu" unique_id=1405068419]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(574, 62)
 clip_contents = true
@@ -149,9 +145,7 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 2"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu2" unique_id=1238439724]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(574, 62)
 clip_contents = true
@@ -194,9 +188,7 @@ text_label = "  [rainbow freq=0.1 sat=0.3 val=0.8]Accordion Button 3"
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer/MarginContainer/VBoxContainer/SubMenu3" unique_id=1605650751]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(574, 62)
 clip_contents = true
@@ -281,9 +273,7 @@ color = Color(0.309804, 0.290196, 0.419608, 1)
 
 [node name="CollapsibleContainer" type="Control" parent="HBoxContainer/VerticalMenu/HBoxContainer/MenuHolder" unique_id=1732147737]
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 custom_minimum_size = Vector2(570, 130)
 clip_contents = true
@@ -318,6 +308,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.664063, 0.664063, 0.664063, 1)
 
-[connection signal="pressed" from="HBoxContainer/HorizontalMenu/MenuHolder/MenuButton" to="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer" method="open_tween_toggle"]
+[connection signal="pressed" from="HBoxContainer/HorizontalMenu/MenuHolder/MenuButton" to="HBoxContainer/HorizontalMenu/MenuHolder/CollapsibleContainer" method="toggle_tween"]
 [connection signal="toggled" from="HBoxContainer/HorizontalMenu/MenuHolder/MenuButton/CheckButton" to="HBoxContainer/HorizontalMenu" method="_on_check_button_toggled"]
-[connection signal="pressed" from="HBoxContainer/VerticalMenu/HBoxContainer/MenuButton" to="HBoxContainer/VerticalMenu/HBoxContainer/MenuHolder/CollapsibleContainer" method="open_tween_toggle"]
+[connection signal="pressed" from="HBoxContainer/VerticalMenu/HBoxContainer/MenuButton" to="HBoxContainer/VerticalMenu/HBoxContainer/MenuHolder/CollapsibleContainer" method="toggle_tween"]
