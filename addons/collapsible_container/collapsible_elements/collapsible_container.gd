@@ -72,8 +72,8 @@ extends Control
 ## [method open], [method close_tween] [method toggle_tween], etc.) using [method Object.call_deferred]
 ## if you attempt to call it [b]right after[/b] setting the [member folding_direction_preset],
 ## [member Control.LayoutPreset], [member Control.size_flags_horizontal], [member Control.size_flags_vertical],
-## [member sizing_constraint], or anything that changes the folding direction. Otherwise, it may be
-## set to a folding direction that it was previously in, instead of the new one you just changed to.
+## [member sizing_constraint], or anything that changes the folding direction. Otherwise, it may
+## open/close with a folding direction that it was previously in, instead of the new one you just changed to.
 ## [br]
 ## [br][b]Warning[/b]: using built-in methods relating to size such as
 ## [method Control.set_size] or [method Control.set_custom_minimum_size]
@@ -81,7 +81,7 @@ extends Control
 ## Instead, a substantial amount of functions are available in this
 ## node for your sizing needs. These methods include [method open],
 ## [method close], [method open_tween], [method close_tween],
-## [method open_toggle] and [method toggle_tween]. You can also
+## [method toggle] and [method toggle_tween]. You can also
 ## force the node to any size using [method force_size] and [method force_tween]
 ## , which will emit the necessary signals unlike using built-in methods.
 ## [br]
@@ -977,8 +977,12 @@ func open_tween() -> void:
 func close_tween() -> void:
 	_change(false, true)
 
-## If is already opened, will be set to close. Otherwise, will be set to open.
+## @deprecated: Use [method toggle] instead.
 func open_toggle() -> void:
+	toggle()
+
+## If is already opened, will be set to close. Otherwise, will be set to open.
+func toggle() -> void:
 	if is_opened():
 		close()
 	else:

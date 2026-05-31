@@ -41,7 +41,7 @@ func _ready() -> void:
 
 
 func toggle_open() -> void:
-	collapsible.open_toggle()
+	collapsible.toggle()
 
 
 func toggle_tweening() -> void:
