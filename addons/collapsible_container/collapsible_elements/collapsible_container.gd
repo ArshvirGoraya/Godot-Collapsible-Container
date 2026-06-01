@@ -25,18 +25,16 @@ extends Control
 ## [br][b]Direction of folding/unfolding: [/b]
 ## All folding directions can be accessed through the [member folding_direction_preset]
 ## which can be set to a [enum FoldingPreset] value. [member folding_direction_preset] simply
-## sets the [member Control.LayoutPreset], [member Control.size_flags_horizontal] and
-## [member Control.size_flags_vertical] of the CollapsibleContainer in a combination that
-## enables the folding directions in [enum FoldingPreset]. You can completely ignore using the
-## [member folding_direction_preset] and manually set the [member Control.LayoutPreset],
-## [member Control.size_flags_horizontal] and [member Control.size_flags_vertical] yourself
+## sets the [member Control.LayoutPreset], [member Control.size_flags_horizontal],
+## [member Control.size_flags_vertical] and [member sizing_constraint] of the CollapsibleContainer 
+## in a combination that enables the folding directions in [enum FoldingPreset]. You can completely 
+## ignore using the [member folding_direction_preset] and manually set the these variables yourself
 ## if you would like, but [member folding_direction_preset] is made so you don't have to!
 ## Moreover, [member folding_direction_preset] lets you know through a warning when
 ## you set the [member folding_direction_preset] to a value that is NOT available.
-## Top-wide, top-left, and left-wide are always available, but all others require the
-## CollapsibleContainer to be childed to another container node. In this case, it should be
-## noted that the parent Container should probably have the same [member custom_minimum_size]
-## as this node for the intended effect.
+## PRESET_TOP_WIDE, PRESET_TOP_LEFT and PRESET_LEFT_WIDE are always available, but all others
+## require the CollapsibleContainer to be childed to another container node, which should probably 
+## have the same [member custom_minimum_size] as this node for the intended effect.
 ## [br]
 ## [br][b]Folding direction's effects on the childed nodes/sizing_node : [/b]
 ## If the CollapsibleContainer has a child (usually the [member sizing_node]), the position
@@ -326,7 +324,6 @@ enum FoldingPreset {
 ## Must point to a [Control] node or any that inherit from it.
 ## An alternative to [member custom_open_size] and [member custom_close_size]
 ## [br][br][b]Note[/b]: ignored if using [member custom_open_size].
-#@export var sizing_node : Control = null: set = set_sizing_node_path, get = get_sizing_node
 @export_node_path("Control") var sizing_node : NodePath:
 	set = set_sizing_node_path, get = get_sizing_node_path
 
@@ -527,6 +524,7 @@ func _ready() -> void:
 				_set_to_size(target_size)
 
 	# INFO: used to use call_deferred because sizing_node used to be null on _ready.
+	# This can happen only when CollapsibleContainer is added by script!
 	# If there is a problem with no longer calling deferred here, ensure _opened_state = Opened.Closed if start_open == false
 	#start_open_or_closed.call_deferred()
 	start_open_or_closed.call()
@@ -794,49 +792,75 @@ func get_sizing_node_or_null(): #-> Control:
 # Should add return Vector2 once the following is merged:
 # Ideally, can return a null even if have "-> Vector2".
 # https://github.com/godotengine/godot/pull/76843
-## Gets the opened size Vector. This could be the [member sizing_node]'s
-## size or the [member custom_open_size], depending on which one is used.
-## Will return null if using sizing_node and sizing_node is not set to anything.
-## Importantly, will take [member sizing_constraint] into consideration.
+## Gets open size from [member custom_open_size] or [member sizing_node]'s size 
+## while constraining dimensions according to [member sizing_constraint].
+## If using [member sizing_node] for the "open" size (i.e., [member use_custom_open_size] is false) 
+## but [member sizing_node] is not set, will return null.
 func get_opened_size_or_null(): #-> Vector2:
+	var open_size : Vector2
 	if use_custom_open_size:
-		return custom_open_size
+		open_size = custom_open_size
 	else:
 		var target_node = get_sizing_node_or_null()
-		if target_node != null:
-			var full_size : Vector2 = (target_node as Control).get_size()
-			var largest_size_vale = _get_largest_size_value()
-
-			# Ensure size follows the sizing constraint.
-			match sizing_constraint:
-				SizingConstraintOptions.ONLY_WIDTH: # Leave height as is.
-					full_size = Vector2(full_size.x, largest_size_vale.y)
-				SizingConstraintOptions.ONLY_HEIGHT: # Leave width as is.
-					full_size = Vector2(largest_size_vale.x, full_size.y)
-			return full_size
-		return null
+		if target_node == null:
+			return null
+		open_size = _get_largest_size_value(target_node)
+	
+	# Constraint
+	var close_size : Vector2
+	if use_custom_close_size:
+		close_size = custom_close_size
+	else:
+		close_size = Vector2.ZERO
+	
+	return _get_constrained_size(open_size, open_size)
 
 # Should add return Vector2 once the following is merged:
 # Ideally, can return a null even if have "-> Vector2".
 # https://github.com/godotengine/godot/pull/76843
-## Gets the closed size Vector. This could the be the either [constant Vector2.ZERO]
-## or the [member custom_close_size] if custom close is used.
-## Will return null if using [member sizing_node] and sizing_node is not set to anything.
-## Importantly, will take [member sizing_constraint] into consideration.
+## Gets close size from [member custom_close_size] or [constant Vector2.ZERO] 
+## while constraining dimensions according to [member sizing_constraint].
+## If using [member sizing_node] for the "open" size (i.e., [member use_custom_open_size] is false) 
+## but [member sizing_node] is not set, will return null.
 func get_closed_size_or_null(): #-> Vector2:
+	var close_size : Vector2
 	if use_custom_close_size:
-		return custom_close_size
+		close_size = custom_close_size
+	else:
+		close_size = Vector2.ZERO
+	
+	# Constraint
+	var open_size : Vector2
+	if use_custom_open_size:
+		open_size = custom_open_size
 	else:
 		var target_node = get_sizing_node_or_null()
-		if target_node != null:
-			var full_size := Vector2.ZERO
-			match sizing_constraint:
-				SizingConstraintOptions.ONLY_WIDTH: # Leave height as is.
-					full_size = Vector2(full_size.x, _get_largest_size_value().y)
-				SizingConstraintOptions.ONLY_HEIGHT: # Leave width as is.
-					full_size = Vector2(_get_largest_size_value().x, full_size.y)
-			return full_size
-		return null
+		if target_node == null:
+			return null
+		else:
+			open_size = _get_largest_size_value(target_node)
+	
+	var full_size = _get_constrained_size(open_size, close_size)
+	#if close_size < full_size:
+		# INFO: often this is exactly what you want, which is why this isn't a warning.
+		#_print_warning_in_game_and_editor("closing to a larger size " + str(full_size) + " than close size " + str(close_size) + ". folding direction (" + FoldingPreset.keys()[folding_direction_preset] + ") may not make sense with the current close size " + str(close_size) + " and open size "+ str(open_size)+ ". This may occur if you try to change a dimension that is constrained (e.g., PRESET_TOP_WIDE ensures only height changes, never width).")
+	return full_size
+
+# Converts target_size with to respect to [member sizing_constraint]. 
+# Uses open_size to constrain the required dimensions according to [member sizing_constraint].
+func _get_constrained_size(open_size: Vector2, target_size: Vector2) -> Vector2:
+	var full_size : Vector2
+	match sizing_constraint: 
+		SizingConstraintOptions.ONLY_WIDTH: 
+			# Keep unchanging at open. Change width.
+			full_size = Vector2(target_size.x, open_size.y)
+		SizingConstraintOptions.ONLY_HEIGHT:
+			# Keep unchanging at open. Change height.
+			full_size = Vector2(open_size.x, target_size.y)
+		_: 
+			# Nothing is unchanging. Change both.
+			full_size = target_size
+	return full_size
 
 ## Enables usage of [member custom_open_size]. Can auto resize if [member auto_update_size] is enabled.
 func set_use_custom_open_size(use_custom : bool) -> void:
@@ -1316,7 +1340,7 @@ func _increment_tween(delta) -> void:
 	_tween_elapsed_time += delta
 	_tween_time_left = tween_duration_sec - _tween_elapsed_time
 
-	get_normalized_size_or_null()
+	#get_normalized_size_or_null()
 
 	if _tween_time_left <= 0: # tween is over
 		_set_to_size(_tween_final_value)
@@ -1529,28 +1553,29 @@ func _set_preview_tweening(enable_preview_tweening : bool) -> void:
 		if not _preview_tweening:
 			set_to_end_tween()
 
-# Returns largest x and y values from sizing_node.get_size() and
-# sizing_node.get_custom_minimum_size().
+# Returns largest x and y values from control_node.get_size() and
+# control_node.get_custom_minimum_size().
 # For example if get_custom_minimum_size().x is larger than get_size().x
 # and get_size().y is larger than get_custom_minimum_size().y
 # will return Vector2(get_custom_minimum_size().x, get_size().y).
-# Prints warning if sizing_node is null as it cannot get its sizes.
+# Prints warning if control_node is null as it cannot get its sizes.
 # [br][br] Can be used externally without any problems (won't break something).
-func _get_largest_size_value() -> Vector2:
-	var target_node = get_sizing_node_or_null()
-
+# INFO: gets largest of the 2: size and minimum size. assumes size can be somtimes
+# smaller than minimum size, which may be true under certain conditions like when 
+# the node spawns in?
+func _get_largest_size_value(control_node: Control) -> Vector2:
 	var biggest : Vector2
 
-	if target_node != null:
-		if target_node.get_size().x > target_node.get_custom_minimum_size().x:
-			biggest.x = target_node.get_size().x
+	if control_node != null:
+		if control_node.get_size().x > control_node.get_custom_minimum_size().x:
+			biggest.x = control_node.get_size().x
 		else:
-			biggest.x = target_node.get_custom_minimum_size().x
+			biggest.x = control_node.get_custom_minimum_size().x
 
-		if target_node.get_size().y > target_node.get_custom_minimum_size().y:
-			biggest.y = target_node.get_size().y
+		if control_node.get_size().y > control_node.get_custom_minimum_size().y:
+			biggest.y = control_node.get_size().y
 		else:
-			biggest.y = target_node.get_custom_minimum_size().y
+			biggest.y = control_node.get_custom_minimum_size().y
 	else:
 		_print_warning_in_game_or_err_in_editor("can't get largest size, sizing_node is null.")
 
