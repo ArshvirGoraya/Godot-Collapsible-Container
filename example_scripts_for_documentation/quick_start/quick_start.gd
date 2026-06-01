@@ -13,9 +13,9 @@ func _ready() -> void:
 	var label := Label.new()
 	label.set_text("Hide Me!")
 	collapsible.add_child(label)
+	collapsible.set_sizing_node_path(collapsible.get_path_to(label))
 	
 	# Add collapsible to scene with custom settings.
 	add_child(collapsible)
-	collapsible.set_sizing_node_path(label.get_path())
 	collapsible.set_folding_direction_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE)
 	collapsible.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
