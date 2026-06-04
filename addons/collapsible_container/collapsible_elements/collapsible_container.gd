@@ -988,17 +988,16 @@ func set_to_end_tween(interrupted_tween : bool =  true) -> void:
 	if is_tweening():
 		var previous_tween_state = _tween_state
 		var previous_opened_state = _opened_state
-
+		
 		_opened_state = _get_target_opened_state(previous_tween_state)
-
+		_tween_state = TweenStates.NOT_TWEENING
+		_set_to_size(_tween_final_value)
+		
 		if _in_game() and interrupted_tween and is_tweening():
 			_emit_tween_interrupted(previous_tween_state, _tween_state, _opened_state)
 		elif _in_game() and not interrupted_tween:
 			_emit_tween_completed(previous_tween_state)
-
-		_tween_state = TweenStates.NOT_TWEENING
-
-		_set_to_size(_tween_final_value)
+		
 		# Set appropriate opened_state:
 		_emit_opened_state_signal(previous_opened_state, _opened_state)
 	else:
