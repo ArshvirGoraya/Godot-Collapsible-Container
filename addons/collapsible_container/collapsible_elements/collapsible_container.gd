@@ -266,6 +266,7 @@ enum OpenedStates {
 	UPDATING_OPENED,  ## Node is automatically setting to a new open size. Can precede [constant AUTO_TWEENING_OPEN] and [constant AUTO_TWEENING_CLOSE].
 	NOT_FULLY_OPENED,  ## Node's size is not set to the full open size (e.g., when auto sizing is disabled).
 	TWEENING,  ## Node is tweening.
+	TWEENING_PAUSED, ## Node is tweening but its tween is paused.
 }
 
 ## States used by [member _tween_state].
@@ -1045,6 +1046,31 @@ func toggle_tween() -> void:
 	else:
 		open_tween()
 
+## If tweening, pauses the tween. Use [method resume_tween] to resume the tween.
+## [param emit_warning] prints a warning if this method is called when there
+## is no tween occurring.
+func pause_tween(emit_warning: bool = true) -> void:
+	if _opened_state != OpenedStates.TWEENING:
+		if emit_warning:
+			_print_warning_in_game_and_editor("called [method pause_tween] when there is no tween running.")
+		return
+	var previous_state = _opened_state
+	_opened_state = OpenedStates.TWEENING_PAUSED
+	state_set.emit(_opened_state, previous_state)
+
+## If tweening is paused, resumest the tween. Use [method pause_tween] to pause 
+## the tween.
+## [param emit_warning] prints a warning if this method is called when tween is
+## not paused.
+func resume_tween(emit_warning: bool = true) -> void:
+	if _opened_state != OpenedStates.TWEENING_PAUSED:
+		if emit_warning:
+			_print_warning_in_game_and_editor("called [method resume_tween] when tween is not paused.")
+		return
+	var previous_state = _opened_state
+	_opened_state = OpenedStates.TWEENING
+	state_set.emit(_opened_state, previous_state)
+
 ## Returns if [member _opened_state] is [constant OPENED].
 func is_opened() -> bool:
 	return _opened_state == OpenedStates.OPENED
@@ -1359,6 +1385,9 @@ func _auto_update_size_changed(auto_size_option : AutoUpdateSizeOptions) -> void
 # Uses [method Tween.interpolate_value] to increment the tween.
 # [br][br][b]Warning:[/b] Should NOT be called externally (may break something).
 func _increment_tween(delta) -> void:
+	if _opened_state == OpenedStates.TWEENING_PAUSED:
+		return
+	
 	_tween_elapsed_time += delta
 	_tween_time_left = tween_duration_sec - _tween_elapsed_time
 
