@@ -1,0 +1,278 @@
+[gd_scene format=3 uid="uid://hif2p8vimx7w"]
+
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_hxhqn"]
+[ext_resource type="Texture2D" uid="uid://d3f13t4onevo2" path="res://WhackAFrog/assets/images/frogs/frog_GameBoy_B&W_spritesheet.png" id="3_ts136"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ts136"]
+bg_color = Color(0.118407, 0.12134486, 0.16247487, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5ooi"]
+bg_color = Color(0.1764706, 0.18039216, 0.23137255, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5ooi"]
+atlas = ExtResource("3_ts136")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_civcg"]
+atlas = ExtResource("3_ts136")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyykx"]
+atlas = ExtResource("3_ts136")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blvjv"]
+atlas = ExtResource("3_ts136")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt2ws"]
+atlas = ExtResource("3_ts136")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7520"]
+atlas = ExtResource("3_ts136")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27w8y"]
+atlas = ExtResource("3_ts136")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p67d0"]
+atlas = ExtResource("3_ts136")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyuxi"]
+atlas = ExtResource("3_ts136")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hsa8"]
+atlas = ExtResource("3_ts136")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hio2g"]
+atlas = ExtResource("3_ts136")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj5tf"]
+atlas = ExtResource("3_ts136")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0ojn"]
+atlas = ExtResource("3_ts136")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq8n2"]
+atlas = ExtResource("3_ts136")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg6be"]
+atlas = ExtResource("3_ts136")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kipsb"]
+atlas = ExtResource("3_ts136")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5fmc"]
+atlas = ExtResource("3_ts136")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsuj5"]
+atlas = ExtResource("3_ts136")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xa02"]
+atlas = ExtResource("3_ts136")
+region = Rect2(32, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dannc"]
+atlas = ExtResource("3_ts136")
+region = Rect2(64, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo1wi"]
+atlas = ExtResource("3_ts136")
+region = Rect2(96, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu3yn"]
+atlas = ExtResource("3_ts136")
+region = Rect2(128, 256, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4ek0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5ooi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_civcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyykx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blvjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyykx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_civcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5ooi")
+}],
+"loop": 1,
+"name": &"Croak",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt2ws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7520")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27w8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p67d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyuxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27w8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7520")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt2ws")
+}],
+"loop": 1,
+"name": &"Hop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hsa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hio2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj5tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hio2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0ojn")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 2.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq8n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg6be")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kipsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5fmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kipsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg6be")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq8n2")
+}],
+"loop": 1,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsuj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xa02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dannc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo1wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu3yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dannc")
+}],
+"loop": 1,
+"name": &"Shock",
+"speed": 2.5
+}]
+
+[node name="WhackButton" type="MarginContainer" unique_id=627380676]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="CollapsibleContainer" type="Control" parent="." unique_id=2106181682]
+process_mode = 3
+editor_description = "Control node capable of hiding and revealing its children by folding and unfolding.
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+custom_minimum_size = Vector2(100, 100)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_hxhqn")
+starts_opened = false
+sizing_node = NodePath("MarginContainer")
+metadata/_custom_type_script = "uid://btlh4wrv04rc3"
+
+[node name="ColorRect" type="ColorRect" parent="CollapsibleContainer" unique_id=114102705]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27058825, 0.2784314, 0.3529412, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="CollapsibleContainer" unique_id=1034421037]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="CollapsibleContainer/MarginContainer" unique_id=669698251]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ts136")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h5ooi")
+action_mode = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollapsibleContainer/MarginContainer" unique_id=13927034]
+self_modulate = Color(0.5966903, 1, 0.6070069, 1)
+texture_filter = 1
+scale = Vector2(3.1, 3.1)
+sprite_frames = SubResource("SpriteFrames_w4ek0")
+animation = &"Idle"
+autoplay = "Idle"
+offset = Vector2(16, 8)

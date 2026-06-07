@@ -1,0 +1,522 @@
+[gd_scene format=3 uid="uid://brakljd5b872l"]
+
+[ext_resource type="Script" uid="uid://p6lt6hdcf0ma" path="res://WhackAFrog/whack_a_frog.gd" id="1_8rfrb"]
+[ext_resource type="Texture2D" uid="uid://c2xlsm5mtok2p" path="res://WhackAFrog/assets/images/wand/wand.png" id="2_4mgg8"]
+[ext_resource type="PackedScene" uid="uid://hif2p8vimx7w" path="res://WhackAFrog/whack_button.tscn" id="2_8tgeu"]
+[ext_resource type="Texture2D" uid="uid://ct1uo7fuuh8n6" path="res://WhackAFrog/assets/images/material icons/music_note_2_24dp_1E1E2E_FILL0_wght400_GRAD0_opsz24.svg" id="2_eftkx"]
+[ext_resource type="Script" uid="uid://cukk2mmvcdlpb" path="res://WhackAFrog/cursor.gd" id="2_nuxw5"]
+[ext_resource type="Texture2D" uid="uid://b40rkejphw6j2" path="res://WhackAFrog/assets/images/wand/wand_yellow.png" id="3_57i05"]
+[ext_resource type="Texture2D" uid="uid://7rypu8svqsi" path="res://WhackAFrog/assets/images/material icons/volume_down_24dp_1E1E2E_FILL0_wght400_GRAD0_opsz24.svg" id="4_11myr"]
+[ext_resource type="Texture2D" uid="uid://swua366srj0y" path="res://WhackAFrog/assets/images/wand/wand_click.png" id="4_ssl1c"]
+[ext_resource type="AudioStream" uid="uid://4i1nvq6jy7gi" path="res://WhackAFrog/assets/sounds/music/frogcave.ogg" id="6_05wvn"]
+[ext_resource type="Script" uid="uid://dno3dwi20n76y" path="res://WhackAFrog/audio.gd" id="6_a7vlk"]
+[ext_resource type="AudioStream" uid="uid://bofrc8mpfbgri" path="res://WhackAFrog/assets/sounds/music/08 - buffy - old fashion - frog song.ogg" id="6_bis70"]
+[ext_resource type="Texture2D" uid="uid://d4js3ohaop3sg" path="res://WhackAFrog/assets/images/material icons/play_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" id="9_44vju"]
+[ext_resource type="AudioStream" uid="uid://dhhwxftakb50r" path="res://WhackAFrog/assets/sounds/sfx/frog_croak.ogg" id="9_j7abq"]
+[ext_resource type="Texture2D" uid="uid://6f0faqfwb3g7" path="res://WhackAFrog/assets/images/material icons/pause_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" id="10_bis70"]
+[ext_resource type="AudioStream" uid="uid://bdh4160a5t00j" path="res://WhackAFrog/assets/sounds/sfx/mutant_frog-1_noise_reduced_wahwah.ogg" id="11_a4r68"]
+
+[sub_resource type="Curve" id="Curve_eftkx"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 0, Vector2(0.2, 0.48), -0.048455108, -3.916784, 0, 0, Vector2(0.35, 0.44), 0.0, -1.4985276, 0, 0, Vector2(0.75, 0.34), 0.0, -1.4710937, 0, 0, Vector2(1, 0.22), -0.48000002, -0.7419645, 1, 0]
+point_count = 5
+
+[sub_resource type="Animation" id="Animation_a7vlk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Audio/Gameplay:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_y6vhk"]
+resource_name = "fade_in_gameplay_audio"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Audio/Gameplay:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6i3t"]
+_data = {
+&"RESET": SubResource("Animation_a7vlk"),
+&"fade_in_gameplay_audio": SubResource("Animation_y6vhk")
+}
+
+[sub_resource type="Animation" id="Animation_wc4wj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pause:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
+
+[sub_resource type="Animation" id="Animation_a4r68"]
+resource_name = "fade_in_pause_audio"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pause:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ex4g8"]
+_data = {
+&"RESET": SubResource("Animation_wc4wj"),
+&"fade_in_pause_audio": SubResource("Animation_a4r68")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_midqa"]
+bg_color = Color(0.11764706, 0.11764706, 0.18039216, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eftkx"]
+bg_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6509804, 0.8901961, 0.6313726, 0.5019608)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_size = 10
+
+[node name="WhackAFrog" type="Control" unique_id=515261891 node_paths=PackedStringArray("collapsible_holder", "game_timer", "whack_timer", "score_label", "time_label", "time_progress_bar", "misses_label", "start_btn", "menu_label", "pause_toggle", "audio")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8rfrb")
+collapsible_holder = NodePath("border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer")
+game_timer = NodePath("GameTimer")
+whack_timer = NodePath("WhackTimer")
+score_label = NodePath("border/play_area/TopBar/GameTexts/Score/Number")
+time_label = NodePath("border/play_area/TopBar/GameTexts/Time/Number")
+time_progress_bar = NodePath("border/play_area/TopBar/TimeProgressBar")
+misses_label = NodePath("border/play_area/TopBar/GameTexts/Misses/Number")
+start_btn = NodePath("border/play_area/frog_area/HBoxContainer/MarginContainer/Menu/Start Game")
+menu_label = NodePath("border/play_area/frog_area/HBoxContainer/MarginContainer/Menu/Menu Label")
+pause_toggle = NodePath("MarginContainer/PauseToggle")
+difficulty_curve = SubResource("Curve_eftkx")
+audio = NodePath("Audio")
+metadata/_edit_lock_ = true
+
+[node name="Cursor" type="Node" parent="." unique_id=2077259254]
+script = ExtResource("2_nuxw5")
+mouse_images = Dictionary[int, Texture2D]({
+0: ExtResource("2_4mgg8"),
+1: ExtResource("3_57i05"),
+2: ExtResource("4_ssl1c")
+})
+
+[node name="Audio" type="Node" parent="." unique_id=1040085084]
+script = ExtResource("6_a7vlk")
+
+[node name="GameplayAudioFades" type="AnimationPlayer" parent="Audio" unique_id=993820522]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_k6i3t")
+
+[node name="PauseAudioFades" type="AnimationPlayer" parent="Audio" unique_id=849488619]
+libraries/ = SubResource("AnimationLibrary_ex4g8")
+
+[node name="Pause" type="AudioStreamPlayer" parent="Audio" unique_id=1343780796]
+stream = ExtResource("6_05wvn")
+volume_db = -80.0
+parameters/looping = true
+
+[node name="Gameplay" type="AudioStreamPlayer" parent="Audio" unique_id=1824560587]
+stream = ExtResource("6_bis70")
+
+[node name="sfx_hit" type="Node" parent="Audio" unique_id=890262968]
+
+[node name="MutantFrog1NoiseReducedWahwah" type="AudioStreamPlayer" parent="Audio/sfx_hit" unique_id=1916407994]
+stream = ExtResource("11_a4r68")
+
+[node name="sfx_miss" type="Node" parent="Audio" unique_id=1961524592]
+
+[node name="FrogCroak" type="AudioStreamPlayer" parent="Audio/sfx_miss" unique_id=178613121]
+stream = ExtResource("9_j7abq")
+
+[node name="GameTimer" type="Timer" parent="." unique_id=680349631]
+wait_time = 120.0
+one_shot = true
+
+[node name="WhackTimer" type="Timer" parent="." unique_id=578368151]
+wait_time = 3.0
+
+[node name="bg" type="ColorRect" parent="." unique_id=348426560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.14509805, 1)
+metadata/_edit_lock_ = true
+
+[node name="border" type="MarginContainer" parent="." unique_id=960074363]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_edit_lock_ = true
+
+[node name="border_bg" type="ColorRect" parent="border" unique_id=716475780]
+layout_mode = 2
+color = Color(0.19215687, 0.19607843, 0.26666668, 1)
+metadata/_edit_lock_ = true
+
+[node name="play_area" type="VBoxContainer" parent="border" unique_id=60503947]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="TopBar" type="MarginContainer" parent="border/play_area" unique_id=808213499]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="border/play_area/TopBar" unique_id=644435225]
+layout_mode = 2
+color = Color(0.11764706, 0.11764706, 0.18039216, 0.39215687)
+
+[node name="TimeProgressBar" type="ProgressBar" parent="border/play_area/TopBar" unique_id=447965717]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_midqa")
+value = 65.77
+show_percentage = false
+
+[node name="GameTexts" type="HBoxContainer" parent="border/play_area/TopBar" unique_id=59750109]
+layout_mode = 2
+
+[node name="Score" type="VBoxContainer" parent="border/play_area/TopBar/GameTexts" unique_id=1922518905]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="border/play_area/TopBar/GameTexts/Score" unique_id=760100341]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Number" type="Label" parent="border/play_area/TopBar/GameTexts/Score" unique_id=321053753]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6509804, 0.8901961, 0.6313726, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Time" type="VBoxContainer" parent="border/play_area/TopBar/GameTexts" unique_id=1548726123]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="border/play_area/TopBar/GameTexts/Time" unique_id=2130973621]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Number" type="Label" parent="border/play_area/TopBar/GameTexts/Time" unique_id=733613042]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.5372549, 0.7058824, 0.98039216, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "2:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Misses" type="VBoxContainer" parent="border/play_area/TopBar/GameTexts" unique_id=360339516]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="border/play_area/TopBar/GameTexts/Misses" unique_id=2114701864]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Misses"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Number" type="Label" parent="border/play_area/TopBar/GameTexts/Misses" unique_id=1029766994]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9529412, 0.54509807, 0.65882355, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="frog_area" type="MarginContainer" parent="border/play_area" unique_id=1144973560]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="border/play_area/frog_area" unique_id=985229234]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="border/play_area/frog_area/HBoxContainer" unique_id=947590767]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Music" type="VSlider" parent="border/play_area/frog_area/HBoxContainer/MarginContainer2" unique_id=1052774241]
+layout_mode = 2
+size_flags_horizontal = 1
+theme_override_icons/grabber = ExtResource("2_eftkx")
+theme_override_icons/grabber_highlight = ExtResource("2_eftkx")
+theme_override_icons/grabber_disabled = ExtResource("2_eftkx")
+theme_override_styles/slider = SubResource("StyleBoxFlat_eftkx")
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="border/play_area/frog_area/HBoxContainer" unique_id=98778126]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="border/play_area/frog_area/HBoxContainer/MarginContainer" unique_id=444493119]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 9
+
+[node name="WhackButton" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=627380676 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton2" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=2117889395 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton3" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=698440140 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton4" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1906834579 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton5" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=488199342 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton6" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=855108529 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton7" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1977433152 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton8" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1598656626 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton9" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=369209044 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton10" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1416518235 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton11" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=935882432 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton12" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1830888816 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton13" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=861977994 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton14" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=2074403915 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton15" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1840729591 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton16" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=312741823 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton17" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1918827046 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton18" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1420799107 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton19" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=962048502 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton20" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=751509924 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton21" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=364415466 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton22" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=485643788 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton23" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=469076827 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton24" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=303864096 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton25" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1231425644 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton26" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=443109813 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton27" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1063610294 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton28" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1061264280 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton29" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=2146217747 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton30" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1532398282 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton31" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=749461985 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton32" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=874266871 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton33" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=102188821 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton34" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1951606017 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton35" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=1224971489 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="WhackButton36" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/GridContainer" unique_id=2017233067 instance=ExtResource("2_8tgeu")]
+layout_mode = 2
+
+[node name="Menu" type="MarginContainer" parent="border/play_area/frog_area/HBoxContainer/MarginContainer" unique_id=1038843834]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="Start Game" type="Button" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/Menu" unique_id=830726136]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 75
+theme_override_font_sizes/font_size = 100
+text = "START"
+
+[node name="Menu Label" type="Label" parent="border/play_area/frog_area/HBoxContainer/MarginContainer/Menu" unique_id=1518528501]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.8392157, 0.95686275, 1)
+theme_override_colors/font_outline_color = Color(0.06666667, 0.06666667, 0.105882354, 1)
+theme_override_constants/outline_size = 75
+theme_override_font_sizes/font_size = 100
+text = "END"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="border/play_area/frog_area/HBoxContainer" unique_id=820435153]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SFX" type="VSlider" parent="border/play_area/frog_area/HBoxContainer/MarginContainer3" unique_id=2055499766]
+layout_mode = 2
+size_flags_horizontal = 1
+theme_override_icons/grabber = ExtResource("4_11myr")
+theme_override_icons/grabber_highlight = ExtResource("4_11myr")
+theme_override_icons/grabber_disabled = ExtResource("4_11myr")
+theme_override_styles/slider = SubResource("StyleBoxFlat_eftkx")
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1348893427]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_right = 56.0
+grow_vertical = 0
+
+[node name="PauseToggle" type="CheckBox" parent="MarginContainer" unique_id=1045340892]
+process_mode = 3
+layout_mode = 2
+theme_override_icons/checked = ExtResource("9_44vju")
+theme_override_icons/unchecked = ExtResource("10_bis70")
+theme_override_icons/checked_disabled = ExtResource("9_44vju")
+theme_override_icons/unchecked_disabled = ExtResource("10_bis70")
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="WhackTimer" to="." method="_on_whack_open_timer_timeout"]
+[connection signal="value_changed" from="border/play_area/frog_area/HBoxContainer/MarginContainer2/Music" to="Audio" method="_on_music_value_changed"]
+[connection signal="pressed" from="border/play_area/frog_area/HBoxContainer/MarginContainer/Menu/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="value_changed" from="border/play_area/frog_area/HBoxContainer/MarginContainer3/SFX" to="Audio" method="_on_sfx_value_changed"]
+[connection signal="toggled" from="MarginContainer/PauseToggle" to="." method="_on_pause_toggle_toggled"]

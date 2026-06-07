@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bofrc8mpfbgri"
+path="res://.godot/imported/08 - buffy - old fashion - frog song.ogg-9cd0972ac964af7c745920883ded5485.oggvorbisstr"
+
+[deps]
+
+source_file="res://WhackAFrog/assets/sounds/music/08 - buffy - old fashion - frog song.ogg"
+dest_files=["res://.godot/imported/08 - buffy - old fashion - frog song.ogg-9cd0972ac964af7c745920883ded5485.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,12 @@
+All sounds are copyright free. CCO: https://creativecommons.org/publicdomain/zero/1.0/
+
+https://opengameart.org/content/happy-frog-song
+
+https://opengameart.org/content/frog-cave
+- Modified: modified so when looped, cannot tell when it is starting. 
+- Portions extracted to generate frog croak sfx.
+
+https://opengameart.org/content/mutant-frog
+- Modified: background noise reduction and added some effects.
+
+https://opengameart.org/content/win-jingle

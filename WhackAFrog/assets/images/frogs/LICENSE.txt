@@ -1,0 +1,11 @@
+https://pop-shop-packs.itch.io/frogs-pixel-asset-pack
+
+License:
+	- You can use this asset in any game project, personal or commercial
+	- DO NOT resell or redistribute AS A GAME ASSET, it has to be part of a project
+	- Credit not necessary but appreciated, if you do you can link to my [itch.io profile](https://pop-shop-packs.itch.io/)
+	- Modify to suit your needs
+	- You are NOT allowed to turn any of my assets to an NFT.
+	- You are NOT allowed to upload any of my assets into a generative A.I. software
+
+License wording originally written by [Admurin](https://admurin.itch.io/)

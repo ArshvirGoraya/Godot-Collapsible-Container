@@ -1,0 +1,7 @@
+Material Symbols (SVG file(s))
+Licensed under the Apache License, Version 2.0
+
+Modifications: 
+- Added circle background to certain svgs
+- Changed size of certain elements for certain svgs
+- Changed colors for certain svgs
