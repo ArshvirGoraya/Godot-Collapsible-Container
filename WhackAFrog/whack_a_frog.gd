@@ -238,7 +238,7 @@ func on_pause() -> void:
 	game_paused = true
 	start_btn.visible = true
 	audio.enable_volume_controls()
-	audio.gameplay_to_pause_audio()
+	#audio.gameplay_to_pause_audio()
 	
 	if pause_collapsibles_on_pause:
 		whack_timer.set_paused(true)
@@ -250,7 +250,7 @@ func on_resume() -> void:
 	menu_label.visible = false
 	start_btn.visible = false
 	audio.disable_volume_controls()
-	audio.pause_to_gameplay_audio()
+	#audio.pause_to_gameplay_audio()
 	
 	if pause_collapsibles_on_pause:
 		whack_timer.set_paused(false)
@@ -258,6 +258,7 @@ func on_resume() -> void:
 			collapsible.resume_tween(false)
 
 func _on_game_timer_timeout() -> void:
+	start_btn.visible = false # if paused.
 	pause_toggle.disabled = true
 	pause_toggle.modulate = Color("ffffff80")
 	game_running = false
