@@ -6,9 +6,8 @@ const MOUSE_CURSOR_HOTSPOT : Vector2 = Vector2(0, 10)
 const CURSOR_SIZE_PIXELS : int = 45
 const CURSOR_SIZE_PIXELS_CLICK : int = 50
 
-func _set_normal_cursor_images() -> void:
-	Input.set_custom_mouse_cursor(mouse_images.get(MouseImageType.NORMAL), Input.CursorShape.CURSOR_ARROW, MOUSE_CURSOR_HOTSPOT)
-	Input.set_custom_mouse_cursor(mouse_images.get(MouseImageType.HOVER), Input.CursorShape.CURSOR_POINTING_HAND, MOUSE_CURSOR_HOTSPOT)
+func _ready() -> void:
+	_filter_cursor_images()
 
 func _filter_cursor_images() -> void:
 	for mouse_image_type in mouse_images.keys():
@@ -22,6 +21,10 @@ func _filter_cursor_images() -> void:
 		mouse_images.set(mouse_image_type, filtered_mouse_texture)
 	_set_normal_cursor_images()
 
+func _set_normal_cursor_images() -> void:
+	Input.set_custom_mouse_cursor(mouse_images.get(MouseImageType.NORMAL), Input.CursorShape.CURSOR_ARROW, MOUSE_CURSOR_HOTSPOT)
+	Input.set_custom_mouse_cursor(mouse_images.get(MouseImageType.HOVER), Input.CursorShape.CURSOR_POINTING_HAND, MOUSE_CURSOR_HOTSPOT)
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -29,6 +32,3 @@ func _input(event):
 			Input.set_custom_mouse_cursor(mouse_images.get(MouseImageType.CLICK), Input.CursorShape.CURSOR_POINTING_HAND, MOUSE_CURSOR_HOTSPOT)
 		else:
 			_set_normal_cursor_images()
-
-func _ready() -> void:
-	_filter_cursor_images()

@@ -264,6 +264,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Button" type="Button" parent="CollapsibleContainer/MarginContainer" unique_id=669698251]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ts136")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h5ooi")
 action_mode = 0
