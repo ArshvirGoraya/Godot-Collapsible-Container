@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/frogcave.ogg-36d4685d29611ca4c352dc39959f033b
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

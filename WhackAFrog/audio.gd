@@ -12,6 +12,8 @@ extends Node
 @onready var music_control : Slider = $"../border/play_area/frog_area/HBoxContainer/MarginContainer2/Music"
 @onready var sfx_control : Slider = $"../border/play_area/frog_area/HBoxContainer/MarginContainer3/SFX"
 
+# TODO: different logic for music on Game Start (fade in pause), Game Play (gameplay), Game Pause (gameplay) and Game End (fade in pause. fade out gameplay)
+
 var gameplay_pause_time : float = 0.0
 var pause_audio_pause_time : float = 0.0
 
@@ -26,25 +28,16 @@ func _ready() -> void:
 # MUSIC: ######################################################################
 
 func _on_music_value_changed(_value: float) -> void:
-	#if pause_audio_fades.is_playing():
-		#_set_animation_to_end(pause_audio_fades)
-	#if gameplay_audio_fades.is_playing():
-		#_set_animation_to_end(gameplay_audio_fades)
 	stop_all_fades()
 	set_music_volumes()
 	set_fade_volume_targets()
 	
-#func _set_animation_to_end(animation: AnimationPlayer) -> void:
-	#var endtime := animation.get_section_end_time()
-	#animation.seek(endtime, true) # If fading to disabled, set ot disabled now.
-	#animation.stop(true)
-
 func stop_all_fades() -> void:
 	if gameplay_audio_fades.is_playing():
 		# gameplay audio only ever fades out. never fades in. 
 		set_gameplay_pause_time()
-	gameplay_audio_fades.stop()
-	gameplay.stop() # stops no matter what.
+		gameplay_audio_fades.stop()
+		gameplay.stop() # will stop after fade finished, but stopped fade here so stop now as fade will never finish.
 	
 	# pause audio only fades in. never fades out.
 	pause_audio_fades.stop()
@@ -56,17 +49,18 @@ func set_music_volumes() -> void:
 	pause_audio.volume_linear = music_control.value
 
 func set_fade_volume_targets() -> void:
-	pause_audio_fades.get_animation("fade_in_pause_audio").track_set_key_value(0, 1, music_control.value)
-	gameplay_audio_fades.get_animation("fade_in_gameplay_audio").track_set_key_value(0, 1, music_control.value)
+	pause_audio_fades.get_animation("fade_in_pause_audio").track_set_key_value(0, 1, pause_audio.volume_db)
+	gameplay_audio_fades.get_animation("fade_in_gameplay_audio").track_set_key_value(0, 1, gameplay.volume_db)
 
 func set_gameplay_pause_time(_anim_name: = "fade_in_gameplay_audio") -> void:
 	gameplay_pause_time = gameplay.get_playback_position()
+	# Fade out complete:
+	gameplay.stop()
 
 func gameplay_to_pause_audio() -> void:
 	# CALLED WHEN PAUSED
 	set_fade_volume_targets()
 	gameplay_audio_fades.play_backwards("fade_in_gameplay_audio")
-	
 	pause_audio.volume_linear = 0
 	pause_audio_fades.play("fade_in_pause_audio")
 	pause_audio.play()

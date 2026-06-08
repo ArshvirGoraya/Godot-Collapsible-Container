@@ -50,6 +50,7 @@ var tween_transition_values : Array[Tween.TransitionType]
 var tween_ease_values : Array[Tween.EaseType]
 
 func _ready() -> void:
+	#game_timer.wait_time = 4 #DEBUG
 	pause_toggle.disabled = true
 	pause_toggle.modulate = Color("ffffff80")
 	time_progress_bar.max_value = game_timer.wait_time
@@ -258,6 +259,7 @@ func on_resume() -> void:
 			collapsible.resume_tween(false)
 
 func _on_game_timer_timeout() -> void:
+	# on game end!
 	start_btn.visible = false # if paused.
 	pause_toggle.disabled = true
 	pause_toggle.modulate = Color("ffffff80")
