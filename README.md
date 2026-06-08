@@ -8,10 +8,11 @@
 
 A custom node for the Godot Game Engine that can help with many of your expanding/collapsing UI needs. It was initially made to mimic an [accordion UI](https://en.wikipedia.org/wiki/Accordion_(GUI)) element.
 
-  <img align="right" width="30%" src=".github/images/1.0.0%20showcase.gif" alt="OpeningClosing in Editor gif" />
+<img align="right" width="30%" src=".github/images/1.0.0%20showcase.gif" alt="OpeningClosing in Editor gif" />
   
   ## Table of contents
 * [Node Information](#node-information)
+* [Game Examples](#game-examples)
 * [Known Issues](#known-issues)
 * [Tutorial](#basic-tutorial)
 * [Installation](#installation)
@@ -20,12 +21,12 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 
 ## Node Information
 - Adds a `CollapsibleContainer` node into the Godot game engine. 
-- Hide/reveal any `Control` node childed to the `CollapsibleContainer` node.
+- Hide/reveal any `Control` node childed to the `CollapsibleContainer` node with or without a tween.
 - Preview folding/unfolding directly in the editor!
-- Customize open/close sizes, with automatic adjustment to the desired node's size.
-- Customize ease/tween transition types and timing.
+- Customize open/close sizes, with automatic adjustment to a desired node's size.
 - Customize open/close directions (e.g., top, bottom, left, right, top-bottom, etc.).
 - Customize open/close dimensions (e.g., width, height, both).
+- Customize ease/tween transition types and timing.
 - Signals provided for `CollapsibleContainer` state changes.
 - Documentation built into the Godot editor: quickly find and understand any `CollapsibleContainer` function.
 - Useful example scenes provided to get you started.
@@ -34,8 +35,22 @@ A custom node for the Godot Game Engine that can help with many of your expandin
 > - Godot now has a builtin `FoldableContainer` node but it cannot be opened or closed with easing functions which this plugin offers.
 > - Godot's `FoldableContainer` node and this plugin's `CollapsibleContainer` node are _not_ the same.
 
+## Game Examples
+<table>
+  <tr>
+    <td>
+      <p align="center">
+        Browser game on Itch.io which uses CollapsibleContainer extensively: <a href="https://arshvirgoraya.itch.io/whack-a-frog">Whack A Frog
+      </p>
+    </td>
+    <td>
+      <img src=".github/images/WhackAFrogGameplaySnippet.avif" height="80%">
+    </td>
+  </tr>
+</table>
+
 ## Known Issues
-* Fixed in Godot Version 4.5: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
+* <ins>Fixed in Godot Version 4.5</ins>: in debug builds, selecting the CollapsibleContainer through the remote scene tree will print out 2 errors in the console each time (nothing breaks: just error logs).
   * Godot Issue: https://github.com/godotengine/godot/issues/108164
 
 ## Basic Tutorial
@@ -49,24 +64,24 @@ Tutorial video going over the basics of the `CollapsibleContainer` node: <https:
 
 ```gdscript
 func _ready() -> void:
-  var collapsible := CollapsibleContainer.new()
-  
-  # Create button to toggle the collapsible
-  var button := Button.new()
-  button.set_text("Collapsible Button")
-  button.connect("pressed", collapsible.open_tween_toggle) # Connect signal to collapsible
-  add_child(button)
-  
-  # Create and child node you want to collapse.
-  var label := Label.new()
-  label.set_text("Hide Me!")
-  collapsible.add_child(label)
-  
-  # Add collapsible to scene with custom settings.
-  add_child(collapsible)
-  collapsible.set_sizing_node_path(label.get_path())
-  collapsible.set_folding_direction_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE)
-  collapsible.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	var collapsible := CollapsibleContainer.new()
+	
+	# Create button to toggle the collapsible
+	var button := Button.new()
+	button.set_text("Collapsible Button")
+	button.connect("pressed", collapsible.toggle_tween) # Connect signal to collapsible
+	add_child(button)
+	
+	# Create and child node you want to collapse.
+	var label := Label.new()
+	label.set_text("Hide Me!")
+	collapsible.add_child(label)
+	collapsible.set_sizing_node_path(collapsible.get_path_to(label))
+	
+	# Add collapsible to scene with custom settings.
+	add_child(collapsible)
+	collapsible.set_folding_direction_preset(CollapsibleContainer.FoldingPreset.PRESET_TOP_WIDE)
+	collapsible.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 ```
 </details>
 
