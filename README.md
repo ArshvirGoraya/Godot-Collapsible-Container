@@ -44,7 +44,9 @@ A custom node for the Godot Game Engine that can help with many of your expandin
       </p>
     </td>
     <td>
-      <img src=".github/images/WhackAFrogGameplaySnippet.avif" height="80%">
+      <a href="https://arshvirgoraya.itch.io/whack-a-frog">
+        <img src=".github/images/WhackAFrogGameplaySnippet.avif" height="80%">
+      </a>
     </td>
   </tr>
 </table>
